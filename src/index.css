@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Local fonts — drop the actual font files into /public/fonts/ with these exact names. */
+
+@font-face {
+  font-family: 'Azonix';
+  src: url('/fonts/Azonix.woff2') format('woff2'),
+       url('/fonts/Azonix.otf') format('opentype'),
+       url('/fonts/Azonix.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mars';
+  src: url('/fonts/Mars.woff2') format('woff2'),
+       url('/fonts/Mars.otf') format('opentype'),
+       url('/fonts/Mars.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-brand-ink antialiased bg-white;
+  }
+  h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-brand-forest text-white px-6 py-3 text-sm font-medium hover:bg-brand-deep transition-colors;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-forest text-brand-forest px-6 py-3 text-sm font-medium hover:bg-brand-forest hover:text-white transition-colors;
+  }
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-brand-forest font-medium hover:text-brand-primary transition-colors;
+  }
+  .container-x {
+    @apply max-w-7xl mx-auto px-6 lg:px-10;
+  }
+}
