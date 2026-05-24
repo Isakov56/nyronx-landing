@@ -151,6 +151,18 @@ export default function Navbar() {
               About
             </a>
             <a
+              href="/downloads/pharma-pos-setup.exe"
+              download
+              className="hidden md:inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm font-semibold bg-brand-ink text-white hover:bg-black transition-colors"
+              title="Download Pharma POS for Windows"
+            >
+              {/* Windows logo — 4-square inline SVG, no icon-library dep. */}
+              <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="currentColor" aria-hidden="true">
+                <path d="M0 2.5L6.5 1.6V7.5H0V2.5zM7.5 1.45L16 0v8H7.5V1.45zM0 8.5h6.5v5.9L0 13.5V8.5zm7.5 0H16V16l-8.5-1.5V8.5z" />
+              </svg>
+              Download for Windows
+            </a>
+            <a
               href="#contact"
               className="inline-flex h-9 items-center rounded-full px-4 text-sm font-semibold bg-brand-primary text-white hover:bg-brand-deep transition-colors"
               style={{ boxShadow: '0 8px 24px -8px rgba(31,165,108,0.55)' }}
@@ -206,9 +218,20 @@ export default function Navbar() {
               About
             </a>
             <a
+              href="/downloads/pharma-pos-setup.exe"
+              download
+              onClick={() => setMobileOpen(false)}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-ink text-white px-5 py-3 text-sm font-semibold mt-4"
+            >
+              <svg viewBox="0 0 16 16" className="w-4 h-4" fill="currentColor" aria-hidden="true">
+                <path d="M0 2.5L6.5 1.6V7.5H0V2.5zM7.5 1.45L16 0v8H7.5V1.45zM0 8.5h6.5v5.9L0 13.5V8.5zm7.5 0H16V16l-8.5-1.5V8.5z" />
+              </svg>
+              Download for Windows
+            </a>
+            <a
               href="#contact"
               onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center rounded-full bg-brand-primary text-white px-5 py-3 text-sm font-semibold mt-4"
+              className="inline-flex items-center justify-center rounded-full bg-brand-primary text-white px-5 py-3 text-sm font-semibold mt-2"
             >
               Contact us
             </a>
