@@ -36,6 +36,26 @@
   }
 }
 
+/* Ecosystem-hub flowing dashes (Partnership section) — animates strokeDashoffset
+   so the mint dotted curves feel like live data flowing from each audience into Nyronx. */
+@keyframes flowDash {
+  to { stroke-dashoffset: -40; }
+}
+
+/* Ambient star twinkle — small dots in the diagram's background that fade in/out
+   on staggered timings, giving a subtle "constellation breathing" feel. */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.85; }
+}
+
+/* Live indicator pulse — the small mint dot on each node's portrait that says
+   "this audience is online / streaming". Combines opacity + scale for a heartbeat. */
+@keyframes blink {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
 @layer components {
   .btn-primary {
     @apply inline-flex items-center gap-2 rounded-full bg-brand-forest text-white px-6 py-3 text-sm font-medium hover:bg-brand-deep transition-colors;
