@@ -1,221 +1,97 @@
-import { ArrowRight, Plus } from './Icons.jsx'
-import { useState } from 'react'
+import { ArrowRight } from './Icons.jsx'
+import { useLanguage } from '../context/LanguageContext.jsx'
 
-const audiences = [
-  {
-    title: 'Pharmacy Benefit Managers',
-    blurb:
-      'Modernize your tech stack with adjudication, analytics, and pricing intelligence built for scale.',
-    cta: 'Explore solutions for PBMs',
-    img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Health Systems',
-    blurb:
-      'Bring pharmacy benefits in-house with a partner that simplifies the lift and protects margin.',
-    cta: 'Explore solutions for Health Systems',
-    img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Health Plans',
-    blurb:
-      'Improve member experience and contain spend with flexible plan tooling and real-time data.',
-    cta: 'Explore solutions for Health Plans',
-    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Pharmacies',
-    blurb:
-      'Equip independent and community pharmacies with the technology to compete, grow, and serve.',
-    cta: 'Explore solutions for Pharmacies',
-    img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Employers',
-    blurb:
-      'Design a pharmacy benefit that works harder for your people and your budget.',
-    cta: 'Explore solutions for Employers',
-    img: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Consumers',
-    blurb:
-      'Help members find the lowest price on prescriptions, every time they fill.',
-    cta: 'Explore solutions for Consumers',
-    img: 'https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1400&q=70',
-  },
+const dotColors = [
+  'bg-purple-500 shadow-purple-500/30',
+  'bg-teal-400 shadow-teal-400/30',
+  'bg-orange-400 shadow-orange-400/30',
+  'bg-emerald-500 shadow-emerald-500/30',
+  'bg-pink-500 shadow-pink-500/30',
+  'bg-brand-primary shadow-brand-primary/30',
+]
+
+const cardImages = [
+  'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=75', // Pharmacy network
+  'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1000&q=75', // Clinics
+  'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1000&q=75', // Suppliers
+  'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1000&q=75', // Pharmacies
+  'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=75', // Employers
+  'https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1000&q=75', // Consumers
 ]
 
 export default function ValueProp() {
-  const [active, setActive] = useState(0)
-  const [displayed, setDisplayed] = useState(0)
-  const segment = audiences[displayed]
-
-  const toggleActive = (i) => {
-    if (active === i) {
-      setActive(null)
-    } else {
-      setActive(i)
-      setDisplayed(i)
-    }
-  }
-
+  const { t } = useLanguage()
+  
+  const audiencesData = t('valueProp.audiences') || []
+  
   return (
-    <section id="segments" className="py-24 lg:py-32 bg-white">
+    <section id="segments" className="py-24 lg:py-32 bg-[#F8F9FA] overflow-hidden">
       <div className="container-x">
         {/* Section header */}
-        <div className="max-w-3xl mb-10 lg:mb-12">
-          <p className="text-sm tracking-widest uppercase text-brand-primary font-medium mb-4">
-            Who we serve
+        <div className="max-w-4xl mx-auto text-center mb-16 lg:mb-20">
+          <p className="text-base tracking-widest uppercase text-brand-primary font-bold mb-4">
+            {t('valueProp.subtitle')}
           </p>
-          <h2 className="text-4xl lg:text-6xl text-brand-forest leading-tight mb-6">
-            Making Rx better for{' '}
-            <span className="italic">everyone.</span>
+          <h2 className="text-[44px] md:text-5xl lg:text-[64px] text-[#1A1D1F] font-extrabold leading-[1.1] mb-6 tracking-tight">
+            {t('valueProp.titlePart1')} <span className="text-brand-accent">{t('valueProp.titlePart2')}</span> {t('valueProp.titlePart3')}
           </h2>
-          <p className="text-lg text-brand-ink/70 max-w-2xl">
-            From PBMs to pharmacies to the people picking up a prescription, our platform meets each audience with the right tools.
+          <p className="text-xl text-brand-slate max-w-3xl mx-auto leading-relaxed">
+            {t('valueProp.description')}
           </p>
         </div>
 
-        {/* Two halves — sized to fit viewport like Hero */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch lg:h-[calc(100svh-280px)] lg:min-h-[520px] lg:max-h-[760px]">
-          {/* LEFT: image card, wrapped in a positioned parent so the Modular Solutions
-              overlay can stick out of the image's top edge. */}
-          <div className="relative h-full min-h-[440px]">
-            {/* Inner image card — has overflow-hidden so the photo is clipped to rounded corners */}
-            <div className="absolute inset-0 rounded-3xl overflow-hidden bg-brand-forest">
-              {audiences.map((a, i) => (
-                <img
-                  key={a.img}
-                  src={a.img}
-                  alt={a.title}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out ${
-                    i === displayed ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  loading="lazy"
-                  decoding="async"
-                />
-              ))}
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/25 to-transparent" />
-
-              {/* Audience overlay caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10 text-white">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/70">
-                    Audience / {String(displayed + 1).padStart(2, '0')}
-                  </span>
-                  <span className="h-px w-10 bg-white/40" />
-                </div>
-                <h3 className="text-3xl lg:text-4xl font-bold leading-[1.05] tracking-[-0.02em]">
-                  {segment.title}
-                </h3>
-              </div>
-            </div>
-
-            {/* Modular Solutions overlay — tighter container, bigger text, layered brand-forest
-                shadow (matches the navbar shadow recipe). Pulled further left so it overflows
-                the image edge more visibly. Cubic second box still 100% inside the image. */}
-            <div
-              className="absolute z-[3] pointer-events-none w-[260px] max-w-[78%]"
-              style={{
-                top: '42%',
-                left: '-72px',
-                transform: 'translateY(-50%)',
-                filter: [
-                  'drop-shadow(0 0 28px rgba(15,61,46,0.18))',
-                  'drop-shadow(0 0 10px rgba(15,61,46,0.10))',
-                  'drop-shadow(0 4px 12px rgba(14,26,20,0.10))',
-                ].join(' '),
-              }}
+        {/* 2-Column Grid of Cards (Billz.io style with images) */}
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+          {audiencesData.map((a, i) => (
+            <div 
+              key={a.title}
+              className="bg-white rounded-[32px] p-8 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_28px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:border-brand-primary/20 transition-all duration-300 ease-out relative group flex flex-col justify-between border border-black/[0.04] cursor-pointer"
             >
-              <svg
-                viewBox="0 0 260 80"
-                className="w-full h-auto"
-                aria-hidden="true"
-              >
-                <path
-                  d="M 16 0 L 204 0 Q 220 0 220 16 L 220 26 Q 220 40 234 40 L 244 40 Q 260 40 260 56 L 260 64 Q 260 80 244 80 L 236 80 Q 220 80 220 64 L 220 54 Q 220 40 206 40 L 16 40 Q 0 40 0 24 L 0 16 Q 0 0 16 0 Z"
-                  fill="white"
-                />
-              </svg>
+              <div>
+                {/* Top Row: Title + Dot Icon */}
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <h3 className="text-2xl lg:text-[32px] font-bold text-[#1A1D1F] leading-[1.2] tracking-tight group-hover:text-brand-forest transition-colors">
+                    {a.title}
+                  </h3>
+                  
+                  {/* Glowing Animated Dot Icon */}
+                  <span className="relative flex shrink-0 mt-2">
+                    <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-25 ${dotColors[i % dotColors.length].split(' ')[0]}`} />
+                    <span className={`relative inline-flex rounded-full h-4 w-4 shadow-sm group-hover:scale-125 transition-transform duration-300 ${dotColors[i % dotColors.length]}`} />
+                  </span>
+                </div>
+                
+                {/* Description */}
+                <p className="text-lg text-brand-slate leading-[1.65] mb-6">
+                  {a.blurb}
+                </p>
 
-              {/* First box content — "Modular Solutions" bigger, centered, snug padding. */}
-              <div
-                className="absolute top-0 left-0 flex items-center justify-center px-4"
-                style={{ width: '220px', height: '40px' }}
-              >
-                <span className="font-bold text-brand-forest text-[17px] tracking-tight leading-none whitespace-nowrap">
-                  Modular Solutions
-                </span>
+                {/* Card Image Area / Mockup Preview */}
+                <div className="relative h-52 sm:h-60 rounded-2xl overflow-hidden mb-6 bg-brand-forest/5 border border-black/[0.06]">
+                  <img
+                    src={cardImages[i % cardImages.length]}
+                    alt={a.title}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                </div>
+              </div>
+              
+              {/* Bottom Row: CTA with animated Arrow */}
+              <div className="pt-4 border-t border-black/[0.04]">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-3 text-lg font-bold text-brand-primary group-hover:text-brand-deep transition-colors w-fit"
+                >
+                  <span>{a.cta}</span>
+                  <span className="transition-transform duration-300 ease-out group-hover:translate-x-2 inline-flex items-center justify-center">
+                    <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                  </span>
+                </a>
               </div>
             </div>
-          </div>
-
-          {/* RIGHT: expandable list */}
-          <div className="flex flex-col">
-            {audiences.map((a, i) => {
-              const isActive = i === active
-              return (
-                <button
-                  key={a.title}
-                  onClick={() => toggleActive(i)}
-                  className={`text-left border-t border-brand-ink/10 last:border-b py-6 lg:py-7 transition-colors group ${
-                    isActive ? '' : 'hover:bg-brand-cream/40'
-                  }`}
-                  aria-expanded={isActive}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      {/* Row header */}
-                      <div className="flex items-center gap-4">
-                        <span className="font-mono text-[11px] tracking-[0.2em] text-brand-primary shrink-0">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <h3
-                          className={`text-xl lg:text-2xl transition-colors ${
-                            isActive ? 'text-brand-forest' : 'text-brand-ink/70 group-hover:text-brand-forest'
-                          }`}
-                        >
-                          {a.title}
-                        </h3>
-                      </div>
-
-                      {/* Expandable body */}
-                      <div
-                        className={`grid transition-all duration-500 ease-out ${
-                          isActive ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0 mt-0'
-                        }`}
-                      >
-                        <div className="overflow-hidden pl-9">
-                          <p className="text-sm text-brand-ink/70 leading-relaxed mb-4 max-w-md">
-                            {a.blurb}
-                          </p>
-                          <a
-                            href="#"
-                            className="inline-flex items-center gap-2 text-sm font-medium text-brand-forest hover:text-brand-primary transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {a.cta} <ArrowRight className="w-4 h-4" />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* +/× toggle icon — rotates 45° when active */}
-                    <span
-                      className={`shrink-0 rounded-full border p-2 transition-all duration-300 ${
-                        isActive
-                          ? 'rotate-45 border-brand-forest text-brand-forest bg-brand-cream'
-                          : 'border-brand-forest/20 text-brand-forest/60 group-hover:border-brand-forest/50 group-hover:text-brand-forest'
-                      }`}
-                    >
-                      <Plus className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </button>
-              )
-            })}
-          </div>
+          ))}
         </div>
       </div>
     </section>
