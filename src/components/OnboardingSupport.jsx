@@ -1,7 +1,9 @@
 import { useLanguage } from '../context/LanguageContext.jsx'
+import { useModal } from '../context/ModalContext.jsx'
 
 export default function OnboardingSupport() {
   const { t } = useLanguage()
+  const { openDemoModal } = useModal()
 
   const tickerItems = Array(12).fill(t('onboardingSupport.tickerText') || 'Bepul yordam va qo\'llab-quvvatlash')
 
@@ -68,9 +70,10 @@ export default function OnboardingSupport() {
             </div>
 
             <div>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-brand-primary text-white hover:bg-brand-deep px-8 py-4 text-base font-bold shadow-lg shadow-brand-primary/25 transition-all hover:-translate-y-0.5 w-full sm:w-fit group"
+              <button
+                type="button"
+                onClick={() => openDemoModal('consultation')}
+                className="inline-flex items-center justify-center gap-3 rounded-full bg-brand-primary text-white hover:bg-brand-deep px-8 py-4 text-base font-bold shadow-lg shadow-brand-primary/25 transition-all hover:-translate-y-0.5 w-full sm:w-fit group cursor-pointer"
               >
                 <span>{t('onboardingSupport.card1Button')}</span>
                 <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1">
@@ -78,7 +81,7 @@ export default function OnboardingSupport() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </span>
-              </a>
+              </button>
             </div>
           </div>
 
@@ -96,9 +99,10 @@ export default function OnboardingSupport() {
             </div>
 
             <div>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-brand-primary text-white hover:bg-brand-deep px-8 py-4 text-base font-bold shadow-lg shadow-brand-primary/25 transition-all hover:-translate-y-0.5 w-full sm:w-fit group"
+              <button
+                type="button"
+                onClick={() => openDemoModal('consultation')}
+                className="inline-flex items-center justify-center gap-3 rounded-full bg-brand-primary text-white hover:bg-brand-deep px-8 py-4 text-base font-bold shadow-lg shadow-brand-primary/25 transition-all hover:-translate-y-0.5 w-full sm:w-fit group cursor-pointer"
               >
                 <span>{t('onboardingSupport.card2Button')}</span>
                 <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1">
@@ -106,7 +110,7 @@ export default function OnboardingSupport() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </div>

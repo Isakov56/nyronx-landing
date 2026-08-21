@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLanguage } from '../context/LanguageContext.jsx'
+import { useModal } from '../context/ModalContext.jsx'
 
 // Professional Vector SVG Icons (Flaticon style) for each Medical/Pharmacy category
 const CategoryIcons = {
@@ -80,7 +81,8 @@ const categoryShapes = {
 }
 
 export default function IndustryFit() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const { openDemoModal } = useModal()
 
   const categories = t('industryFit.categories') || []
   const [selectedId, setSelectedId] = useState(categories[0]?.id || 'retail')
@@ -174,17 +176,18 @@ export default function IndustryFit() {
                       {activeCategory.name}
                     </h4>
                     <p className="text-xs text-brand-primary font-semibold mt-0.5">
-                      ✓ 100% Moslashtirilgan yechim
+                      {language === 'uz' ? '✓ 100% Moslashtirilgan yechim' : '✓ 100% Адаптированное решение'}
                     </p>
                   </div>
                 </div>
 
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-primary text-white text-xs font-bold hover:bg-brand-deep transition-colors shadow-sm"
+                <button
+                  type="button"
+                  onClick={() => openDemoModal('consultation')}
+                  className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-primary text-white text-xs font-bold hover:bg-brand-deep transition-colors shadow-sm cursor-pointer"
                 >
-                  Ulash
-                </a>
+                  {language === 'uz' ? 'Ulash' : 'Подключить'}
+                </button>
               </div>
             </div>
           </div>

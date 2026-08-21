@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext.jsx'
 
 const brandLogos = [
@@ -18,11 +19,64 @@ export default function TrustMarquee() {
 
   const row1Data = t('trustMarquee.row1') || []
   const row2Data = t('trustMarquee.row2') || []
-
-  // Duplicate arrays for seamless infinite marquee loop
-  const row1 = [...row1Data, ...row1Data, ...row1Data]
-  const row2 = [...row2Data, ...row2Data, ...row2Data]
+  const allReviews = [...row1Data, ...row2Data]
   const brands = [...brandLogos, ...brandLogos, ...brandLogos]
+
+  // Carousel state
+  const [index, setIndex] = useState(0)
+  const trackRef = useRef(null)
+  const touchStart = useRef(null)
+  const isDragging = useRef(false)
+
+  // Scroll to active card
+  useEffect(() => {
+    if (!trackRef.current) return
+    const track = trackRef.current
+    const card = track.children[index]
+    if (!card) return
+    const scrollLeft = card.offsetLeft - 16 // small left padding
+    track.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+  }, [index])
+
+  // Touch swipe handlers
+  const handleTouchStart = (e) => {
+    touchStart.current = e.touches[0].clientX
+    isDragging.current = true
+  }
+  const handleTouchEnd = (e) => {
+    if (!isDragging.current || touchStart.current === null) return
+    const diff = touchStart.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && index < allReviews.length - 1) {
+        setIndex(index + 1)
+      } else if (diff < 0 && index > 0) {
+        setIndex(index - 1)
+      }
+    }
+    touchStart.current = null
+    isDragging.current = false
+  }
+
+  // Mouse drag handlers (desktop)
+  const mouseStart = useRef(null)
+  const handleMouseDown = (e) => {
+    mouseStart.current = e.clientX
+    isDragging.current = true
+    e.preventDefault()
+  }
+  const handleMouseUp = (e) => {
+    if (!isDragging.current || mouseStart.current === null) return
+    const diff = mouseStart.current - e.clientX
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && index < allReviews.length - 1) {
+        setIndex(index + 1)
+      } else if (diff < 0 && index > 0) {
+        setIndex(index - 1)
+      }
+    }
+    mouseStart.current = null
+    isDragging.current = false
+  }
 
   return (
     <section className="py-20 lg:py-28 bg-[#F8F9FA] border-y border-black/[0.04] overflow-hidden font-sans">
@@ -36,10 +90,8 @@ export default function TrustMarquee() {
       </div>
 
       {/* Brand Logos Infinite Marquee Bar */}
-      <div className="relative mb-14 lg:mb-16 overflow-hidden">
-        {/* Left Fade */}
+      <div className="relative mb-12 lg:mb-14 overflow-hidden">
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-r from-[#F8F9FA] to-transparent" />
-        {/* Right Fade */}
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-l from-[#F8F9FA] to-transparent" />
 
         <div className="flex gap-0 w-max animate-marquee-brands hover:[animation-play-state:paused] py-3">
@@ -65,106 +117,118 @@ export default function TrustMarquee() {
         </div>
       </div>
 
-      {/* Two-row Testimonials Container */}
-      <div className="relative flex flex-col gap-6">
-        {/* Left Fade */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-r from-[#F8F9FA] to-transparent" />
-        {/* Right Fade */}
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-l from-[#F8F9FA] to-transparent" />
+      {/* ===== SWIPEABLE TESTIMONIAL CAROUSEL ===== */}
+      <div className="relative max-w-7xl mx-auto">
+        {/* Left/Right edge fades */}
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 z-20 bg-gradient-to-r from-[#F8F9FA] to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 z-20 bg-gradient-to-l from-[#F8F9FA] to-transparent" />
 
-        {/* ROW 1: Moves to the LEFT */}
-        <div className="flex overflow-hidden group">
-          <div className="flex gap-0 w-max animate-marquee-left group-hover:[animation-play-state:paused]">
-            {row1.map((item, i) => (
-              <div
-                key={i}
-                className="w-[360px] sm:w-[420px] bg-white rounded-[32px] p-7 sm:p-8 border border-black/[0.06] shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-xl hover:border-brand-primary/20 transition-all duration-300 flex flex-col justify-between shrink-0 mx-3 select-none"
-              >
-                {/* Author Info */}
-                <div className="flex items-center gap-3.5 mb-4">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="w-12 h-12 rounded-full object-cover border border-black/5"
-                    loading="lazy"
-                  />
-                  <div>
-                    <h4 className="font-bold text-base sm:text-lg text-[#1A1D1F] leading-tight">
-                      {item.name}
-                    </h4>
-                    <p className="text-xs text-gray-500 font-medium leading-snug mt-0.5">
-                      {item.role}
-                    </p>
-                  </div>
+        {/* Carousel track */}
+        <div
+          ref={trackRef}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          className="flex gap-2.5 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory px-4 sm:px-6 pb-4 cursor-grab active:cursor-grabbing"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {allReviews.map((item, i) => (
+            <div
+              key={i}
+              className={`snap-start flex-shrink-0 w-[85%] sm:w-[380px] lg:w-[420px] bg-white rounded-[24px] p-6 sm:p-7 border transition-all duration-300 flex flex-col justify-between select-none ${
+                i === index
+                  ? 'border-brand-primary/25 shadow-xl scale-[1.02]'
+                  : 'border-black/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-lg'
+              }`}
+            >
+              {/* Author */}
+              <div className="flex items-center gap-3 mb-4">
+                <img
+                  src={item.avatar}
+                  alt={item.name}
+                  className="w-11 h-11 rounded-full object-cover ring-2 ring-black/5"
+                  loading="lazy"
+                  draggable="false"
+                />
+                <div>
+                  <h4 className="font-bold text-[15px] text-[#1A1D1F] leading-tight">
+                    {item.name}
+                  </h4>
+                  <p className="text-[11px] text-gray-500 font-medium mt-0.5">
+                    {item.role}
+                  </p>
                 </div>
-
-                {/* Testimonial Text */}
-                <p className="text-[15px] sm:text-[16px] text-gray-700 leading-relaxed font-normal">
-                  {item.text}
-                </p>
+                {/* Star rating */}
+                <div className="ml-auto flex gap-0.5">
+                  {[...Array(5)].map((_, s) => (
+                    <svg key={s} className="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M10 1l2.39 6.2H19l-5.3 4.1 1.9 6.7L10 14.2 4.4 18l1.9-6.7L1 7.2h6.61z" />
+                    </svg>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+
+              {/* Review text */}
+              <p className="text-[14px] sm:text-[15px] text-gray-600 leading-relaxed flex-1">
+                {item.text}
+              </p>
+            </div>
+          ))}
         </div>
 
-        {/* ROW 2: Moves to the RIGHT */}
-        <div className="flex overflow-hidden group">
-          <div className="flex gap-0 w-max animate-marquee-right group-hover:[animation-play-state:paused]">
-            {row2.map((item, i) => (
-              <div
-                key={i}
-                className="w-[360px] sm:w-[420px] bg-white rounded-[32px] p-7 sm:p-8 border border-black/[0.06] shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-xl hover:border-brand-primary/20 transition-all duration-300 flex flex-col justify-between shrink-0 mx-3 select-none"
-              >
-                {/* Author Info */}
-                <div className="flex items-center gap-3.5 mb-4">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="w-12 h-12 rounded-full object-cover border border-black/5"
-                    loading="lazy"
-                  />
-                  <div>
-                    <h4 className="font-bold text-base sm:text-lg text-[#1A1D1F] leading-tight">
-                      {item.name}
-                    </h4>
-                    <p className="text-xs text-gray-500 font-medium leading-snug mt-0.5">
-                      {item.role}
-                    </p>
-                  </div>
-                </div>
+        {/* Navigation arrows */}
+        <button
+          onClick={() => setIndex(Math.max(0, index - 1))}
+          disabled={index === 0}
+          className={`hidden sm:flex absolute -left-2 lg:-left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white border border-black/10 shadow-lg items-center justify-center transition-all cursor-pointer ${
+            index === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 hover:shadow-xl'
+          }`}
+          aria-label="Previous"
+        >
+          <svg className="w-4 h-4 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          onClick={() => setIndex(Math.min(allReviews.length - 1, index + 1))}
+          disabled={index === allReviews.length - 1}
+          className={`hidden sm:flex absolute -right-2 lg:-right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white border border-black/10 shadow-lg items-center justify-center transition-all cursor-pointer ${
+            index === allReviews.length - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 hover:shadow-xl'
+          }`}
+          aria-label="Next"
+        >
+          <svg className="w-4 h-4 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
 
-                {/* Testimonial Text */}
-                <p className="text-[15px] sm:text-[16px] text-gray-700 leading-relaxed font-normal">
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
+        {/* Dot indicators */}
+        <div className="flex items-center justify-center gap-1.5 mt-6">
+          {allReviews.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`rounded-full transition-all duration-300 cursor-pointer ${
+                i === index
+                  ? 'w-7 h-2 bg-brand-primary'
+                  : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label={`Review ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
 
       {/* Marquee Animations CSS */}
       <style>{`
-        @keyframes marqueeLeft {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
-        }
-        @keyframes marqueeRight {
-          0% { transform: translateX(-33.333%); }
-          100% { transform: translateX(0); }
-        }
         @keyframes marqueeBrands {
           0% { transform: translateX(0); }
           100% { transform: translateX(-33.333%); }
         }
-        .animate-marquee-left {
-          animation: marqueeLeft 45s linear infinite;
-        }
-        .animate-marquee-right {
-          animation: marqueeRight 45s linear infinite;
-        }
         .animate-marquee-brands {
-          animation: marqueeBrands 30s linear infinite;
+          animation: marqueeBrands 90s linear infinite;
         }
       `}</style>
     </section>
