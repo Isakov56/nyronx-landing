@@ -247,28 +247,6 @@ export default function Footer() {
 
             {/* Social Icons - Clean Enterprise Style matching brand */}
             <div className="flex items-center gap-2">
-              {/* Facebook */}
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="w-9 h-9 rounded-xl bg-white border border-black/[0.08] text-gray-700 hover:bg-brand-primary hover:text-white hover:border-brand-primary flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-              </a>
-
-              {/* YouTube */}
-              <a
-                href="#"
-                aria-label="YouTube"
-                className="w-9 h-9 rounded-xl bg-white border border-black/[0.08] text-gray-700 hover:bg-brand-primary hover:text-white hover:border-brand-primary flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" />
-                </svg>
-              </a>
-
               {/* Telegram */}
               <a
                 href="https://t.me/nyronx"
@@ -284,7 +262,9 @@ export default function Footer() {
 
               {/* Instagram */}
               <a
-                href="#"
+                href="https://www.instagram.com/p/DcRnKK2DBje/?igsi=MXBod3A0dTgyaG9ocw=="
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Instagram"
                 className="w-9 h-9 rounded-xl bg-white border border-black/[0.08] text-gray-700 hover:bg-brand-primary hover:text-white hover:border-brand-primary flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
               >
@@ -293,14 +273,29 @@ export default function Footer() {
                 </svg>
               </a>
 
-              {/* Email / Contact */}
+              {/* YouTube */}
               <a
-                href="#contact"
-                aria-label="Email"
+                href="https://youtube.com/@nyronxtech"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
                 className="w-9 h-9 rounded-xl bg-white border border-black/[0.08] text-gray-700 hover:bg-brand-primary hover:text-white hover:border-brand-primary flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
               >
-                <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" />
+                </svg>
+              </a>
+
+              {/* Twitter / X */}
+              <a
+                href="https://x.com/nyronxtech"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Twitter"
+                className="w-9 h-9 rounded-xl bg-white border border-black/[0.08] text-gray-700 hover:bg-brand-primary hover:text-white hover:border-brand-primary flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
                 </svg>
               </a>
             </div>

@@ -219,7 +219,7 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
 
   // "Yechimlar" Items
   const solCol1 = [
-    { id: 'pharmacy', name: language === 'uz' ? 'Chakana dorixona' : 'Розничная аптека', icon: CategoryIcons.pharmacy },
+    { id: 'pharmacy', name: language === 'uz' ? 'Chakana dorixona' : 'Розничная аптека', icon: CategoryIcons.pharmacy, path: 'chakana-dorixona' },
     { id: 'production', name: language === 'uz' ? 'Dori ishlab chiqarish & Optom' : 'Фармпроизводство и опт', icon: CategoryIcons.production },
     { id: 'electronics', name: language === 'uz' ? 'Elektron retsept & IT baza' : 'Электронный рецепт и IT', icon: CategoryIcons.electronics },
   ]
@@ -444,8 +444,15 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
                           return (
                             <a
                               key={it.id}
-                              href="#industries"
-                              onClick={() => setActiveMega(null)}
+                              href={it.path ? `#${it.path}` : "#industries"}
+                              onClick={(e) => {
+                                if (it.path) {
+                                  e.preventDefault()
+                                  handleNavClick(it.path, true)
+                                } else {
+                                  setActiveMega(null)
+                                }
+                              }}
                               className="flex items-center gap-3.5 group cursor-pointer"
                             >
                               <span className="shrink-0 transition-transform duration-200 group-hover:scale-110">

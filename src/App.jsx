@@ -14,13 +14,14 @@ import Footer from './components/Footer.jsx'
 import DemoModal from './components/DemoModal.jsx'
 import DownloadModal from './components/DownloadModal.jsx'
 import PricesPage from './pages/PricesPage.jsx'
+import ChakanaDorixonaPage from './pages/ChakanaDorixonaPage.jsx'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(() => {
     if (typeof window !== 'undefined') {
-      return window.location.pathname === '/prices' || window.location.hash === '#prices'
-        ? 'prices'
-        : 'home'
+      if (window.location.pathname === '/prices' || window.location.hash === '#prices') return 'prices'
+      if (window.location.pathname === '/chakana-dorixona' || window.location.hash === '#chakana-dorixona') return 'chakana-dorixona'
+      return 'home'
     }
     return 'home'
   })
@@ -29,6 +30,8 @@ export default function App() {
     const handlePopState = () => {
       if (window.location.pathname === '/prices' || window.location.hash === '#prices') {
         setCurrentPage('prices')
+      } else if (window.location.pathname === '/chakana-dorixona' || window.location.hash === '#chakana-dorixona') {
+        setCurrentPage('chakana-dorixona')
       } else {
         setCurrentPage('home')
       }
@@ -41,6 +44,9 @@ export default function App() {
     setCurrentPage(page)
     if (page === 'prices') {
       window.history.pushState({}, '', '#prices')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else if (page === 'chakana-dorixona') {
+      window.history.pushState({}, '', '#chakana-dorixona')
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
       window.history.pushState({}, '', '/')
@@ -56,6 +62,8 @@ export default function App() {
         <main className="flex-1">
           {currentPage === 'prices' ? (
             <PricesPage onNavigateHome={() => navigateTo('home')} />
+          ) : currentPage === 'chakana-dorixona' ? (
+            <ChakanaDorixonaPage onNavigateHome={() => navigateTo('home')} />
           ) : (
             <>
               <Hero />
