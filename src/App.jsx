@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react'
 import { ModalProvider } from './context/ModalContext.jsx'
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
-import ValueProp from './components/ValueProp.jsx'
 import Solutions from './components/Solutions.jsx'
+import WhoWeServe from './components/WhoWeServe.jsx'
 import InAction from './components/InAction.jsx'
 import TrustMarquee from './components/TrustMarquee.jsx'
-import IndustryFit from './components/IndustryFit.jsx'
 import OnboardingSupport from './components/OnboardingSupport.jsx'
 import Partnership from './components/Partnership.jsx'
 import News from './components/News.jsx'
@@ -67,11 +66,10 @@ export default function App() {
           ) : (
             <>
               <Hero />
-              <ValueProp />
               <Solutions />
+              <WhoWeServe />
               <InAction />
               <TrustMarquee />
-              <IndustryFit />
               <OnboardingSupport />
               <Partnership />
               <News />

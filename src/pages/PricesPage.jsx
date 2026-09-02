@@ -112,6 +112,7 @@ export default function PricesPage({ onNavigateHome }) {
   const { openDemoModal } = useModal()
 
   const [isAnnual, setIsAnnual] = useState(true)
+  const [currency, setCurrency] = useState('UZS')
   const [openCategories, setOpenCategories] = useState({
     warehouse: true,
     staff: true,
@@ -120,6 +121,9 @@ export default function PricesPage({ onNavigateHome }) {
     integration: true,
   })
   const [openFaq, setOpenFaq] = useState(null)
+
+  // 1 USD ≈ 12,700 UZS (approximate)
+  const USD_RATE = 12700
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -130,6 +134,10 @@ export default function PricesPage({ onNavigateHome }) {
   }
 
   const formatPrice = (price) => {
+    if (currency === 'USD') {
+      const usd = (price / USD_RATE).toFixed(0)
+      return '$' + new Intl.NumberFormat('en-US').format(usd)
+    }
     return new Intl.NumberFormat('uz-UZ').format(price) + ' ' + (language === 'uz' ? "so'm" : 'сум')
   }
 
@@ -474,10 +482,10 @@ export default function PricesPage({ onNavigateHome }) {
       ]
 
   return (
-    <div className="bg-white min-h-screen pt-28 pb-20 font-sans">
+    <div className="bg-[#F4F7F2] min-h-screen pt-28 pb-20 font-sans">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Back Button */}
-        <div className="mb-8">
+        <div className="mb-12">
           <button
             type="button"
             onClick={onNavigateHome}
@@ -488,119 +496,212 @@ export default function PricesPage({ onNavigateHome }) {
           </button>
         </div>
 
-        {/* Page Main Headline */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <h1 className="text-[38px] sm:text-5xl lg:text-[58px] font-black text-[#1A1D1F] leading-[1.1] tracking-tight mb-8">
-            {language === 'uz' ? (
-              <>
-                Biznesingiz uchun mos <br />
-                <span className="text-brand-primary">tarifni</span> tanlang
-              </>
-            ) : (
-              <>
-                Выберите подходящий <br />
-                <span className="text-brand-primary">тариф</span> для бизнеса
-              </>
-            )}
-          </h1>
+        {/* ── EDITORIAL HEADER + CARDS ────────────────────────── */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-20">
 
-          {/* Billing Switcher with Purple Note (Matching Screenshot 1) */}
-          <div className="inline-flex items-center relative">
-            <div className="p-1.5 rounded-full bg-[#F1F3F5] flex items-center">
-              <button
-                type="button"
-                onClick={() => setIsAnnual(false)}
-                className={`px-8 py-2.5 rounded-full text-sm sm:text-base font-bold transition-all cursor-pointer ${
-                  !isAnnual
-                    ? 'bg-white text-[#1A1D1F] shadow-[0_2px_10px_rgba(0,0,0,0.08)]'
-                    : 'text-gray-500 hover:text-[#1A1D1F]'
-                }`}
-              >
-                {language === 'uz' ? 'Oylik' : 'Ежемесячно'}
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsAnnual(true)}
-                className={`px-8 py-2.5 rounded-full text-sm sm:text-base font-bold transition-all cursor-pointer ${
-                  isAnnual
-                    ? 'bg-white text-[#1A1D1F] shadow-[0_2px_10px_rgba(0,0,0,0.08)]'
-                    : 'text-gray-500 hover:text-[#1A1D1F]'
-                }`}
-              >
-                {language === 'uz' ? 'Yillik' : 'Ежегодно'}
-              </button>
-            </div>
+          {/* LEFT COLUMN ─ label / heading / description / billing toggle / all-plans list */}
+          <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-brand-primary mb-5">
+              {language === 'uz' ? 'Tariflar va narxlar' : 'Тарифы и цены'}
+            </p>
 
-            {/* Purple Handwritten Note & Arrow */}
-            <div className="hidden md:flex items-center absolute -top-8 -right-48 pointer-events-none select-none">
-              <div className="flex flex-col items-start">
-                <span className="text-[13px] font-bold italic text-[#9333EA] leading-tight font-serif whitespace-nowrap">
-                  {language === 'uz' ? "Yillik to'lov tanlanganda\n20% chegirma" : "Скидка 20%\nпри годовой оплате"}
-                </span>
-                <svg className="w-10 h-6 text-[#9333EA] -mt-1 ml-2 rotate-12" viewBox="0 0 50 30" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M45 5 C 30 25, 15 20, 5 22" strokeLinecap="round" />
-                  <path d="M12 17 L 5 22 L 10 28" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+            <h1 className="text-[38px] sm:text-[46px] font-black text-brand-forest leading-[1.1] tracking-tight mb-5">
+              {language === 'uz' ? (
+                <>Bitta platforma, <span className="italic font-light" style={{ fontFamily: '"Fraunces", serif' }}>ikki yo'l</span> boshlash uchun.</>
+              ) : (
+                <>Одна платформа, <span className="italic font-light" style={{ fontFamily: '"Fraunces", serif' }}>два способа</span> начать.</>
+              )}
+            </h1>
+
+            {/* Currency Toggle: UZS / USD */}
+            <div className="inline-flex mb-8">
+              <div className="p-1 rounded-full bg-[#EAEDE8] flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setCurrency('UZS')}
+                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                    currency === 'UZS'
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  UZS
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrency('USD')}
+                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                    currency === 'USD'
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  USD
+                </button>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* 3 Main Pricing Cards (Matching Screenshot 1) */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-20">
-          {plans.map((plan) => {
-            const price = isAnnual ? plan.annual : plan.monthly
-            return (
-              <div
-                key={plan.id}
-                className={`rounded-[36px] overflow-hidden flex flex-col justify-between transition-all duration-300 border ${
-                  plan.isPopular
-                    ? 'bg-white border-brand-primary shadow-[0_20px_50px_rgba(31,165,108,0.15)] ring-2 ring-brand-primary'
-                    : 'bg-white border-black/[0.08] shadow-[0_10px_35px_rgba(0,0,0,0.04)] hover:shadow-xl'
-                }`}
-              >
-                {/* Popular Header Top Pill */}
-                {plan.isPopular ? (
-                  <div className="bg-brand-primary text-white text-center py-2 text-xs font-black uppercase tracking-wider">
-                    ★ {language === 'uz' ? 'Mashhur' : 'Популярный'}
-                  </div>
-                ) : (
-                  <div className="h-4" />
-                )}
+            {/* Billing Switcher */}
+            <div className="inline-flex mb-10">
+              <div className="p-1 rounded-full bg-[#EAEDE8] flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setIsAnnual(false)}
+                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                    !isAnnual
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  {language === 'uz' ? 'Oylik' : 'Месячно'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsAnnual(true)}
+                  className={`flex items-center gap-2 pl-5 pr-3 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                    isAnnual
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  {language === 'uz' ? 'Yillik' : 'Годовой'}
+                  <span className="text-[9px] font-black bg-brand-accent text-brand-forest px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap">
+                    {language === 'uz' ? '20% tejash' : 'Скидка 20%'}
+                  </span>
+                </button>
+              </div>
+            </div>
 
-                <div className="p-7 sm:p-8 flex-1 flex flex-col">
-                  <h3 className="text-2xl sm:text-3xl font-black text-[#1A1D1F] mb-4">
-                    {plan.name}
-                  </h3>
-
-                  <div className="mb-2">
-                    <span className="text-3xl sm:text-4xl lg:text-[42px] font-black text-brand-primary tracking-tight">
-                      {new Intl.NumberFormat('uz-UZ').format(price)}
+            {/* All plans include */}
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">
+                {language === 'uz' ? "Barcha tariflarda bor" : 'Во всех тарифах'}
+              </p>
+              <ul className="space-y-3">
+                {(language === 'uz'
+                  ? ["O'rnatish to'lovi yo'q", "Istalgan vaqt bekor qilish", "Zudlik bilan faollashtirish", "Xavfsiz saqlash + kunlik zaxira"]
+                  : ['Без платы за установку', 'Отмена в любое время', 'Мгновенная активация', 'Безопасное хранение + резерв']
+                ).map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm text-gray-600">
+                    <span className="w-4 h-4 rounded-full bg-brand-primary flex items-center justify-center shrink-0">
+                      <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
                     </span>
-                  </div>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
 
-                  <p className="text-xs sm:text-sm text-gray-500 font-medium mb-6">
-                    {language === 'uz' ? "so'm / bir oy uchun" : 'сум / за один месяц'}
-                  </p>
+          {/* RIGHT COLUMN ─ 3 pricing cards stacked */}
+          <div className="lg:col-span-8 grid sm:grid-cols-3 gap-4 lg:gap-5 items-stretch">
+            {plans.map((plan, idx) => {
+              const price = isAnnual ? plan.annual : plan.monthly
+              const isPopular = plan.isPopular
 
-                  <div className="mt-auto pt-6 border-t border-black/[0.06]">
+              // idx=0 → white, idx=1 → light brand (sand), idx=2 → dark forest
+              const cardBg =
+                idx === 0 ? 'bg-white border border-black/[0.08] shadow-sm'
+                : idx === 1 ? 'bg-brand-sand border border-brand-primary/15 shadow-[0_12px_40px_rgba(31,165,108,0.14)]'
+                : 'bg-brand-forest'
+
+              const titleColor = idx === 0 ? 'text-brand-primary' : idx === 1 ? 'text-brand-forest' : 'text-brand-mint'
+              const tagColor = idx === 0 ? 'text-gray-400' : idx === 1 ? 'text-brand-deep/70' : 'text-white/50'
+              const priceColor = idx === 0 ? 'text-brand-forest' : idx === 1 ? 'text-brand-forest' : 'text-white'
+              const unitColor = idx === 0 ? 'text-gray-400' : idx === 1 ? 'text-brand-slate' : 'text-white/40'
+              const oldPriceColor = idx === 0 ? 'text-gray-300' : idx === 1 ? 'text-brand-slate/50' : 'text-white/25'
+              const dividerColor = idx === 0 ? 'border-black/[0.07]' : idx === 1 ? 'border-brand-primary/15' : 'border-white/10'
+              const bulletBg = idx === 0 ? 'text-brand-primary' : idx === 1 ? 'text-brand-forest' : 'text-brand-accent'
+              const featureText = idx === 0 ? 'text-gray-600' : idx === 1 ? 'text-brand-forest/80' : 'text-white/70'
+              const btnClass = idx === 0
+                ? 'bg-brand-forest text-white hover:bg-brand-deep'
+                : idx === 1
+                ? 'bg-brand-primary text-white hover:bg-brand-deep shadow-brand-primary/30 shadow-lg'
+                : 'bg-brand-accent text-brand-forest hover:brightness-110'
+
+              return (
+                <div
+                  key={plan.id}
+                  className={`relative rounded-[24px] flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 ${cardBg} shadow-sm`}
+                >
+                  {/* Popular badge */}
+                  {isPopular && (
+                    <div className="py-2 text-center bg-brand-primary/10 border-b border-brand-primary/15">
+                      <span className="text-[10px] font-black uppercase tracking-[0.18em] text-brand-forest">
+                        ★ {language === 'uz' ? 'Mashhur' : 'Популярный'}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="p-6 flex flex-col flex-1">
+                    {/* Category dot + name */}
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`w-1.5 h-1.5 rounded-full ${idx === 2 ? 'bg-brand-mint' : 'bg-brand-primary'}`} />
+                      <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${titleColor}`}>{plan.id === 'start' ? (language === 'uz' ? 'Yakka filial' : 'Один магазин') : plan.id === 'advanced' ? (language === 'uz' ? "Ko'p filial" : 'Несколько магазинов') : (language === 'uz' ? "Tarmoq" : 'Сеть')}</span>
+                    </div>
+
+                    <h3 className={`text-2xl font-black mb-1 ${priceColor}`}>{plan.name}</h3>
+                    <p className={`text-[11px] leading-relaxed mb-5 ${tagColor}`}>{plan.tag}</p>
+
+                    {/* Price */}
+                    <div className={`pb-5 mb-5 border-b ${dividerColor}`}>
+                      {isAnnual && (
+                        <div className={`text-sm line-through mb-0.5 ${oldPriceColor}`}>
+                          {currency === 'USD'
+                            ? '$' + Math.round(plan.monthly / USD_RATE).toLocaleString('en-US')
+                            : new Intl.NumberFormat('uz-UZ').format(plan.monthly)}
+                        </div>
+                      )}
+                      <div className="flex items-baseline gap-1">
+                        {currency === 'USD' && (
+                          <span className={`text-xl font-black ${priceColor}`}>$</span>
+                        )}
+                        <span className={`text-[38px] font-black tracking-tight leading-none ${priceColor}`}>
+                          {currency === 'USD'
+                            ? Math.round(price / USD_RATE).toLocaleString('en-US')
+                            : new Intl.NumberFormat('uz-UZ').format(price)}
+                        </span>
+                      </div>
+                      <p className={`text-[10px] mt-1 font-medium ${unitColor}`}>
+                        {currency} / {language === 'uz' ? 'oy' : 'мес'}
+                      </p>
+                    </div>
+
+                    {/* Features */}
+                    <ul className="space-y-2.5 mb-6 flex-1">
+                      {(idx === 0
+                        ? (language === 'uz' ? ["1 ta filial", "5 ta xodim", "Asosiy zaxira", "To'liq POS", "Mijozlar bazasi", "Bepul o'rnatish"] : ['1 магазин', 'До 5 сотрудников', 'Базовый склад', 'Полная POS', 'База клиентов', 'Установка бесплатно'])
+                        : idx === 1
+                        ? (language === 'uz' ? ["Cheksiz filiallar", "Cheksiz xodimlar", "Kengaytirilgan tahlil", "Telegram bot", "REST API", "Prioritetli yordam"] : ['Неограниченные филиалы', 'Без лимита штата', 'Аналитика Pro', 'Telegram бот', 'REST API', 'Приоритет поддержка'])
+                        : (language === 'uz' ? ["Hamma Advanced", "AI prognoz", "Cash Flow", "E-retsept", "24/7 menejer", "SLA kafolati"] : ['Всё из Advanced', 'AI прогноз', 'Cash Flow', 'Э-рецепты', '24/7 менеджер', 'Гарантия SLA'])
+                      ).map((f, i) => (
+                        <li key={i} className="flex items-center gap-2.5">
+                          <svg className={`w-3 h-3 shrink-0 ${bulletBg}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20 6L9 17l-5-5" />
+                          </svg>
+                          <span className={`text-[11px] leading-snug ${featureText}`}>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* CTA */}
                     <button
                       type="button"
                       onClick={() => openDemoModal('trial')}
-                      className={`w-full py-3.5 rounded-2xl font-bold text-sm sm:text-base transition-all duration-200 cursor-pointer shadow-md flex items-center justify-center gap-2 ${
-                        plan.isPopular
-                          ? 'bg-brand-primary text-white hover:bg-brand-deep shadow-brand-primary/25 hover:shadow-lg'
-                          : 'bg-[#F1F3F5] text-[#1A1D1F] hover:bg-gray-200'
-                      }`}
+                      className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${btnClass}`}
                     >
-                      <span>{language === 'uz' ? '7 kunlik bepul sinov' : 'Попробовать бесплатно'}</span>
-                      <span>➔</span>
+                      {language === 'uz' ? '7 kun bepul sinov' : 'Попробовать'}
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
                     </button>
                   </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
 
         {/* Feature Comparison Table (Sticky header enabled for effortless comparison on scroll) */}
@@ -728,58 +829,7 @@ export default function PricesPage({ onNavigateHome }) {
           </div>
         </div>
 
-        {/* Bottom Guarantees Strip (With Gorgeous Flaticon-style SVG Icons) */}
-        <div className="rounded-[36px] bg-[#F4F7F2] border border-brand-primary/15 p-6 sm:p-10 mb-16 shadow-xs">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="flex flex-col items-center">
-              <div className="mb-3 transform hover:scale-110 transition-transform duration-200">
-                <FlaticonIcons.gift />
-              </div>
-              <h4 className="font-extrabold text-sm sm:text-base text-[#1A1D1F]">
-                {language === 'uz' ? '100% Bepul o\'rnatish' : 'Бесплатная установка'}
-              </h4>
-              <p className="text-xs text-gray-500 mt-1 font-medium">
-                {language === 'uz' ? 'O\'rgatish va sozlash' : 'Настройка и обучение'}
-              </p>
-            </div>
 
-            <div className="flex flex-col items-center">
-              <div className="mb-3 transform hover:scale-110 transition-transform duration-200">
-                <FlaticonIcons.lightning />
-              </div>
-              <h4 className="font-extrabold text-sm sm:text-base text-[#1A1D1F]">
-                {language === 'uz' ? '7 kun bepul sinov' : '7 дней бесплатно'}
-              </h4>
-              <p className="text-xs text-gray-500 mt-1 font-medium">
-                {language === 'uz' ? 'Karta talab qilinmaydi' : 'Без привязки карты'}
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="mb-3 transform hover:scale-110 transition-transform duration-200">
-                <FlaticonIcons.sync />
-              </div>
-              <h4 className="font-extrabold text-sm sm:text-base text-[#1A1D1F]">
-                {language === 'uz' ? 'Tezkor ma\'lumot ko\'chirish' : 'Быстрый перенос базы'}
-              </h4>
-              <p className="text-xs text-gray-500 mt-1 font-medium">
-                {language === 'uz' ? 'Excel orqali 10 daqiqada' : 'Из Excel за 10 минут'}
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="mb-3 transform hover:scale-110 transition-transform duration-200">
-                <FlaticonIcons.shield />
-              </div>
-              <h4 className="font-extrabold text-sm sm:text-base text-[#1A1D1F]">
-                {language === 'uz' ? '24/7 Texnik yordam' : 'Поддержка 24/7'}
-              </h4>
-              <p className="text-xs text-gray-500 mt-1 font-medium">
-                {language === 'uz' ? 'Doimiy operativ aloqa' : 'Всегда на связи'}
-              </p>
-            </div>
-          </div>
-        </div>
 
         {/* FAQ Section */}
         <div className="max-w-3xl mx-auto">

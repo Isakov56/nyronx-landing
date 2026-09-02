@@ -28,7 +28,7 @@ export default function Solutions() {
   const filtered = active === categories[0] ? products : products.filter((p) => p.cat === active)
 
   return (
-    <section id="solutions" className="py-20 lg:py-28 bg-[#F4F6F8] font-sans">
+    <section id="solutions" className="py-20 lg:py-28 bg-brand-cream font-sans">
       <div className="container-x grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
         {/* Left Column: Title, description, and filter buttons */}
         <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">

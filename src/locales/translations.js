@@ -120,8 +120,8 @@ export const translations = {
     },
     solutions: {
       subtitle: 'Amalda yechimlar',
-      titlePart1: 'Tushunchalarni',
-      titlePart2: 'natijaga aylantirish.',
+      titlePart1: 'Retseptlarni',
+      titlePart2: 'hamma uchun yaxshilaymiz.',
       description: 'Bitta platforma, g\'alaba qozonishning ko\'plab usullari — xarajatlarni kamaytirishdan tortib tezkor ishga tushirishgacha. Tushunchalarni o\'lchanadigan natijalarga aylantiruvchi mahsulotlar bilan tanishing.',
       button: 'Keyslarni ko\'rib chiqish',
       filterTitle: 'Toifa bo\'yicha filtrlash',
@@ -183,7 +183,7 @@ export const translations = {
       titleLine3: 'aqlli tizim.',
       ctaTry: 'Sinab ko\'rish',
       ctaWatch: 'Videoni tomosha qilish',
-      description: 'Nyronx — mustaqil dorixonalar ishlaydigan operatsion tizim. Da\'volar, zaxiralar, narxlar va bemorlarni parvarish qilish — yagona platformada birlashtirilgan.',
+      description: 'Nyronx — dorixonalar, klinikalar va dori yetkazib beruvchilar uchun zamonaviy operatsion tizim. Sotuvlar, hisob-kitoblar, zaxiralar va tahlillar — yagona platformada.',
       noteTitle: 'Jamoadan eslatma',
       noteQuote: '“Dorixona marjasi skanerlash va qaror qabul qilish o\'rtasidagi soniyalarda qozoniladi. Biz Nyronx ni shu soniyalarda yashash uchun qurdik.”',
       stats: {
@@ -510,8 +510,8 @@ export const translations = {
     },
     solutions: {
       subtitle: 'Решения на практике',
-      titlePart1: 'Превращаем идеи в',
-      titlePart2: 'результаты.',
+      titlePart1: 'Улучшаем рецепты',
+      titlePart2: 'для каждого.',
       description: 'Одна платформа, множество способов выиграть — от сокращения расходов до быстрого старта. Изучите продукты, которые превращают инсайты в измеримые результаты.',
       button: 'Просмотр кейсов',
       filterTitle: 'Фильтр по категориям',

@@ -1,49 +1,50 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { useModal } from '../context/ModalContext.jsx'
 import { useLanguage } from '../context/LanguageContext.jsx'
 import { sendLeadToTelegram } from '../config/telegram.js'
 
 export default function DemoModal() {
-  const { demoOpen, closeDemoModal, initialType } = useModal()
+  const { demoOpen, closeDemoModal } = useModal()
   const { language } = useLanguage()
 
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('+998 ')
-  const [pharmacyName, setPharmacyName] = useState('')
-  const [branchCount, setBranchCount] = useState('1')
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '+998 ',
+    pharmacyName: '',
+    branchCount: '1',
+  })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  // Esc tugmasi orqali yopish
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === 'Escape') closeDemoModal()
+    },
+    [closeDemoModal]
+  )
 
   useEffect(() => {
     if (demoOpen) {
       setSubmitted(false)
       setLoading(false)
       document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', handleKeyDown)
     } else {
       document.body.style.overflow = 'unset'
     }
     return () => {
       document.body.style.overflow = 'unset'
+      window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [demoOpen])
+  }, [demoOpen, handleKeyDown])
 
   if (!demoOpen) return null
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-
-    // Telegram kanal yoki guruhga yuborish
-    await sendLeadToTelegram({
-      name,
-      phone,
-      pharmacyName,
-      branchCount,
-      language,
-    })
-
-    setLoading(false)
-    setSubmitted(true)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handlePhoneChange = (e) => {
@@ -51,155 +52,174 @@ export default function DemoModal() {
     if (!val.startsWith('+998')) {
       val = '+998 '
     }
-    setPhone(val)
+    setFormData((prev) => ({ ...prev, phone: val }))
   }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-      {/* Backdrop */}
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      await sendLeadToTelegram({
+        ...formData,
+        language,
+      })
+      setSubmitted(true)
+    } catch (error) {
+      console.error('Xatolik yuz berdi:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const isUz = language === 'uz'
+
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      {/* Background Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-slate-900/50 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
         onClick={closeDemoModal}
       />
 
-      {/* Modal Card */}
-      <div className="relative w-full max-w-lg bg-white rounded-[32px] sm:rounded-[40px] shadow-2xl border border-black/10 p-6 sm:p-10 z-10 overflow-hidden animate-in zoom-in-95 duration-200">
-        {/* Close Button */}
+      {/* Modal Card Container */}
+      <div className="relative w-full max-w-[480px] bg-white rounded-[28px] shadow-[0_24px_50px_-12px_rgba(0,0,0,0.18)] border border-slate-100 p-7 sm:p-9 z-10 transition-all duration-300 animate-in zoom-in-95 slide-in-from-bottom-4">
+        
+        {/* Yopish tugmasi */}
         <button
           onClick={closeDemoModal}
           aria-label="Yopish"
-          className="absolute top-5 right-5 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-all cursor-pointer"
+          className="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-95 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-all cursor-pointer"
         >
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {!submitted ? (
           <div>
-            {/* Header Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold uppercase tracking-wider mb-4">
-              <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
-              <span>
-                {language === 'uz' ? '7 kunlik bepul sinov' : '7 дней бесплатного теста'}
-              </span>
-            </div>
-
-            <h3 className="text-2xl sm:text-3xl font-black text-[#1A1D1F] tracking-tight leading-tight mb-2">
-              {language === 'uz'
-                ? 'Nyronx tizimini sinab ko\'ring'
-                : 'Попробуйте систему Nyronx'}
+            {/* Sarlavha qismi */}
+            <h3 className="text-2xl sm:text-[28px] font-extrabold text-[#0F172A] tracking-tight leading-tight mb-2 pr-6">
+              {isUz ? "Nyronx tizimini sinab ko'ring" : 'Попробуйте систему Nyronx'}
             </h3>
 
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
-              {language === 'uz'
-                ? 'Ma\'lumotlaringizni qoldiring, mutaxassisimiz 10 daqiqada sizga tizimga kirish huquqini ulab beradi.'
+            <p className="text-sm text-slate-500 leading-relaxed mb-6">
+              {isUz
+                ? "Ma'lumotlaringizni qoldiring, 10 daqiqada sizga tizimga kirish huquqini taqdim etamiz."
                 : 'Оставьте заявку, наш специалист подключит тестовый доступ за 10 минут.'}
             </p>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              {/* Ism */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Ism va familiya */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
-                  {language === 'uz' ? 'Ism va familiyangiz' : 'Ваше имя и фамилия'}
+                <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                  {isUz ? 'ISM VA FAMILIYANGIZ' : 'ВАШЕ ИМЯ И ФАМИЛИЯ'}
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={language === 'uz' ? 'Masalan: Alisher Qodirov' : 'Например: Алишер Кадыров'}
-                  className="w-full px-4 py-3.5 rounded-2xl bg-gray-50 border border-black/10 focus:border-brand-primary focus:bg-white focus:outline-none text-sm font-medium transition-all"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder={isUz ? 'Alisher Qodirov' : 'Алишер Кадыров'}
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-[#15A869] focus:ring-4 focus:ring-[#15A869]/10 transition-all placeholder:text-slate-400 font-medium"
                 />
               </div>
 
-              {/* Telefon */}
+              {/* Telefon raqam */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
-                  {language === 'uz' ? 'Telefon raqamingiz' : 'Номер телефона'}
+                <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                  {isUz ? 'TELEFON RAQAMINGIZ' : 'НОМЕР ТЕЛЕФОНА'}
                 </label>
                 <input
                   type="tel"
+                  name="phone"
                   required
-                  value={phone}
+                  value={formData.phone}
                   onChange={handlePhoneChange}
-                  placeholder="+998 90 123 45 67"
-                  className="w-full px-4 py-3.5 rounded-2xl bg-gray-50 border border-black/10 focus:border-brand-primary focus:bg-white focus:outline-none text-sm font-bold text-[#1A1D1F] transition-all"
+                  placeholder="+998"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:border-[#15A869] focus:ring-4 focus:ring-[#15A869]/10 transition-all"
                 />
               </div>
 
-              {/* Dorixona nomi */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Dorixona nomi & Filiallar soni */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
-                    {language === 'uz' ? 'Dorixona nomi' : 'Название аптеки'}
+                  <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                    {isUz ? 'DORIXONA NOMI' : 'НАЗВАНИЕ АПТЕКИ'}
                   </label>
                   <input
                     type="text"
+                    name="pharmacyName"
                     required
-                    value={pharmacyName}
-                    onChange={(e) => setPharmacyName(e.target.value)}
-                    placeholder={language === 'uz' ? 'Masalan: Shifo Pharma' : 'Например: Shifo Pharma'}
-                    className="w-full px-4 py-3.5 rounded-2xl bg-gray-50 border border-black/10 focus:border-brand-primary focus:bg-white focus:outline-none text-sm font-medium transition-all"
+                    value={formData.pharmacyName}
+                    onChange={handleChange}
+                    placeholder="Shifo Pharma"
+                    className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-[#15A869] focus:ring-4 focus:ring-[#15A869]/10 transition-all placeholder:text-slate-400 font-medium"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
-                    {language === 'uz' ? 'Filiallar soni' : 'Количество филиалов'}
+                  <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                    {isUz ? 'FILIALLAR SONI' : 'КОЛИЧЕСТВО ФИЛИАЛОВ'}
                   </label>
-                  <select
-                    value={branchCount}
-                    onChange={(e) => setBranchCount(e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-2xl bg-gray-50 border border-black/10 focus:border-brand-primary focus:bg-white focus:outline-none text-sm font-bold text-gray-800 transition-all cursor-pointer"
-                  >
-                    <option value="1">1 {language === 'uz' ? 'ta dorixona' : 'аптека'}</option>
-                    <option value="2-5">2 — 5 {language === 'uz' ? 'ta filial' : 'филиалов'}</option>
-                    <option value="5-10">5 — 10 {language === 'uz' ? 'ta filial' : 'филиалов'}</option>
-                    <option value="10+">10+ {language === 'uz' ? 'ta tarmoq' : 'сеть аптек'}</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      name="branchCount"
+                      value={formData.branchCount}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-sm font-semibold focus:outline-none focus:border-[#15A869] focus:ring-4 focus:ring-[#15A869]/10 transition-all cursor-pointer appearance-none pr-8"
+                    >
+                      <option value="1">1 ta dorixona</option>
+                      <option value="2-5">2 — 5 ta filial</option>
+                      <option value="5-10">5 — 10 ta filial</option>
+                      <option value="10+">10+ ta tarmoq</option>
+                    </select>
+                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Submit Button */}
+              {/* Yuborish Tugmasi (Kapsula shakli va Brend yashil rangi) */}
               <button
                 type="submit"
                 disabled={loading}
-                className="mt-3 w-full py-4 rounded-2xl bg-brand-primary hover:bg-brand-deep text-white font-black text-base shadow-xl shadow-brand-primary/25 transition-all hover:scale-[1.01] active:scale-98 cursor-pointer flex items-center justify-center gap-2"
+                className="w-full mt-3 py-3.5 px-6 rounded-full bg-[#15A869] hover:bg-[#12945d] active:scale-[0.98] text-white font-bold text-base shadow-lg shadow-[#15A869]/25 transition-all flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer"
               >
                 {loading ? (
-                  <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
-                    <span>
-                      {language === 'uz'
-                        ? '7 kunlik bepul sinovni boshlash'
-                        : 'Начать 7 дней бесплатного теста'}
-                    </span>
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                      <path d="M5 3l14 9-14 9V3z" />
+                    <span>{isUz ? 'Bepul sinovni boshlash' : 'Начать бесплатный тест'}</span>
+                    <svg className="w-4 h-4 fill-none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </>
                 )}
               </button>
             </form>
-
-            <p className="text-[11px] text-center text-gray-400 mt-4">
-              🔒 {language === 'uz' ? 'Kredit karta talab qilinmaydi. To\'liq bepul.' : 'Кредитная карта не требуется. Полностью бесплатно.'}
-            </p>
           </div>
         ) : (
+          /* Muvaffaqiyatli yakunlash ekrani */
           <div className="text-center py-6">
-            <div className="w-16 h-16 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center mx-auto mb-4 text-3xl">
-              ✓
+            <div className="w-16 h-16 rounded-full bg-[#15A869]/10 text-[#15A869] flex items-center justify-center mx-auto mb-4 animate-in zoom-in-50 duration-300">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
             </div>
-            <h3 className="text-2xl font-black text-[#1A1D1F] mb-2">
-              {language === 'uz' ? 'Rahmat! Aringiz qabul qilindi' : 'Спасибо! Заявка принята'}
+            
+            <h3 className="text-2xl font-extrabold text-slate-900 mb-2">
+              {isUz ? 'Ariza qabul qilindi!' : 'Заявка принята!'}
             </h3>
-            <p className="text-sm text-gray-600 max-w-sm mx-auto mb-6 leading-relaxed">
-              {language === 'uz'
-                ? `Tez orada mutaxassisimiz ${phone} raqamiga bog'lanib, sizga Nyronx demo tizimini o'rnatib beradi.`
-                : `Наш специалист свяжется с вами по номеру ${phone} и настроит демо-доступ к системе.`}
+            
+            <p className="text-sm text-slate-600 max-w-xs mx-auto mb-6 leading-relaxed">
+              {isUz
+                ? `Tez orada mutaxassisimiz ${formData.phone} raqamingizga bog'lanadi.`
+                : `Наш специалист свяжется с вами по номеру ${formData.phone}.`}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -207,20 +227,21 @@ export default function DemoModal() {
                 href="https://t.me/nyronx"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#0088cc] text-white font-bold text-sm shadow-md"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0088cc] hover:bg-[#0077b5] text-white font-semibold text-sm transition-all shadow-md"
               >
                 <span>Telegram orqali bog'lanish</span>
               </a>
               <button
                 onClick={closeDemoModal}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-gray-100 text-gray-700 font-bold text-sm hover:bg-gray-200 transition-colors"
+                className="w-full sm:w-auto px-6 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-all cursor-pointer"
               >
-                {language === 'uz' ? 'Yopish' : 'Закрыть'}
+                {isUz ? 'Yopish' : 'Закрыть'}
               </button>
             </div>
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

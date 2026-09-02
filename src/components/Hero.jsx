@@ -14,7 +14,7 @@ const TextRotator = ({ words }) => {
         setIndex((i) => (i + 1) % words.length)
         setFade(true)
       }, 500)
-    }, 3000)
+    }, 2500)
     return () => clearInterval(interval)
   }, [words])
 
@@ -22,8 +22,9 @@ const TextRotator = ({ words }) => {
 
   return (
     <span
-      className={`inline-block transition-opacity duration-500 text-brand-accent ${fade ? 'opacity-100' : 'opacity-0'
-        }`}
+      className={`inline-block transition-opacity duration-500 text-brand-accent ${
+        fade ? 'opacity-100' : 'opacity-0'
+      }`}
     >
       {words[index]}
     </span>
@@ -31,130 +32,188 @@ const TextRotator = ({ words }) => {
 }
 
 export default function Hero() {
-  const { t, language } = useLanguage()
+  const { language, t } = useLanguage()
   const { openDemoModal } = useModal()
 
-  const stats = [
-    {
-      label: language === 'uz' ? 'Boshqarish Samaradorligi' : 'Эффективность управления',
-      value: '32%',
-      sub: language === 'uz' ? 'Ish unumdorligini oshirish' : 'Рост производительности',
-    },
-    {
-      label: language === 'uz' ? 'Korxona Daromadi (Yillik, USD)' : 'Прибыль предприятий (Год, USD)',
-      value: '$4.2M',
-      sub: language === 'uz' ? 'Sof foyda oshishi' : 'Рост чистой прибыли',
-    },
-    {
-      label: language === 'uz' ? 'Tizim Ishonchliligi' : 'Надежность системы',
-      value: '99.9%',
-      sub: language === 'uz' ? 'Barqaror ish vaqti (Uptime)' : 'Бесперебойная работа',
-    },
-  ]
+  // Bottom-left notch (button-sized) — fits the CTA button
+  const btnNotchW = 296
+  const btnNotchH = 68
+  const btnEntryR = 24
+  const btnInsideR = 38
+  const btnSvgW = btnNotchW + btnEntryR
+  const btnSvgH = btnNotchH + btnEntryR
+
+  const btnNotchPath = `
+    M 0 ${btnSvgH}
+    L 0 0
+    Q 0 ${btnEntryR} ${btnEntryR} ${btnEntryR}
+    L ${btnNotchW - btnInsideR} ${btnEntryR}
+    Q ${btnNotchW} ${btnEntryR} ${btnNotchW} ${btnEntryR + btnInsideR}
+    L ${btnNotchW} ${btnSvgH - btnEntryR}
+    Q ${btnNotchW} ${btnSvgH} ${btnNotchW + btnEntryR} ${btnSvgH}
+    Z
+  `
+
+  const isUz = language === 'uz'
+  const dynamicWords = t('hero.dynamicWords') || (isUz ? ['Dorixonalar', 'Klinikalar', 'Yetkazib beruvchilar'] : ['Аптек', 'Клиник', 'Дистрибьюторов'])
+
+  const heroTexts = {
+    titlePrefix: 'Nyronx —',
+    titleSuffix: isUz ? 'uchun aqlli tizim.' : 'умная система.',
+    titleBleed: isUz ? 'aqlli tizim.' : 'система.',
+    description: isUz
+      ? 'Nyronx — dorixonalar, klinikalar va dori yetkazib beruvchilar uchun zamonaviy operatsion tizim. Sotuvlar, hisob-kitoblar, zaxiralar va tahlillar — yagona platformada.'
+      : 'Nyronx — операционная система для аптек, клиник и дистрибьюторов. Продажи, учет, остатки и аналитика — в единой платформе.',
+    ctaBtn: isUz ? 'Nyronx bilan tanishish' : 'Узнать больше о Nyronx',
+    stats: [
+      { category: isUz ? 'Klinikalar' : 'Клиники', value: '32%' },
+      { category: isUz ? 'Tarmoqlar' : 'Сети аптек', value: '$4.2M' },
+      { category: isUz ? 'Barqarorlik' : 'Надежность', value: '99.9%' },
+    ],
+    annotationPin: isUz ? 'Dorixonalar tarmog\'i · UZ' : 'Сеть аптек · RU',
+    annotationTag: isUz ? '01 / Operatsion boshqaruv' : '01 / Операционный учет',
+  }
 
   return (
-    <section className="bg-white pt-24 pb-10 font-sans">
+    <section className="bg-white pt-24 pb-14 font-sans select-none">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-5">
-        {/* Hero image container — relative, NOT absolute height */}
-        <div className="relative rounded-[24px] overflow-hidden">
-          {/* Background image */}
-          <img
-            src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=70"
-            alt="Team collaborating in a glass-walled office"
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
+        <div className="relative h-[calc(100svh-152px)] min-h-[460px] max-h-[760px]">
+          {/* Image card */}
+          <div className="absolute inset-0 overflow-hidden rounded-[24px]">
+            <img
+              src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=60"
+              alt="Team collaborating in a glass-walled office"
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-          {/* Content — flows naturally, no absolute positioning */}
-          <div className="relative z-10 px-7 sm:px-10 lg:px-14 pt-10 sm:pt-12 lg:pt-14 pb-6">
-            {/* ===== ROW 1: Title ===== */}
-            <h1 className="font-sans font-extrabold text-white leading-[1.08] tracking-[-0.02em] text-[clamp(28px,4.5vw,52px)] max-w-[780px]">
-              Nyronx — <TextRotator words={t('hero.dynamicWords')} />{' '}
-              {t('hero.titleLine2')}{' '}
-              <span className="text-white">
-                {language === 'uz' ? 'Aqlli Operatsion Tizim' : 'Умная операционная система'}
-              </span>
-            </h1>
-
-            {/* ===== ROW 2: Description ===== */}
-            <p className="mt-4 text-white/85 text-base sm:text-lg leading-relaxed max-w-[620px]">
-              {t('hero.description')}
-            </p>
-
-            {/* ===== ROW 3: CTA Buttons ===== */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              {/* Primary: 7-day trial / demo modal */}
-              <button
-                type="button"
-                onClick={() => openDemoModal('trial')}
-                className="inline-flex items-center gap-2.5 rounded-full bg-brand-primary text-white px-7 py-3.5 text-sm sm:text-[15px] font-bold hover:bg-brand-deep transition-all duration-200 shadow-lg shadow-brand-primary/30 hover:-translate-y-0.5 whitespace-nowrap cursor-pointer"
-              >
-                <svg className="w-3.5 h-3.5 shrink-0 fill-current" viewBox="0 0 24 24">
-                  <path d="M5 3l14 9-14 9V3z" />
-                </svg>
-                <span>{t('hero.ctaTry')}</span>
-              </button>
-
-              {/* Video watch */}
-              <a
-                href="#inaction"
-                className="inline-flex items-center gap-2.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white border border-white/30 px-6 py-3.5 text-sm sm:text-[15px] font-bold transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap"
-              >
-                <span className="w-5 h-5 rounded-full bg-white/25 flex items-center justify-center shrink-0">
-                  <svg className="w-2.5 h-2.5 ml-0.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M5 3l14 9-14 9V3z" />
-                  </svg>
-                </span>
-                <span>{t('hero.ctaWatch')}</span>
-              </a>
-            </div>
-
-            {/* ===== ROW 4: Testimonial Card ===== */}
-            <div className="mt-7 max-w-[580px]">
-              <div className="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 p-4 sm:p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80"
-                    alt="Feruza Ismoilova"
-                    className="w-10 h-10 rounded-full object-cover ring-2 ring-brand-accent/40"
-                  />
-                  <div>
-                    <p className="text-white font-bold text-sm leading-tight">
-                      {language === 'uz' ? 'Feruza Ismoilova' : 'Феруза Исмаилова'}
-                    </p>
-                    <p className="text-white/60 text-xs">
-                      {language === 'uz' ? 'Dorixona rahbari' : 'Руководитель аптеки'}
-                    </p>
-                  </div>
-                </div>
-                <p className="text-white/85 text-sm italic leading-relaxed">
-                  {t('hero.noteQuote')}
+            <div className="relative h-full px-8 sm:px-14 lg:px-20 pt-10 sm:pt-12 lg:pt-14">
+              <div className="max-w-xl">
+                <h1 className="font-sans font-bold text-white leading-[1.02] tracking-[-0.02em] text-[clamp(38px,6.5vh,78px)]">
+                  <span className="block">{heroTexts.titlePrefix}</span>
+                  <span className="block min-h-[1.1em] whitespace-nowrap">
+                    <TextRotator words={dynamicWords} />
+                  </span>
+                  <span className="block mt-0.5">{heroTexts.titleSuffix}</span>
+                  <span className="sr-only">{heroTexts.titleBleed}</span>
+                </h1>
+                <p className="mt-5 text-white font-semibold text-[15px] lg:text-[16px] leading-[1.5] max-w-[460px]">
+                  {heroTexts.description}
                 </p>
               </div>
             </div>
 
-            {/* ===== ROW 5: Stats Cards ===== */}
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-[680px]">
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl bg-brand-primary/90 backdrop-blur-sm px-4 py-3.5 text-white"
-                >
-                  <p className="text-[11px] font-bold uppercase tracking-wide text-white/80 leading-tight mb-1">
-                    {s.label}
-                  </p>
-                  <p className="text-2xl sm:text-3xl font-extrabold leading-none tracking-tight">
+            {/* Bottom-left notch */}
+            <svg
+              className="absolute bottom-0 left-0 pointer-events-none"
+              width={btnSvgW}
+              height={btnSvgH}
+              viewBox={`0 0 ${btnSvgW} ${btnSvgH}`}
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path d={btnNotchPath} fill="white" />
+            </svg>
+
+            {/* Top-right notch */}
+            <svg
+              className="absolute pointer-events-none"
+              style={{ top: -10, right: -10 }}
+              width={290}
+              height={300}
+              viewBox="0 0 290 300"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M 10 0 L 272 0 Q 290 0 290 18 L 290 290 Q 290 300 280 300 Q 270 300 270 290 L 270 45 Q 270 20 245 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z"
+                fill="white"
+              />
+            </svg>
+
+            {/* Audience stats */}
+            <div
+              className="absolute bottom-5 hidden lg:flex items-center gap-5 xl:gap-6 pointer-events-none z-[3]"
+              style={{ left: 320, right: 'clamp(440px, 38vw, 600px)' }}
+            >
+              {heroTexts.stats.map((s) => (
+                <div key={s.category} className="flex items-center gap-2">
+                  <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-white/55 whitespace-nowrap">
+                    {s.category}
+                  </span>
+                  <span className="h-px w-3 bg-white/35" />
+                  <span className="font-sans font-light text-white text-[13px] xl:text-[14px] leading-none tracking-tight">
                     {s.value}
-                  </p>
-                  <p className="text-[11px] text-white/75 mt-1 leading-tight">{s.sub}</p>
+                  </span>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Editorial annotation */}
+          <div
+            className="absolute pointer-events-none z-[4] hidden md:block"
+            style={{ top: -10, right: -10, width: 290, height: 300 }}
+          >
+            <div
+              className="absolute inset-0 bg-white"
+              style={{
+                clipPath:
+                  'path("M 10 0 L 272 0 Q 290 0 290 18 L 290 290 Q 290 300 280 300 Q 270 300 270 290 L 270 45 Q 270 20 245 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z")',
+              }}
+            />
+
+            <div className="absolute top-0 left-0 right-0 h-5 flex items-center justify-end gap-2">
+              <span className="font-mono text-[10px] lg:text-[11px] text-brand-ink/75 tracking-[0.2em] uppercase whitespace-nowrap">
+                {heroTexts.annotationPin}
+              </span>
+              <span className="h-px w-8 bg-brand-ink/30" />
+              <span className="w-5 h-5 shrink-0 rounded-full border border-brand-ink/70 flex items-center justify-center text-brand-ink text-[10px] font-mono leading-none">
+                1
+              </span>
+            </div>
+
+            <div className="absolute top-5 right-0 w-5 bottom-0 flex flex-col items-center pt-2 gap-2">
+              <span className="w-px h-6 bg-brand-ink/30" />
+              <span
+                className="font-mono text-[10px] tracking-[0.42em] uppercase text-brand-ink/65 whitespace-nowrap"
+                style={{ writingMode: 'vertical-rl' }}
+              >
+                {heroTexts.annotationTag}
+              </span>
+            </div>
+          </div>
+
+          {/* Title overflow bleed */}
+          <div
+            aria-hidden="true"
+            className="absolute right-2 sm:right-4 lg:right-8 pointer-events-none z-[3] select-none font-sans font-bold leading-[1.15] tracking-[-0.035em] whitespace-nowrap"
+            style={{
+              bottom: 0,
+              fontSize: 'clamp(56px,9vh,108px)',
+              transform: 'translateY(42%)',
+              backgroundImage:
+                'linear-gradient(to bottom, #ffffff 0%, #ffffff 58%, #0F3D2E 58%, #0F3D2E 100%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              color: 'transparent',
+            }}
+          >
+            {heroTexts.titleBleed}
+          </div>
+
+          {/* Button flush with image's bottom-left corner */}
+          <button
+            type="button"
+            onClick={() => openDemoModal('demo')}
+            className="absolute left-0 bottom-0 inline-flex items-center rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-all duration-200 shadow-lg shadow-black/25 z-10 cursor-pointer hover:-translate-y-0.5"
+          >
+            {heroTexts.ctaBtn}
+          </button>
         </div>
       </div>
     </section>

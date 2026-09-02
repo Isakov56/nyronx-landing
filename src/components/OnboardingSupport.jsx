@@ -10,33 +10,6 @@ export default function OnboardingSupport() {
   return (
     <section className="py-20 lg:py-28 bg-white font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* SECTION 1: Giant Capsule Banner ("Sozlaymiz. O'rgatamiz. Tez o'rnatib beramiz.") */}
-        <div className="mb-24 lg:mb-32">
-          <div className="rounded-[40px] sm:rounded-full bg-gradient-to-r from-brand-primary/[0.08] via-brand-primary/[0.04] to-brand-mint/10 border border-brand-primary/15 p-8 sm:p-12 lg:p-16 shadow-[0_15px_40px_rgba(31,165,108,0.05)]">
-            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Left Title */}
-              <div className="lg:col-span-6">
-                <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-black text-[#1A1D1F] leading-[1.15] tracking-tight">
-                  <span className="text-brand-primary block">{t('onboardingSupport.bannerTitle1')}</span>
-                  <span>{t('onboardingSupport.bannerTitle2')}</span>
-                </h2>
-              </div>
-
-              {/* Right Description */}
-              <div className="lg:col-span-6">
-                <p className="text-base sm:text-lg lg:text-[19px] text-gray-700 leading-relaxed">
-                  {t('onboardingSupport.bannerText')}{' '}
-                  <span className="inline-block bg-brand-primary/15 text-brand-forest px-2.5 py-0.5 rounded-lg font-bold border border-brand-primary/20">
-                    {t('onboardingSupport.bannerHighlight')}
-                  </span>{' '}
-                  {t('onboardingSupport.bannerTextEnd')}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION 2: Moving Ticker Title */}
         <div className="relative mb-12 overflow-hidden">
           {/* Edge fades */}
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-r from-white to-transparent" />

@@ -97,16 +97,20 @@ export default function DownloadModal() {
         </div>
 
         {/* Key Features */}
-        <div className="space-y-2.5 mb-6 text-xs sm:text-sm text-gray-700">
+        <div className="space-y-3.5 mb-8 mt-2 text-sm text-gray-700">
           {[
-            language === 'uz' ? '⚡️ Yuqori tezlikdagi kassa va POS operatsiyalari' : '⚡️ Быстрые кассовые и POS операции',
-            language === 'uz' ? '📶 Internet uzilsa ham oflayn rejimda ishlash' : '📶 Работа в оффлайн-режиме без интернета',
-            language === 'uz' ? '🖨 Barcha chek printerlar va shtrix-kod skanerlarni avtomatik aniqlash' : '🖨 Поддержка сканеров и фискальных принтеров',
-            language === 'uz' ? '🛡 100% xavfsiz va avtomatik zaxira nusxalash' : '🛡 Автоматическое резервное копирование',
+            language === 'uz' ? 'Yuqori tezlikdagi kassa va POS operatsiyalari' : 'Быстрые кассовые и POS операции',
+            language === 'uz' ? 'Internet uzilsa ham oflayn rejimda ishlash' : 'Работа в оффлайн-режиме без интернета',
+            language === 'uz' ? 'Barcha chek printerlar va shtrix-kod skanerlarni avtomatik aniqlash' : 'Поддержка сканеров и фискальных принтеров',
+            language === 'uz' ? '100% xavfsiz va avtomatik zaxira nusxalash' : 'Автоматическое резервное копирование',
           ].map((feat, idx) => (
-            <div key={idx} className="flex items-center gap-2.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-primary shrink-0" />
-              <span>{feat}</span>
+            <div key={idx} className="flex items-start gap-3">
+              <div className="mt-0.5 w-5 h-5 rounded-full bg-[#0078D4]/10 flex items-center justify-center shrink-0">
+                <svg className="w-3 h-3 text-[#0078D4] font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span className="leading-snug">{feat}</span>
             </div>
           ))}
         </div>
