@@ -1,5 +1,41 @@
+import { useState, useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext.jsx'
+import { useModal } from '../context/ModalContext.jsx'
+
+const TextRotator = ({ words }) => {
+  const [index, setIndex] = useState(0)
+  const [fade, setFade] = useState(true)
+
+  useEffect(() => {
+    if (!words || words.length === 0) return
+    const interval = setInterval(() => {
+      setFade(false)
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % words.length)
+        setFade(true)
+      }, 500)
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [words])
+
+  if (!words || words.length === 0) return null
+
+  return (
+    <span
+      className={`inline-block transition-opacity duration-500 text-brand-accent ${
+        fade ? 'opacity-100' : 'opacity-0'
+      }`}
+    >
+      {words[index]}
+    </span>
+  )
+}
+
 export default function Hero() {
-  // Bottom-left notch (button-sized) — fits the "Learn about Nyronx" CTA
+  const { language, t } = useLanguage()
+  const { openDemoModal } = useModal()
+
+  // Bottom-left notch (button-sized) — fits the CTA button
   const btnNotchW = 296
   const btnNotchH = 68
   const btnEntryR = 24
@@ -18,32 +54,28 @@ export default function Hero() {
     Z
   `
 
-  // Top-right notch (annotation-sized) — same idea as the button notch but
-  // on the opposite corner and sized for the annotation's two arms. The
-  // notch carves the image with an L-shape so the image's TOP edge curves
-  // down around the horizontal arm AND the image's RIGHT edge curves left
-  // around the vertical arm — the "img avoid" curve pattern, just like the
-  // button has at the bottom-left.
-  const annoNotchW = 270 // matches horizontal arm length inside image
-  const annoNotchH = 280 // matches vertical arm length inside image
-  const annoEntryR = 20
-  const annoInsideR = 28
-  const annoSvgW = annoNotchW + annoEntryR
-  const annoSvgH = annoNotchH + annoEntryR
+  const isUz = language === 'uz'
+  const dynamicWords = t('hero.dynamicWords') || (isUz ? ['Dorixonalar', 'Klinikalar', 'Yetkazib beruvchilar'] : ['Аптек', 'Клиник', 'Дистрибьюторов'])
 
-  const annoNotchPath = `
-    M 0 ${annoSvgH}
-    L 0 0
-    Q 0 ${annoEntryR} ${annoEntryR} ${annoEntryR}
-    L ${annoNotchW - annoInsideR} ${annoEntryR}
-    Q ${annoNotchW} ${annoEntryR} ${annoNotchW} ${annoEntryR + annoInsideR}
-    L ${annoNotchW} ${annoSvgH - annoEntryR}
-    Q ${annoNotchW} ${annoSvgH} ${annoNotchW + annoEntryR} ${annoSvgH}
-    Z
-  `
+  const heroTexts = {
+    titlePrefix: 'Nyronx —',
+    titleSuffix: isUz ? 'uchun aqlli tizim.' : 'умная система.',
+    titleBleed: isUz ? 'aqlli tizim.' : 'система.',
+    description: isUz
+      ? 'Nyronx — dorixonalar, klinikalar va dori yetkazib beruvchilar uchun zamonaviy operatsion tizim. Sotuvlar, hisob-kitoblar, zaxiralar va tahlillar — yagona platformada.'
+      : 'Nyronx — операционная система для аптек, клиник и дистрибьюторов. Продажи, учет, остатки и аналитика — в единой платформе.',
+    ctaBtn: isUz ? 'Nyronx bilan tanishish' : 'Узнать больше о Nyronx',
+    stats: [
+      { category: isUz ? 'Klinikalar' : 'Клиники', value: '32%' },
+      { category: isUz ? 'Tarmoqlar' : 'Сети аптек', value: '$4.2M' },
+      { category: isUz ? 'Barqarorlik' : 'Надежность', value: '99.9%' },
+    ],
+    annotationPin: isUz ? 'Dorixonalar tarmog\'i · UZ' : 'Сеть аптек · RU',
+    annotationTag: isUz ? '01 / Operatsion boshqaruv' : '01 / Операционный учет',
+  }
 
   return (
-    <section className="bg-white pt-24 pb-14">
+    <section className="bg-white pt-24 pb-14 font-sans select-none">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-5">
         <div className="relative h-[calc(100svh-152px)] min-h-[460px] max-h-[760px]">
           {/* Image card */}
@@ -60,34 +92,21 @@ export default function Hero() {
 
             <div className="relative h-full px-8 sm:px-14 lg:px-20 pt-10 sm:pt-12 lg:pt-14">
               <div className="max-w-xl">
-                <h1 className="font-sans font-bold text-white leading-[0.95] tracking-[-0.02em] text-[clamp(48px,8vh,96px)]">
-                  <span className="block">Pharmacy</span>
-                  <span className="block">operations,</span>
-                  <span className="sr-only">intelligent.</span>
+                <h1 className="font-sans font-bold text-white leading-[1.02] tracking-[-0.02em] text-[clamp(38px,6.5vh,78px)]">
+                  <span className="block">{heroTexts.titlePrefix}</span>
+                  <span className="block min-h-[1.1em] whitespace-nowrap">
+                    <TextRotator words={dynamicWords} />
+                  </span>
+                  <span className="block mt-0.5">{heroTexts.titleSuffix}</span>
+                  <span className="sr-only">{heroTexts.titleBleed}</span>
                 </h1>
-                <p className="mt-6 text-white font-semibold text-[15px] lg:text-[16px] leading-[1.5] max-w-[420px]">
-                  Nyronx is the operating system independent pharmacies run on.
-                  Claims, inventory, pricing, and patient care — unified in one
-                  platform.
+                <p className="mt-5 text-white font-semibold text-[15px] lg:text-[16px] leading-[1.5] max-w-[460px]">
+                  {heroTexts.description}
                 </p>
-
-                {/* Editorial statement — designer move, replaces the obvious stats row */}
-                <div className="mt-8 lg:mt-10 max-w-[440px] hidden sm:block">
-                  <div className="flex items-center gap-3">
-                    <span className="h-px w-7 bg-white/60" />
-                    <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-white/70">
-                      A note from the team
-                    </span>
-                  </div>
-                  <p className="mt-3 font-serif italic text-white/90 text-[15px] lg:text-[17px] leading-snug">
-                    “Pharmacy margin is won in the seconds between scan and
-                    adjudication. We built Nyronx to live in those seconds.”
-                  </p>
-                </div>
               </div>
             </div>
 
-            {/* Bottom-left notch — carves out space for the "Learn about Nyronx" CTA */}
+            {/* Bottom-left notch */}
             <svg
               className="absolute bottom-0 left-0 pointer-events-none"
               width={btnSvgW}
@@ -99,14 +118,7 @@ export default function Hero() {
               <path d={btnNotchPath} fill="white" />
             </svg>
 
-            {/* Top-right notch — mirrors the container's L clip-path EXACTLY so
-                the image carves along the SAME shape as the annotation arms
-                (no rectangular cavity in the middle). Positioned at top:-10,
-                right:-10 so it aligns 1:1 with the outer container; the image
-                card's overflow:hidden clips the bleed. The L's outer outline
-                (semicircle at the horizontal arm's left end, elongated curve
-                at the vertical arm's bottom end, top-right rounded corner,
-                inner concave fillet) is what the image carves along. */}
+            {/* Top-right notch */}
             <svg
               className="absolute pointer-events-none"
               style={{ top: -10, right: -10 }}
@@ -122,21 +134,12 @@ export default function Hero() {
               />
             </svg>
 
-            {/* Audience stats — 4 mini editorial blocks across the bottom band,
-                tucked between the CTA button (bottom-left) and "intelligent."
-                bleed (bottom-right). Same typographic pattern as the
-                "Independent pharmacy · FL" pin at the top-right: hairline +
-                mono-uppercase category, then a big number, then a small
-                description. Hidden on small screens — only fits at lg+. */}
+            {/* Audience stats */}
             <div
               className="absolute bottom-5 hidden lg:flex items-center gap-5 xl:gap-6 pointer-events-none z-[3]"
               style={{ left: 320, right: 'clamp(440px, 38vw, 600px)' }}
             >
-              {[
-                { category: 'Health system', value: '32%' },
-                { category: 'Employer', value: '$4.2M' },
-                { category: 'Pharmacy', value: '99.9%' },
-              ].map((s) => (
+              {heroTexts.stats.map((s) => (
                 <div key={s.category} className="flex items-center gap-2">
                   <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-white/55 whitespace-nowrap">
                     {s.category}
@@ -148,23 +151,13 @@ export default function Hero() {
                 </div>
               ))}
             </div>
-
           </div>
 
-          {/* Editorial annotation — ONE L-shaped container with clip-path so
-              ALL outer corners are rounded (convex) AND the inner corner where
-              horizontal and vertical arms meet is rounded too (concave fillet).
-              Two rectangles can't do the concave inner corner — needs a single
-              clipped shape. Bounding box is 260×220, the clip-path carves out
-              the L (20px top arm × 20px right arm) with radius 6 on every corner. */}
+          {/* Editorial annotation */}
           <div
             className="absolute pointer-events-none z-[4] hidden md:block"
             style={{ top: -10, right: -10, width: 290, height: 300 }}
           >
-            {/* L-shaped white — arms 290×300, inner fillet 25, top-right outer
-                corner 18, BOTH arm ends now use a radius-10 semicircle so they
-                match each other (horizontal arm's left end + vertical arm's
-                bottom end have the same curve). */}
             <div
               className="absolute inset-0 bg-white"
               style={{
@@ -173,11 +166,9 @@ export default function Hero() {
               }}
             />
 
-
-            {/* Horizontal arm content — tighter gap-2, (1) circle pinned right */}
             <div className="absolute top-0 left-0 right-0 h-5 flex items-center justify-end gap-2">
               <span className="font-mono text-[10px] lg:text-[11px] text-brand-ink/75 tracking-[0.2em] uppercase whitespace-nowrap">
-                Independent pharmacy · FL
+                {heroTexts.annotationPin}
               </span>
               <span className="h-px w-8 bg-brand-ink/30" />
               <span className="w-5 h-5 shrink-0 rounded-full border border-brand-ink/70 flex items-center justify-center text-brand-ink text-[10px] font-mono leading-none">
@@ -185,24 +176,18 @@ export default function Hero() {
               </span>
             </div>
 
-            {/* Vertical arm content — drops below the (1) circle along the right arm */}
             <div className="absolute top-5 right-0 w-5 bottom-0 flex flex-col items-center pt-2 gap-2">
               <span className="w-px h-6 bg-brand-ink/30" />
               <span
                 className="font-mono text-[10px] tracking-[0.42em] uppercase text-brand-ink/65 whitespace-nowrap"
                 style={{ writingMode: 'vertical-rl' }}
               >
-                01 / Pharmacy operations
+                {heroTexts.annotationTag}
               </span>
             </div>
           </div>
 
-          {/* Title overflow bleed — type crosses the image's bottom edge.
-              translateY(40%) shifts the word UP so 60% of the text sits on the photo (white)
-              and only 40% bleeds below into the page-white (dark green). Gradient stops track
-              the translate so the color change still lines up with the image edge.
-              leading-[1.15] gives the "g" descender room inside the element so background-clip:text
-              fills the entire glyph. */}
+          {/* Title overflow bleed */}
           <div
             aria-hidden="true"
             className="absolute right-2 sm:right-4 lg:right-8 pointer-events-none z-[3] select-none font-sans font-bold leading-[1.15] tracking-[-0.035em] whitespace-nowrap"
@@ -218,16 +203,17 @@ export default function Hero() {
               color: 'transparent',
             }}
           >
-            intelligent.
+            {heroTexts.titleBleed}
           </div>
 
           {/* Button flush with image's bottom-left corner */}
-          <a
-            href="#solutions"
-            className="absolute left-0 bottom-0 inline-flex items-center rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-colors shadow-lg shadow-black/25 z-10"
+          <button
+            type="button"
+            onClick={() => openDemoModal('demo')}
+            className="absolute left-0 bottom-0 inline-flex items-center rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-all duration-200 shadow-lg shadow-black/25 z-10 cursor-pointer hover:-translate-y-0.5"
           >
-            Learn about Nyronx Enterprise
-          </a>
+            {heroTexts.ctaBtn}
+          </button>
         </div>
       </div>
     </section>

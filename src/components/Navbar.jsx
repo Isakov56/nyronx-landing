@@ -1,42 +1,38 @@
 import { useState, useEffect } from 'react'
 import { Logo, ChevronDown } from './Icons.jsx'
+import { useLanguage } from '../context/LanguageContext.jsx'
+import { useModal } from '../context/ModalContext.jsx'
 
-const serveItems = [
-  { title: 'Pharmacy Benefit Managers', blurb: 'Take control of your future' },
-  { title: 'Pharmacies', blurb: 'Solutions designed to strengthen your business' },
-  { title: 'Health Systems', blurb: 'Build on your expertise while taking advantage of ours' },
-  { title: 'Employers', blurb: 'Take control of your pharmacy benefit strategy' },
-  { title: 'Health Plans', blurb: "Rethink what's possible with your pharmacy benefits" },
-  { title: 'Consumers', blurb: 'Making pharmacy more affordable, accessible, and effortless' },
-]
-
-const solutionsItems = [
-  { title: 'Nyronx Enterprise', blurb: 'Modern adjudication built for scale' },
-  { title: 'Nyronx Business Intelligence', blurb: 'Real-time analytics and reporting' },
-  { title: 'Nyronx Price AI', blurb: 'AI-driven pricing optimization' },
-  { title: 'Discount Cards', blurb: 'Flexible savings programs' },
-  { title: 'Nyronx Autosave', blurb: 'Lowest price, automatically' },
-  { title: 'Pharmacy Solutions', blurb: 'Tools for pharmacy partners' },
-]
-
-function MenuPanel({ items }) {
+function MenuPanel({ items, onItemClick }) {
   return (
     <div className="grid grid-cols-2 gap-x-10 gap-y-4 p-5">
       {items.map((it) => (
-        <a key={it.title} href="#" className="group block rounded-2xl px-3 py-2.5 hover:bg-brand-primary/[0.06] transition-colors">
+        <a
+          key={it.title}
+          href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            if (onItemClick) onItemClick(it)
+          }}
+          className="group block rounded-2xl px-3 py-2.5 hover:bg-brand-primary/[0.06] transition-colors"
+        >
           <div className="text-[14px] font-semibold text-brand-ink group-hover:text-brand-primary mb-0.5 transition-colors">
             {it.title}
           </div>
-          <div className="text-[12px] text-brand-slate leading-snug">{it.blurb}</div>
+          {it.blurb && (
+            <div className="text-[12px] text-brand-slate leading-snug">{it.blurb}</div>
+          )}
         </a>
       ))}
     </div>
   )
 }
 
-export default function Navbar() {
+export default function Navbar({ currentPage = 'home', onNavigate }) {
   const [openMenu, setOpenMenu] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { language, setLanguage, t } = useLanguage()
+  const { openDemoModal } = useModal()
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
@@ -45,33 +41,64 @@ export default function Navbar() {
     }
   }, [mobileOpen])
 
+  const navNavbar = t('navbar') || {}
+  const serveItems = navNavbar.serveItems || []
+  const solutionsItems = navNavbar.solutionsItems || []
+
+  const handleNavClick = (target, isPage = false) => {
+    setOpenMenu(null)
+    setMobileOpen(false)
+    if (isPage && onNavigate) {
+      onNavigate(target)
+    } else if (onNavigate) {
+      if (currentPage !== 'home') {
+        onNavigate('home')
+        setTimeout(() => {
+          const el = document.querySelector(target)
+          if (el) el.scrollIntoView({ behavior: 'smooth' })
+        }, 100)
+      } else {
+        const el = document.querySelector(target)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
   const navLinks = [
-    { key: 'serve', label: 'Who we serve', dropdown: serveItems },
-    { key: 'solutions', label: 'Solutions', dropdown: solutionsItems },
-    { key: 'work', label: 'Working with us', href: '#partnership' },
-    { key: 'news', label: 'News & insights', href: '#news' },
+    { key: 'serve', label: navNavbar.serve || 'Nima uchun Nyronx?', dropdown: serveItems },
+    { key: 'solutions', label: navNavbar.solutions || 'Yechimlar', dropdown: solutionsItems },
+    { key: 'prices', label: navNavbar.pricing || 'Narxlar', page: 'prices' },
+    { key: 'partnership', label: navNavbar.partnership || 'Hamkorlik', href: '#partnership' },
+    { key: 'news', label: navNavbar.news || 'Resurslar', href: '#news' },
   ]
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 py-4"
+      className="fixed inset-x-0 top-0 z-50 py-4 font-sans select-none"
       onMouseLeave={() => setOpenMenu(null)}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <nav
-          className="relative flex items-center gap-2 rounded-full px-3 py-2"
+          className="relative flex items-center gap-2 rounded-full px-4 py-2 bg-white"
           style={{
-            background: '#ffffff',
             filter:
               'drop-shadow(0 1px 3px rgba(14,26,20,0.06)) drop-shadow(0 0 8px rgba(14,26,20,0.06))',
           }}
         >
-          <a href="#" className="shrink-0 ml-1.5 inline-flex items-center text-brand-ink">
-            <Logo className="h-8" />
+          {/* Logo */}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault()
+              handleNavClick('home', true)
+            }}
+            className="shrink-0 ml-1.5 inline-flex items-center text-brand-ink hover:opacity-90 transition-opacity"
+          >
+            <Logo className="h-8 w-auto" />
           </a>
 
           {/* Desktop links */}
-          <ul className="ml-6 hidden lg:flex items-center gap-1 text-sm">
+          <ul className="ml-6 hidden lg:flex items-center gap-1 text-sm font-semibold">
             {navLinks.map((l) =>
               l.dropdown ? (
                 <li
@@ -82,27 +109,22 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => setOpenMenu((m) => (m === l.key ? null : l.key))}
-                    className={`flex items-center gap-1 rounded-full px-3.5 py-2 font-medium transition-colors ${
-                      openMenu === l.key
-                        ? 'text-brand-ink'
-                        : 'text-brand-slate hover:text-brand-ink'
-                    }`}
+                    className={`flex items-center gap-1 rounded-full px-3.5 py-2 font-semibold transition-colors cursor-pointer ${openMenu === l.key
+                        ? 'text-brand-ink bg-gray-100/80'
+                        : 'text-brand-slate hover:text-brand-ink hover:bg-gray-50'
+                      }`}
                     aria-haspopup="true"
                     aria-expanded={openMenu === l.key}
                   >
                     {l.label}
                     <ChevronDown
-                      className={`w-3 h-3 transition-transform ${openMenu === l.key ? 'rotate-180' : ''}`}
+                      className={`w-3.5 h-3.5 transition-transform duration-200 ${openMenu === l.key ? 'rotate-180 text-brand-ink' : ''
+                        }`}
                     />
                   </button>
 
-                  {/* Per-button dropdown — clipped to a single tab+panel silhouette.
-                      NO shadow here. The parent <nav>'s filter:drop-shadow renders nav + dropdown
-                      as ONE combined alpha, so the shadow naturally traces the outside of the
-                      union (pill + bridge + panel) and disappears where they overlap. That's why
-                      pill and bridge read as one entity instead of two stacked layers. */}
+                  {/* Dropdown panel */}
                   {openMenu === l.key && (() => {
-                    // Per-menu height — serve has 2-line blurbs, solutions has 1-line.
                     const h = l.key === 'serve' ? 360 : 304
                     return (
                       <div
@@ -118,23 +140,46 @@ export default function Navbar() {
                             width: '560px',
                             height: `${h}px`,
                             background: '#ffffff',
-                            clipPath: `path("M 26 0 L 158 0 Q 172 0 172 14 L 150 14 Q 140 14 140 24 Q 140 34 150 34 L 532 34 Q 560 34 560 62 L 560 ${h - 28} Q 560 ${h} 532 ${h} L 28 ${h} Q 0 ${h} 0 ${h - 28} L 0 62 Q 0 34 28 34 L 34 34 Q 44 34 44 24 Q 44 14 34 14 L 12 14 Q 12 0 26 0 Z")`,
+                            clipPath: `path("M 26 0 L 158 0 Q 172 0 172 14 L 150 14 Q 140 14 140 24 Q 140 34 150 34 L 532 34 Q 560 34 560 62 L 560 ${h - 28
+                              } Q 560 ${h} 532 ${h} L 28 ${h} Q 0 ${h} 0 ${h - 28
+                              } L 0 62 Q 0 34 28 34 L 34 34 Q 44 34 44 24 Q 44 14 34 14 L 12 14 Q 12 0 26 0 Z")`,
                           }}
                         >
                           <div className="pt-12">
-                            <MenuPanel items={l.dropdown} />
+                            <MenuPanel
+                              items={l.dropdown}
+                              onItemClick={() => setOpenMenu(null)}
+                            />
                           </div>
                         </div>
                       </div>
                     )
                   })()}
                 </li>
+              ) : l.page ? (
+                <li key={l.key}>
+                  <button
+                    type="button"
+                    onClick={() => handleNavClick(l.page, true)}
+                    onMouseEnter={() => setOpenMenu(null)}
+                    className={`block rounded-full px-3.5 py-2 font-semibold transition-colors cursor-pointer ${currentPage === l.page
+                        ? 'text-brand-ink font-bold bg-gray-100/80'
+                        : 'text-brand-slate hover:text-brand-ink hover:bg-gray-50'
+                      }`}
+                  >
+                    {l.label}
+                  </button>
+                </li>
               ) : (
                 <li key={l.key}>
                   <a
                     href={l.href}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleNavClick(l.href)
+                    }}
                     onMouseEnter={() => setOpenMenu(null)}
-                    className="block rounded-full px-3.5 py-2 font-medium text-brand-slate hover:text-brand-ink transition-colors"
+                    className="block rounded-full px-3.5 py-2 font-semibold text-brand-slate hover:text-brand-ink hover:bg-gray-50 transition-colors"
                   >
                     {l.label}
                   </a>
@@ -143,34 +188,44 @@ export default function Navbar() {
             )}
           </ul>
 
-          <div className="ml-auto flex items-center gap-2">
-            <a
-              href="#about"
-              className="hidden sm:inline-flex h-9 items-center rounded-full px-4 text-sm font-medium text-brand-slate hover:text-brand-ink transition-colors"
-            >
-              About
-            </a>
-            <a
-              href="/downloads/nyronx-setup.exe"
-              download
-              className="hidden md:inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm font-semibold bg-brand-ink text-white hover:bg-black transition-colors"
-              title="Download nyronX for Windows"
-            >
-              {/* Windows logo — 4-square inline SVG, no icon-library dep. */}
-              <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="currentColor" aria-hidden="true">
-                <path d="M0 2.5L6.5 1.6V7.5H0V2.5zM7.5 1.45L16 0v8H7.5V1.45zM0 8.5h6.5v5.9L0 13.5V8.5zm7.5 0H16V16l-8.5-1.5V8.5z" />
-              </svg>
-              Download for Windows
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex h-9 items-center rounded-full px-4 text-sm font-semibold bg-brand-primary text-white hover:bg-brand-deep transition-colors"
-              style={{ boxShadow: '0 8px 24px -8px rgba(31,165,108,0.55)' }}
-            >
-              Contact us
-            </a>
+          {/* Right side: Language Switcher + Demo CTA */}
+          <div className="ml-auto flex items-center gap-2.5">
+            {/* Dual Segmented Language Pill */}
+            <div className="flex items-center p-0.5 rounded-full bg-gray-100/90 border border-black/[0.06] text-xs">
+              <button
+                type="button"
+                onClick={() => setLanguage('uz')}
+                className={`px-2.5 py-1 rounded-full font-bold transition-all duration-200 cursor-pointer ${language === 'uz'
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-gray-500 hover:text-brand-ink'
+                  }`}
+              >
+                UZ
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('ru')}
+                className={`px-2.5 py-1 rounded-full font-bold transition-all duration-200 cursor-pointer ${language === 'ru'
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-gray-500 hover:text-brand-ink'
+                  }`}
+              >
+                RU
+              </button>
+            </div>
+
+            {/* Demo Olish CTA Button (Contact us / Demo) */}
             <button
-              className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-full text-brand-ink"
+              type="button"
+              onClick={() => openDemoModal('demo')}
+              className="inline-flex h-9 items-center rounded-full px-5 text-sm font-semibold bg-brand-primary text-white hover:bg-brand-deep transition-all duration-200 cursor-pointer shadow-md shadow-brand-primary/20 hover:-translate-y-0.5"
+            >
+              {navNavbar.contact || (language === 'uz' ? 'Demo olish' : 'Получить демо')}
+            </button>
+
+            {/* Mobile Toggle */}
+            <button
+              className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-full text-brand-ink hover:bg-gray-100"
               onClick={() => setMobileOpen((o) => !o)}
               aria-label="Toggle menu"
             >
@@ -186,7 +241,6 @@ export default function Navbar() {
             </button>
           </div>
         </nav>
-
       </div>
 
       {/* Mobile drawer */}
@@ -199,42 +253,44 @@ export default function Navbar() {
             WebkitBackdropFilter: 'blur(20px)',
           }}
         >
-          <div className="px-6 py-6 flex flex-col gap-2">
-            {navLinks.map((l) => (
-              <a
-                key={l.key}
-                href={l.href || '#'}
-                onClick={() => setMobileOpen(false)}
-                className="text-base text-brand-ink py-3 border-b border-black/5"
-              >
-                {l.label}
-              </a>
-            ))}
-            <a
-              href="#about"
-              onClick={() => setMobileOpen(false)}
-              className="text-base text-brand-ink py-3 border-b border-black/5"
+          <div className="px-6 py-6 flex flex-col gap-2 font-semibold text-brand-ink">
+            {navLinks.map((l) =>
+              l.page ? (
+                <button
+                  key={l.key}
+                  onClick={() => handleNavClick(l.page, true)}
+                  className="text-left text-base text-brand-ink py-3 border-b border-black/5"
+                >
+                  {l.label}
+                </button>
+              ) : (
+                <a
+                  key={l.key}
+                  href={l.href || '#'}
+                  onClick={(e) => {
+                    if (l.href) {
+                      e.preventDefault()
+                      handleNavClick(l.href)
+                    } else {
+                      setMobileOpen(false)
+                    }
+                  }}
+                  className="text-base text-brand-ink py-3 border-b border-black/5"
+                >
+                  {l.label}
+                </a>
+              )
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false)
+                openDemoModal('demo')
+              }}
+              className="inline-flex items-center justify-center rounded-full bg-brand-primary text-white px-5 py-3 text-sm font-semibold mt-4 shadow-md"
             >
-              About
-            </a>
-            <a
-              href="/downloads/nyronx-setup.exe"
-              download
-              onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-ink text-white px-5 py-3 text-sm font-semibold mt-4"
-            >
-              <svg viewBox="0 0 16 16" className="w-4 h-4" fill="currentColor" aria-hidden="true">
-                <path d="M0 2.5L6.5 1.6V7.5H0V2.5zM7.5 1.45L16 0v8H7.5V1.45zM0 8.5h6.5v5.9L0 13.5V8.5zm7.5 0H16V16l-8.5-1.5V8.5z" />
-              </svg>
-              Download for Windows
-            </a>
-            <a
-              href="#contact"
-              onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center rounded-full bg-brand-primary text-white px-5 py-3 text-sm font-semibold mt-2"
-            >
-              Contact us
-            </a>
+              {navNavbar.contact || (language === 'uz' ? 'Demo olish' : 'Получить демо')}
+            </button>
           </div>
         </div>
       )}

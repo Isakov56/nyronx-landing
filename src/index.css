@@ -32,7 +32,7 @@
     @apply font-sans text-brand-ink antialiased bg-white;
   }
   h2, h3, h4 {
-    @apply font-display tracking-tight;
+    @apply font-sans tracking-tight;
   }
 }
 
@@ -69,4 +69,13 @@
   .container-x {
     @apply max-w-7xl mx-auto px-6 lg:px-10;
   }
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -1,59 +1,6 @@
 import { useState } from 'react'
 import { ArrowRight } from './Icons.jsx'
-
-const plans = [
-  {
-    name: 'Basic',
-    tag: 'Single store',
-    pricing: { USD: 25, UZS: 299000 },
-    description:
-      'For independent pharmacies starting out — everything you need to run one store from day one.',
-    features: [
-      'Up to 1 store',
-      'Up to 5 team members',
-      'Inventory management essentials',
-      'Full POS system',
-      'Customer database',
-      'Supplier records',
-      'Returns & refunds workflow',
-      'Multi-payment methods',
-      'Summary reports',
-      'Dashboard access',
-    ],
-    cta: 'Start with Basic',
-    highlighted: false,
-  },
-  {
-    name: 'Premium',
-    tag: 'Multi-store',
-    pricing: { USD: 30, UZS: 359000 },
-    description:
-      'For multi-branch networks — scale to unlimited stores with advanced analytics and priority support.',
-    features: [
-      'Unlimited stores',
-      'Unlimited team members',
-      'Advanced inventory management',
-      'Full POS system',
-      'Customer insights & loyalty',
-      'Suppliers & purchase orders',
-      'Returns & refunds workflow',
-      'Multi-payment methods',
-      'Promotions & discounts engine',
-      'Detailed reports with charts',
-      'Export reports (CSV / PDF)',
-      'Priority support',
-    ],
-    cta: 'Go Premium',
-    highlighted: true,
-  },
-]
-
-const allInclude = [
-  'No setup fees',
-  'Cancel anytime',
-  'Instant activation',
-  'Secure storage + daily backups',
-]
+import { useLanguage } from '../context/LanguageContext.jsx'
 
 const formatPrice = (price, currency) => {
   if (currency === 'UZS') {
@@ -64,52 +11,59 @@ const formatPrice = (price, currency) => {
 
 export default function Pricing() {
   const [currency, setCurrency] = useState('UZS')
+  const { t } = useLanguage()
+
+  const allInclude = t('pricing.allInclude') || []
+  const plansData = t('pricing.plans') || []
+  const plans = plansData.map((p, i) => ({
+    ...p,
+    pricing: i === 0 ? { USD: 25, UZS: 299000 } : { USD: 30, UZS: 359000 },
+    highlighted: i === 1
+  }))
 
   return (
     <section id="pricing" className="py-16 lg:py-20 bg-brand-cream">
       <div className="container-x grid lg:grid-cols-12 gap-8 lg:gap-12">
         <div className="lg:col-span-5 lg:sticky lg:top-24 lg:self-start">
-          <p className="text-sm tracking-widest uppercase text-brand-primary font-medium mb-3">
-            Plans & pricing
+          <p className="text-base tracking-widest uppercase text-brand-primary font-bold mb-3">
+            {t('pricing.subtitle')}
           </p>
-          <h2 className="text-4xl lg:text-5xl text-brand-forest mb-4 leading-[1.05]">
-            One platform, <span className="italic">two ways</span> to start.
+          <h2 className="text-[44px] lg:text-[56px] text-[#1A1D1F] font-extrabold mb-4 leading-[1.1] tracking-tight">
+            {t('pricing.titlePart1')} <span className="text-brand-accent">{t('pricing.titlePart2')}</span>
           </h2>
-          <p className="text-base text-brand-ink/70 mb-6">
-            Pick the plan that fits your stage. Upgrade anytime without losing data — every plan ships with secure storage, daily backups, and email support.
+          <p className="text-xl text-brand-slate mb-8 leading-relaxed">
+            {t('pricing.description')}
           </p>
 
           <div className="inline-flex items-center gap-1 p-1 bg-white rounded-full border border-brand-forest/10">
             <button
               onClick={() => setCurrency('UZS')}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                currency === 'UZS'
+              className={`px-5 py-2.5 rounded-full text-[15px] font-semibold transition-colors ${currency === 'UZS'
                   ? 'bg-brand-forest text-white'
                   : 'text-brand-ink/60 hover:text-brand-forest'
-              }`}
+                }`}
             >
               UZS
             </button>
             <button
               onClick={() => setCurrency('USD')}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                currency === 'USD'
+              className={`px-5 py-2.5 rounded-full text-[15px] font-semibold transition-colors ${currency === 'USD'
                   ? 'bg-brand-forest text-white'
                   : 'text-brand-ink/60 hover:text-brand-forest'
-              }`}
+                }`}
             >
               USD
             </button>
           </div>
 
-          <div className="mt-7 pt-6 border-t border-brand-forest/10">
-            <p className="text-xs tracking-widest uppercase text-brand-ink/40 mb-3">
-              All plans include
+          <div className="mt-8 pt-8 border-t border-brand-forest/10">
+            <p className="text-sm tracking-widest uppercase text-brand-ink/40 font-bold mb-4">
+              {t('pricing.allIncludeTitle') || 'Barchasiga kiritilgan'}
             </p>
-            <ul className="text-sm text-brand-ink/70 space-y-2">
+            <ul className="text-base text-brand-ink/75 space-y-3 font-medium">
               {allInclude.map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-primary" />
+                <li key={item} className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-brand-primary" />
                   {item}
                 </li>
               ))}
@@ -117,84 +71,77 @@ export default function Pricing() {
           </div>
         </div>
 
-        <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
+        <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5 lg:gap-6">
           {plans.map((plan) => {
             const dark = plan.highlighted
             return (
               <article
                 key={plan.name}
-                className={`group rounded-2xl p-6 lg:p-7 border transition-all duration-300 flex flex-col ${
-                  dark
+                className={`group rounded-[28px] p-7 lg:p-8 border transition-all duration-300 flex flex-col ${dark
                     ? 'bg-brand-forest text-white border-brand-forest shadow-[0_22px_50px_-25px_rgba(15,61,46,0.5)]'
-                    : 'bg-white text-brand-ink border-black/5 hover:border-brand-forest/20 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-25px_rgba(15,61,46,0.3)]'
-                }`}
+                    : 'bg-white text-brand-ink border-black/5 hover:border-brand-forest/20 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(15,61,46,0.15)]'
+                  }`}
               >
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-2 mb-5">
                   <span
-                    className={`w-1.5 h-1.5 rounded-full ${dark ? 'bg-brand-mint' : 'bg-brand-primary'}`}
+                    className={`w-2 h-2 rounded-full ${dark ? 'bg-brand-mint' : 'bg-brand-primary'}`}
                   />
                   <div
-                    className={`text-[11px] tracking-widest uppercase ${
-                      dark ? 'text-brand-mint' : 'text-brand-primary'
-                    }`}
+                    className={`text-xs tracking-widest uppercase font-bold ${dark ? 'text-brand-mint' : 'text-brand-primary'
+                      }`}
                   >
                     {plan.tag}
                   </div>
                 </div>
 
                 <h3
-                  className={`text-2xl mb-1 leading-tight ${
-                    dark ? 'text-white' : 'text-brand-forest'
-                  }`}
+                  className={`text-[32px] font-bold mb-3 leading-[1.25] tracking-tight ${dark ? 'text-white' : 'text-[#1A1D1F]'
+                    }`}
                 >
                   {plan.name}
                 </h3>
                 <p
-                  className={`text-sm mb-5 leading-relaxed ${
-                    dark ? 'text-white/75' : 'text-brand-ink/70'
-                  }`}
+                  className={`text-lg mb-6 flex-1 leading-[1.65] ${dark ? 'text-white/80' : 'text-brand-slate'
+                    }`}
                 >
                   {plan.description}
                 </p>
 
-                <div className="mb-5">
+                <div className="mb-6">
                   <span
-                    className={`text-3xl lg:text-4xl font-bold tracking-tight ${
-                      dark ? 'text-white' : 'text-brand-forest'
-                    }`}
+                    className={`text-[40px] lg:text-[48px] font-bold tracking-tight ${dark ? 'text-white' : 'text-brand-forest'
+                      }`}
                   >
                     {formatPrice(plan.pricing[currency], currency)}
                   </span>
                   <span
-                    className={`text-sm ml-1.5 ${dark ? 'text-white/55' : 'text-brand-ink/50'}`}
+                    className={`text-base font-medium ml-2 ${dark ? 'text-white/60' : 'text-brand-ink/50'}`}
                   >
-                    /month
+                    /oy
                   </span>
                 </div>
 
-                <ul className="space-y-2.5 mb-6 flex-1">
+                <ul className="space-y-3 mb-8">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm">
+                    <li key={f} className="flex items-start gap-3 text-[17px]">
                       <span
-                        className={`shrink-0 mt-[7px] w-1 h-1 rounded-full ${
-                          dark ? 'bg-brand-mint' : 'bg-brand-forest/60'
-                        }`}
+                        className={`shrink-0 mt-2 w-1.5 h-1.5 rounded-full ${dark ? 'bg-brand-mint' : 'bg-brand-forest/60'
+                          }`}
                       />
-                      <span className={dark ? 'text-white/85' : 'text-brand-ink/75'}>{f}</span>
+                      <span className={dark ? 'text-white/90' : 'text-brand-ink/80 font-medium'}>{f}</span>
                     </li>
                   ))}
                 </ul>
 
                 <a
                   href="#contact"
-                  className={`inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-colors ${
-                    dark
+                  className={`inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 rounded-full text-lg font-bold transition-colors mt-auto ${dark
                       ? 'bg-brand-mint text-brand-forest hover:bg-white'
                       : 'bg-brand-forest text-white hover:bg-brand-deep'
-                  }`}
+                    }`}
                 >
                   {plan.cta}
-                  <ArrowRight />
+                  <ArrowRight className="w-5 h-5 stroke-[2.5]" />
                 </a>
               </article>
             )
