@@ -29,6 +29,19 @@ export const translations = {
         { title: 'Dorixona yechimlari', blurb: 'Dorixona hamkorlari uchun vositalar' },
       ]
     },
+    caseStudies: {
+      subtitle: 'AMALIY DALILLAR',
+      titlePart1: 'Tushunchalarni',
+      titlePart2: 'natijalarga aylantiramiz.',
+      description: 'Xarajatlarni kamaytirishdan tortib tezkor ishga tushirish va mamnun mijozlargacha — real natijalarimiz bilan tanishing.',
+      button: 'Keyslarni ko\'rib chiqish',
+      items: [
+        { tag: 'Sog\'liqni saqlash', stat: '32%', label: 'rejali xarajatlar kamayishi' },
+        { tag: 'Ish beruvchi', stat: '$4.2M', label: 'birinchi yildagi mijozlar tejashi' },
+        { tag: 'PBM', stat: '8 hafta', label: 'shartnomadan jonli tizimgacha' },
+        { tag: 'Dorixona', stat: '99.9%', label: 'kafolatlangan tizim barqarorligi' }
+      ]
+    },
     trustMarquee: {
       count: '200 dan ortiq',
       titleLead: 'dorixona va klinikalar',
@@ -120,8 +133,8 @@ export const translations = {
     },
     solutions: {
       subtitle: 'Amalda yechimlar',
-      titlePart1: 'Retseptlarni',
-      titlePart2: 'hamma uchun yaxshilaymiz.',
+      titlePart1: 'Tushunchalarni',
+      titlePart2: 'natijalarga aylantiramiz.',
       description: 'Bitta platforma, g\'alaba qozonishning ko\'plab usullari — xarajatlarni kamaytirishdan tortib tezkor ishga tushirishgacha. Tushunchalarni o\'lchanadigan natijalarga aylantiruvchi mahsulotlar bilan tanishing.',
       button: 'Keyslarni ko\'rib chiqish',
       filterTitle: 'Toifa bo\'yicha filtrlash',
@@ -238,7 +251,8 @@ export const translations = {
     },
     inAction: {
       chapter: '02 / Amalda',
-      title: 'Nyronx ni ish jarayonida ko\'ring.',
+      titlePart1: 'Nyronx ni',
+      titlePart2: "ish jarayonida ko'ring.",
       description: 'Nyronx da ishlaydigan mustaqil dorixonalar — qishloq shoxobchalaridan tortib uzoq muddatli parvarishgacha, tayyorlash laboratoriyalaridan ko\'p do\'konli tarmoqlargacha.',
       cta: 'Konsultatsiya yozilish',
       slides: [
@@ -419,6 +433,19 @@ export const translations = {
         { title: 'Аптечные решения', blurb: 'Инструменты для партнеров-аптек' },
       ]
     },
+    caseStudies: {
+      subtitle: 'ДОКАЗАНО НА ПРАКТИКЕ',
+      titlePart1: 'Превращаем аналитику',
+      titlePart2: 'в реальные результаты.',
+      description: 'От сокращения расходов до быстрого внедрения и счастливых клиентов — ознакомьтесь с нашими реальными результатами.',
+      button: 'Смотреть кейсы',
+      items: [
+        { tag: 'Система здравоохранения', stat: '32%', label: 'сокращение расходов на план' },
+        { tag: 'Работодатель', stat: '$4.2M', label: 'экономия клиентов в первый год' },
+        { tag: 'PBM', stat: '8 недель', label: 'от контракта до запуска' },
+        { tag: 'Аптека', stat: '99.9%', label: 'надежность и аптайм системы' }
+      ]
+    },
     trustMarquee: {
       count: 'Более 200',
       titleLead: 'аптек и клиник',
@@ -510,8 +537,8 @@ export const translations = {
     },
     solutions: {
       subtitle: 'Решения на практике',
-      titlePart1: 'Улучшаем рецепты',
-      titlePart2: 'для каждого.',
+      titlePart1: 'Превращаем аналитику',
+      titlePart2: 'в реальные результаты.',
       description: 'Одна платформа, множество способов выиграть — от сокращения расходов до быстрого старта. Изучите продукты, которые превращают инсайты в измеримые результаты.',
       button: 'Просмотр кейсов',
       filterTitle: 'Фильтр по категориям',
@@ -628,7 +655,8 @@ export const translations = {
     },
     inAction: {
       chapter: '02 / В действии',
-      title: 'Посмотрите Nyronx в работе.',
+      titlePart1: 'Посмотрите Nyronx',
+      titlePart2: 'в работе.',
       description: 'Независимые аптеки, работающие на Nyronx — от сельских прилавков до долгосрочного ухода, от производственных лабораторий до многомагазинных сетей.',
       cta: 'Записаться на консультацию',
       slides: [
@@ -778,5 +806,411 @@ export const translations = {
       terms: 'Условия предоставления услуг',
       hipaa: 'HIPAA'
     }
+  },
+  en: {
+    navbar: {
+      serve: 'Why Nyronx?',
+      solutions: 'Solutions',
+      pricing: 'Pricing',
+      partnership: 'Partnership',
+      news: 'Resources',
+      about: 'Company',
+      contact: 'Get Demo',
+      login: 'Sign In',
+      managerContact: 'Contact sales manager:',
+      managerPhone: '+998 78 113 60 14',
+      download: 'For Windows',
+      serveItems: [
+        { title: 'Pharmacy Chains', blurb: 'Solutions engineered to power your business growth' },
+        { title: 'For Medicine Distributors', blurb: 'Take complete control over your distribution' },
+        { title: 'Clinics & Hospitals', blurb: 'Empower clinical workflows with built-in pharmacy tools' },
+        { title: 'Employers', blurb: 'Gain control over employee pharmacy benefit strategies' },
+        { title: 'Healthcare Plans', blurb: 'Reimagine what your prescription benefits can achieve' },
+        { title: 'Consumers', blurb: 'Making medication access affordable and effortless' },
+      ],
+      solutionsItems: [
+        { title: 'Nyronx Enterprise', blurb: 'Modern platform built to scale pharmacy operations' },
+        { title: 'Nyronx Business Intelligence', blurb: 'Real-time analytics and financial reports' },
+        { title: 'Nyronx Price AI', blurb: 'AI-driven dynamic pricing and margin optimization' },
+        { title: 'Discount Cards', blurb: 'Flexible customer savings & loyalty programs' },
+        { title: 'Nyronx Autosave', blurb: 'Automated best price guarantee for prescriptions' },
+        { title: 'Pharmacy Solutions', blurb: 'Smart tools designed for partner pharmacies' },
+      ]
+    },
+    caseStudies: {
+      subtitle: 'PROOF IN PRACTICE',
+      titlePart1: 'Turning insights into',
+      titlePart2: 'impact.',
+      description: 'See how we deliver value with real-world results — from cost containment to faster onboarding to happier members.',
+      button: 'Browse case studies',
+      items: [
+        { tag: 'Health System', stat: '32%', label: 'reduction in net plan spend' },
+        { tag: 'Employer', stat: '$4.2M', label: 'in member savings, year one' },
+        { tag: 'PBM', stat: '8 weeks', label: 'from contract to live adjudication' },
+        { tag: 'Pharmacy', stat: '99.9%', label: 'claims uptime SLA' }
+      ]
+    },
+    trustMarquee: {
+      count: 'Over 200+',
+      titleLead: 'pharmacies and clinics',
+      titleMain: 'save hundreds of hours with Nyronx, boost sales volume, and elevate patient care quality.',
+      row1: [
+        {
+          name: 'Bobur Zokirov',
+          role: 'Owner, “Dori Dunyo” Pharmacy Chain',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+          text: 'Our customer count grew by 25%, while stock intake time dropped by half. With Nyronx, we have total real-time control over inventory.'
+        },
+        {
+          name: 'Amir Ghouri',
+          role: 'Chief Physician, “Medlife” Clinic',
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+          text: 'Automating medication tracking across 15+ branches became effortless with Nyronx. Stock balances and audit reports generate automatically.'
+        },
+        {
+          name: 'Rustam Esanov',
+          role: 'Director, “Baraka Pharma”',
+          avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+          text: 'Thanks to the intuitive UI, our cashiers mastered the system in just 1 day. Sales analytics truly guide our strategic decisions.'
+        },
+        {
+          name: 'Shakhnoza Aliyeva',
+          role: 'Manager, “Al-Shifa” Medical Center',
+          avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+          text: 'Prescription fulfillment time dropped by 3x. Queue waiting times practically disappeared. Big thanks to the Nyronx support team!'
+        }
+      ],
+      row2: [
+        {
+          name: 'Yuliya Pak',
+          role: 'Supply Chain Director, “Pharma Plus”',
+          avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80',
+          text: 'We process supply contracts and invoices in under 10 minutes with Nyronx. System optimizations cut overhead costs by 18%.'
+        },
+        {
+          name: 'Amaliya Mosesova',
+          role: 'Co-founder, “Soglom Hayot” Clinics',
+          avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+          text: 'Comparing medication prices and offering the best option to patients is now seamless. Patient satisfaction has increased immensely.'
+        },
+        {
+          name: 'Galina Tkhay',
+          role: 'Head Pharmacist, “Avicenna” Pharmacy',
+          avatar: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=200&q=80',
+          text: 'Automated alerts for expiring medicine saved us millions in losses. It is an absolute life-saver for retail pharmacies.'
+        },
+        {
+          name: 'Javohir Qodirov',
+          role: 'General Manager, “Najot Farm” Network',
+          avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80',
+          text: 'I track revenue and stock movements remotely from anywhere via mobile or desktop. System stability and UI deserve a 10/10.'
+        }
+      ]
+    },
+    industryFit: {
+      titlePart1: 'NYRONX',
+      titlePart2: 'fits every',
+      titlePart3: 'pharmacy and healthcare organization',
+      description: 'No matter the size of your pharmacy or medical institution — all operations are unified and automated in one intelligent software.',
+      categories: [
+        { id: 'retail', name: 'Retail Pharmacies', icon: '💊', img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80' },
+        { id: 'clinic', name: 'Clinics & Hospitals', icon: '🏥', img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80' },
+        { id: 'chain', name: 'Pharmacy Chains', icon: '🏪', img: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1200&q=80' },
+        { id: 'distributor', name: 'Medicine Distributors', icon: '📦', img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80' },
+        { id: 'dental', name: 'Dental Clinics', icon: '🩺', img: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80' },
+        { id: 'lab', name: 'Compounding Labs', icon: '🧪', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80' },
+        { id: 'herbal', name: 'Phyto & Bio Pharmacies', icon: '🌿', img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80' },
+        { id: 'diagnostic', name: 'Diagnostic Centers', icon: '🏢', img: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80' },
+      ]
+    },
+    onboardingSupport: {
+      bannerTitle1: 'We set up.',
+      bannerTitle2: 'We train. Fast deployment.',
+      bannerText: 'Our experts will help you import products, connect hardware, train your team, and provide a',
+      bannerHighlight: '7-day free',
+      bannerTextEnd: 'trial period!',
+      tickerText: 'Free onboarding support & assistance',
+      card1TitlePart1: 'Still tracking inventory',
+      card1TitleHighlight: 'on paper?',
+      card1Description: 'We will help digitize your stock, set up your products, automate pharmacy processes, and train your staff.',
+      card1Button: 'Contact Manager',
+      card2TitleHighlight: 'Switching from',
+      card2TitlePart2: 'another software?',
+      card2Description: 'We ensure a seamless migration without data loss. Our engineers handle database transfers and inventory audits.',
+      card2Button: 'Contact Manager',
+    },
+    solutions: {
+      subtitle: 'Solutions in Practice',
+      titlePart1: 'Turning insights into',
+      titlePart2: 'impact.',
+      description: 'One platform, endless ways to win — from cutting administrative costs to lightning-fast setup. Discover tools built to turn insights into measurable business growth.',
+      button: 'Explore Case Studies',
+      filterTitle: 'Filter by Category',
+      categories: ['All', 'Management & Analytics', 'Rx Savings', 'Pharmacy', 'Consumer'],
+      products: [
+        {
+          cat: 'Management & Analytics',
+          name: 'Nyronx Enterprise',
+          blurb: 'Modern platform built for speed, agility, and end-to-end transparency.',
+          cta: 'Discover Enterprise'
+        },
+        {
+          cat: 'Management & Analytics',
+          name: 'Nyronx Price AI',
+          blurb: 'Automate cost controls with AI-driven dynamic pricing algorithms.',
+          cta: 'Explore Price AI'
+        },
+        {
+          cat: 'Management & Analytics',
+          name: 'Nyronx Pulse',
+          blurb: 'Live dashboard — real-time sales, inventory, and staff performance across branches.',
+          cta: 'Discover Pulse'
+        },
+        {
+          cat: 'Rx Savings',
+          name: 'Discount Cards',
+          blurb: 'Flexible customer savings and loyalty card programs.',
+          cta: 'Learn About Savings Cards'
+        },
+        {
+          cat: 'Rx Savings',
+          name: 'Nyronx Autosave',
+          blurb: 'Benefit comparison engine to automatically guarantee lowest prices.',
+          cta: 'Learn About Autosave'
+        },
+        {
+          cat: 'Pharmacy',
+          name: 'Pharmacy Solutions',
+          blurb: 'High-performance tools for retail and clinical pharmacy partners.',
+          cta: 'View Solutions'
+        },
+        {
+          cat: 'Pharmacy',
+          name: 'Nyronx Voice',
+          blurb: 'Voice-assisted search for medications, inventory lookups, and customer profiles.',
+          cta: 'Discover Voice'
+        },
+        {
+          cat: 'Consumer',
+          name: 'Nyronx Direct',
+          blurb: 'Join thousands saving on prescription medicines with direct access.',
+          cta: 'Discover Direct'
+        }
+      ]
+    },
+    hero: {
+      dynamicWords: ['For Pharmacies,', 'For Clinics,', 'For Distributors,'],
+      titleLine2: 'smart system for',
+      titleLine3: 'smart software.',
+      ctaTry: 'Try Free Demo',
+      ctaWatch: 'Watch Overview',
+      description: 'Nyronx is a modern operating system for pharmacies, clinics, and medicine distributors. Sales, accounting, inventory, and analytics — unified on one platform.',
+      noteTitle: 'A note from the team',
+      noteQuote: '“Pharmacy margin is won in the seconds between scan and adjudication. We built Nyronx to live in those seconds.”',
+      stats: {
+        healthSystem: 'Health Systems',
+        employer: 'Employers',
+        pharmacy: 'Pharmacies'
+      },
+      tagline: 'Independent Pharmacy · FL',
+      chapter: '01 / Pharmacy Operations',
+      cta: 'Explore Nyronx Enterprise'
+    },
+    valueProp: {
+      subtitle: 'Who We Serve',
+      titlePart1: 'Improving prescriptions',
+      titlePart2: 'for everyone,',
+      titlePart3: 'everywhere.',
+      description: 'From PBMs to retail pharmacies and patients picking up medication, our unified platform empowers every audience with the right digital tools.',
+      audienceLabel: 'Audience / ',
+      modularSolutions: 'Modular Solutions',
+      audiences: [
+        {
+          title: 'Pharmacy Chains',
+          blurb: 'Upgrade your tech stack with real-time decision making, predictive analytics, and dynamic pricing.',
+          cta: 'Solutions for Chains'
+        },
+        {
+          title: 'Clinics & Hospitals',
+          blurb: 'Integrate prescription benefits and work with a partner focused on protecting your operational margins.',
+          cta: 'Solutions for Clinics'
+        },
+        {
+          title: 'Medicine Distributors',
+          blurb: 'Improve partner experience and reduce logistics friction with flexible real-time tools.',
+          cta: 'Solutions for Distributors'
+        },
+        {
+          title: 'Retail Pharmacies',
+          blurb: 'Empower community pharmacies with technology to compete, scale, and deliver superior patient care.',
+          cta: 'Solutions for Pharmacies'
+        },
+        {
+          title: 'Employers',
+          blurb: 'Design a modern prescription benefit strategy that works harder for your employees and budget.',
+          cta: 'Solutions for Employers'
+        },
+        {
+          title: 'Consumers',
+          blurb: 'Help patients unlock affordable prescription rates every time they visit the pharmacy.',
+          cta: 'Solutions for Consumers'
+        }
+      ]
+    },
+    inAction: {
+      chapter: '02 / In Action',
+      title: 'See Nyronx in real workflow.',
+      titlePart1: 'See Nyronx in',
+      titlePart2: 'real workflow.',
+      description: 'Pharmacies powered by Nyronx range from rural community shops to long-term care facilities, compounding labs, and multi-store retail chains.',
+      cta: 'Book a Consultation',
+      slides: [
+        {
+          caption: 'Independent Pharmacy · Tampa, FL',
+          metric: 'Avg 3.2s checkout'
+        },
+        {
+          caption: 'Long-term Care · Columbus, OH',
+          metric: '12k Rx / week'
+        },
+        {
+          caption: 'Compounding Lab · Austin, TX',
+          metric: '+6.4% margin growth'
+        }
+      ]
+    },
+    pricing: {
+      subtitle: 'Plans & Pricing',
+      titlePart1: 'One platform,',
+      titlePart2: 'two simple paths to launch.',
+      description: 'Choose the plan suited for your stage. Upgrade anytime without data loss — every tier includes secure cloud storage, daily backups, and email support.',
+      allInclude: [
+        'Zero setup fees',
+        'Cancel anytime',
+        'Instant activation',
+        'Secure storage + daily backups'
+      ],
+      plans: [
+        {
+          name: 'Basic',
+          tag: 'Single Store',
+          description: 'For growing independent pharmacies — everything needed to run a single shop efficiently from day one.',
+          cta: 'Get Started with Basic',
+          features: [
+            'Up to 1 store location',
+            'Up to 5 team accounts',
+            'Core inventory management',
+            'Full POS checkout system',
+            'Customer database',
+            'Supplier management',
+            'Returns & refund workflows',
+            'Multiple payment methods',
+            'Summary financial reports',
+            'Dashboard access'
+          ]
+        },
+        {
+          name: 'Premium',
+          tag: 'Multi-Store',
+          description: 'For multi-branch networks — scale across unlimited stores with advanced analytics and priority 24/7 support.',
+          cta: 'Upgrade to Premium',
+          features: [
+            'Unlimited store locations',
+            'Unlimited team accounts',
+            'Advanced multi-warehouse inventory',
+            'Full POS checkout system',
+            'Customer analytics & loyalty program',
+            'Suppliers & purchase order automation',
+            'Returns & refund workflows',
+            'Multiple payment methods',
+            'Promotions & discount rules engine',
+            'Detailed tabular reporting',
+            'Report exports (CSV / PDF)',
+            'Priority support'
+          ]
+        }
+      ]
+    },
+    partnership: {
+      subtitle: 'PARTNER WITH US',
+      titlePart1: 'Open & trusted ecosystem',
+      titlePart2: 'for all partners.',
+      description: 'Partnership starts with transparency. Join our ecosystem and access resources designed to scale your pharmaceutical and medical enterprise.',
+      items: [
+        {
+          tag: 'Clinical Partner',
+          name: 'Patient Reach & Growth',
+          summary: 'Serving patients directly is our shared priority. Automate prescription dispenses and elevate patient trust with Nyronx.',
+          features: ['E-Prescription Integration', 'Patient Flow Expansion', '24/7 Automated Analytics'],
+          cta: 'Become a Partner'
+        },
+        {
+          tag: 'Technology Partner',
+          name: 'Integration & Open API',
+          summary: 'Connect your existing medical and ERP systems with Nyronx API for real-time secure data exchange.',
+          features: ['Fast RESTful API', '99.99% Guaranteed Uptime', 'Complete Technical Documentation'],
+          cta: 'API Documentation'
+        }
+      ]
+    },
+    news: {
+      subtitle: 'NEWS & INSIGHTS',
+      titlePart1: 'Latest news',
+      titlePart2: 'from our team.',
+      viewAll: 'All Articles',
+      featured: {
+        tag: 'Featured · Award',
+        title: 'Nyronx wins Gold at the TITAN Health Awards',
+        description: 'We won Gold at the 2026 International TITAN Health Awards — recognizing exceptional design and healthcare technology innovation.',
+        readMore: 'Read Article',
+        image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+        badge: '🏆 TITAN Health 2026 Winner'
+      },
+      items: [
+        {
+          type: 'News',
+          title: 'PBM Insourcing Made Easy: Experts Answer Top 5 Questions',
+          date: 'May 2026',
+          readTime: '3 min read',
+          image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          type: 'Case Study',
+          title: 'Independent Accounting & Automation in Modern Health Systems',
+          date: 'Apr 2026',
+          readTime: '5 min read',
+          image: 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          type: 'Insights',
+          title: 'Secrets to Seamless Integration Between Pharmacy Networks and Clinics',
+          date: 'Mar 2026',
+          readTime: '4 min read',
+          image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=400&q=80'
+        }
+      ]
+    },
+    footer: {
+      description: 'Prescription benefits reimagined — innovative technology and services built for forward-thinking organizations.',
+      groups: [
+        {
+          title: 'Solutions',
+          links: ['Nyronx Enterprise', 'Nyronx BI', 'Nyronx Price AI', 'Discount Cards', 'Nyronx Direct']
+        },
+        {
+          title: 'Who We Serve',
+          links: ['PBMs', 'Health Systems', 'Health Plans', 'Pharmacies', 'Employers']
+        },
+        {
+          title: 'Company',
+          links: ['About Us', 'Contact Us', 'Careers', 'Press Center', 'Resources']
+        }
+      ],
+      rights: '© 2026 Nyronx Inc. All rights reserved.',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
+      hipaa: 'HIPAA'
+    }
   }
 };
+

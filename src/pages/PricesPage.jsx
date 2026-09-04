@@ -138,7 +138,7 @@ export default function PricesPage({ onNavigateHome }) {
       const usd = (price / USD_RATE).toFixed(0)
       return '$' + new Intl.NumberFormat('en-US').format(usd)
     }
-    return new Intl.NumberFormat('uz-UZ').format(price) + ' ' + (language === 'uz' ? "so'm" : 'сум')
+    return new Intl.NumberFormat('uz-UZ').format(price) + ' ' + (language === 'uz' ? "so'm" : language === 'ru' ? 'сум' : 'sum')
   }
 
   // 3 Core Plans
@@ -149,7 +149,7 @@ export default function PricesPage({ onNavigateHome }) {
       monthly: 299000,
       annual: 239000,
       isPopular: false,
-      tag: language === 'uz' ? 'Kichik dorixonalar uchun' : 'Для небольших аптек',
+      tag: language === 'uz' ? 'Kichik dorixonalar uchun' : language === 'ru' ? 'Для небольших аптек' : 'For small pharmacies',
     },
     {
       id: 'advanced',
@@ -157,7 +157,7 @@ export default function PricesPage({ onNavigateHome }) {
       monthly: 499000,
       annual: 399000,
       isPopular: true,
-      tag: language === 'uz' ? 'O\'rta va rivojlanayotgan dorixonalar' : 'Для растущих аптек',
+      tag: language === 'uz' ? "O'rta va rivojlanayotgan dorixonalar" : language === 'ru' ? 'Для растущих аптек' : 'For growing pharmacies',
     },
     {
       id: 'pro',
@@ -165,7 +165,7 @@ export default function PricesPage({ onNavigateHome }) {
       monthly: 999000,
       annual: 799000,
       isPopular: false,
-      tag: language === 'uz' ? 'Tarmoqlar va yirik klinikalar' : 'Для сетей аптек и клиник',
+      tag: language === 'uz' ? 'Tarmoqlar va yirik klinikalar' : language === 'ru' ? 'Для сетей аптек и клиник' : 'For pharmacy chains & clinics',
     },
   ]
 
@@ -173,12 +173,14 @@ export default function PricesPage({ onNavigateHome }) {
   const categories = [
     {
       id: 'warehouse',
-      title: language === 'uz' ? 'Omborxona hisobi' : 'Складской учет',
+      title: language === 'uz' ? 'Omborxona hisobi' : language === 'ru' ? 'Складской учет' : 'Inventory Accounting',
       items: [
         {
           name: language === 'uz'
             ? 'Tovarlarni rangi, o\'lchami va boshqa belgilari (doza, seriya) bo\'yicha turkumlash va hisobga olish'
-            : 'Категоризация и учет товаров по дозировкам, сериям и признакам',
+            : language === 'ru'
+            ? 'Категоризация и учет товаров по дозировкам, сериям и признакам'
+            : 'Categorization and inventory tracking by dosage, batch, and attributes',
           start: true,
           advanced: true,
           pro: true,
@@ -186,7 +188,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Tovarlarni o\'lchov birliklari (dona, metr, kilogramm, flakon) bo\'yicha hisobga olish'
-            : 'Учет товаров по единицам измерения (штука, флакон, упаковка, кг)',
+            : language === 'ru'
+            ? 'Учет товаров по единицам измерения (штука, флакон, упаковка, кг)'
+            : 'Inventory tracking by unit of measure (piece, vial, pack, kg)',
           start: true,
           advanced: true,
           pro: true,
@@ -194,7 +198,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Komplektlar va retsept bo\'yicha tayyorlanadigan dori vositalarini hisobga olish'
-            : 'Учет комплектов и рецептурных наборов лекарств',
+            : language === 'ru'
+            ? 'Учет комплектов и рецептурных наборов лекарств'
+            : 'Compounded prescriptions and product kit tracking',
           start: true,
           advanced: true,
           pro: true,
@@ -202,7 +208,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Mahsulotlarga fotosuratlar qo\'shish va dori yo\'riqnomasini ko\'rish'
-            : 'Добавление фотографий к товарам и просмотр инструкций',
+            : language === 'ru'
+            ? 'Добавление фотографий к товарам и просмотр инструкций'
+            : 'Attach product images and view drug insert instructions',
           start: true,
           advanced: true,
           pro: true,
@@ -210,7 +218,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Tovarlar harakati tarixini kuzatish (kirim, chiqim, spetsifikatsiya)'
-            : 'Отслеживание истории движения товаров (приход, расход, списание)',
+            : language === 'ru'
+            ? 'Отслеживание истории движения товаров (приход, расход, списание)'
+            : 'Track complete product movement history (intake, sales, write-offs)',
           start: true,
           advanced: true,
           pro: true,
@@ -218,7 +228,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Tovarlarga opsional xususiyatlarni qo\'shish (Retseptli / Retseptsiz)'
-            : 'Дополнительные свойства товаров (рецептурный / безрецептурный)',
+            : language === 'ru'
+            ? 'Дополнительные свойства товаров (рецептурный / безрецептурный)'
+            : 'Custom product tags and properties (Prescription / OTC)',
           start: true,
           advanced: true,
           pro: true,
@@ -226,7 +238,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Mahsulot narxlarini o\'zgartirish va marja nazorati'
-            : 'Изменение цен на товары и контроль наценки',
+            : language === 'ru'
+            ? 'Изменение цен на товары и контроль наценки'
+            : 'Dynamic price edits and margin markup controls',
           start: true,
           advanced: true,
           pro: true,
@@ -234,7 +248,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Tovarlar narxlarini ro\'yxat bo\'yicha ommaviy o\'zgartirish'
-            : 'Массовое изменение цен по списку или накладной',
+            : language === 'ru'
+            ? 'Массовое изменение цен по списку или накладной'
+            : 'Bulk price updates by list or supplier invoice',
           start: true,
           advanced: true,
           pro: true,
@@ -242,7 +258,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Tovarlarni to\'liq va qisman inventarizatsiya qilish (mobil skaner orqali)'
-            : 'Полная и выборочная инвентаризация (со смартфона или сканера)',
+            : language === 'ru'
+            ? 'Полная и выборочная инвентаризация (со смартфона или сканера)'
+            : 'Full and partial inventory audits (via mobile scanner or phone)',
           start: true,
           advanced: true,
           pro: true,
@@ -250,7 +268,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Asl Belgisi (DataMatrix) markirovkalash va agregatsiya'
-            : 'Маркировка Asl Belgisi (DataMatrix) и агрегация',
+            : language === 'ru'
+            ? 'Маркировка Asl Belgisi (DataMatrix) и агрегация'
+            : 'Asl Belgisi (DataMatrix) serialization & barcode aggregation',
           start: true,
           advanced: true,
           pro: true,
@@ -258,7 +278,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Dorilarning yaroqlilik muddati (Srok) tugashini avtomatik ogohlantirish'
-            : 'Автоматическое оповещение об истечении срока годности',
+            : language === 'ru'
+            ? 'Автоматическое оповещение об истечении срока годности'
+            : 'Automated medication expiration date alert notifications',
           start: false,
           advanced: true,
           pro: true,
@@ -266,7 +288,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Avtomatlashtirilgan dori xaridi va tugash ehtimoli prognozi (AI)'
-            : 'Автоматический дозаказ лекарств и AI прогноз спроса',
+            : language === 'ru'
+            ? 'Автоматический дозаказ лекарств и AI прогноз спроса'
+            : 'Automated stock reordering and AI demand forecasting',
           start: false,
           advanced: false,
           pro: true,
@@ -275,12 +299,14 @@ export default function PricesPage({ onNavigateHome }) {
     },
     {
       id: 'staff',
-      title: language === 'uz' ? 'Xodimlar va rollarni boshqarish' : 'Управление сотрудниками и ролями',
+      title: language === 'uz' ? 'Xodimlar va rollarni boshqarish' : language === 'ru' ? 'Управление сотрудниками и ролями' : 'Staff & Role Management',
       items: [
         {
           name: language === 'uz'
             ? 'Xodimlar uchun rollar (Kassir, Farmatsevt, Bosh hisobchi, Menejer)'
-            : 'Роли для сотрудников (Кассир, Фармацевт, Бухгалтер, Администратор)',
+            : language === 'ru'
+            ? 'Роли для сотрудников (Кассир, Фармацевт, Бухгалтер, Администратор)'
+            : 'Staff role permissions (Cashier, Pharmacist, Accountant, Manager)',
           start: true,
           advanced: true,
           pro: true,
@@ -288,7 +314,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Har bir xodim uchun cheklangan huquqlar va xavfsizlik'
-            : 'Индивидуальные права доступа и безопасность данных',
+            : language === 'ru'
+            ? 'Индивидуальные права доступа и безопасность данных'
+            : 'Granular access rights and data security control',
           start: true,
           advanced: true,
           pro: true,
@@ -296,7 +324,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Kassirlar KPI si va sotuvdan foiz (bonus) hisoblash'
-            : 'Расчет KPI кассиров и процента от продаж (мотивация)',
+            : language === 'ru'
+            ? 'Расчет KPI кассиров и процента от продаж (мотивация)'
+            : 'Cashier KPI tracking and sales commission bonus calculation',
           start: false,
           advanced: true,
           pro: true,
@@ -304,7 +334,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Cheksiz miqdorda xodimlar va kassirlar qo\'shish'
-            : 'Неограниченное количество сотрудников и рабочих мест',
+            : language === 'ru'
+            ? 'Неограниченное количество сотрудников и рабочих мест'
+            : 'Unlimited employee profiles and active register terminals',
           start: false,
           advanced: true,
           pro: true,
@@ -313,12 +345,14 @@ export default function PricesPage({ onNavigateHome }) {
     },
     {
       id: 'finance',
-      title: language === 'uz' ? 'Moliyani boshqarish' : 'Управление финансами',
+      title: language === 'uz' ? 'Moliyani boshqarish' : language === 'ru' ? 'Управление финансами' : 'Financial Management',
       items: [
         {
           name: language === 'uz'
             ? 'Kassa smenalarini ochish, yopish va avtomatik Z-hisobot'
-            : 'Открытие/закрытие кассовых смен и авто-формирование Z-отчетов',
+            : language === 'ru'
+            ? 'Открытие/закрытие кассовых смен и авто-формирование Z-отчетов'
+            : 'Shift opening/closing and automated Z-report generation',
           start: true,
           advanced: true,
           pro: true,
@@ -326,7 +360,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Naqd, Plastik karta, Humo, Uzcard, QR va Click/Payme to\'lovlari'
-            : 'Прием оплаты наличными, Humo, Uzcard, QR, Click и Payme',
+            : language === 'ru'
+            ? 'Прием оплаты наличными, Humo, Uzcard, QR, Click и Payme'
+            : 'Cash, Humo, Uzcard, QR, Click, and Payme payment processing',
           start: true,
           advanced: true,
           pro: true,
@@ -334,7 +370,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Yetkazib beruvchilar (distribyutorlar) bilan hisob-kitob va qarz daftari'
-            : 'Взаиморасчеты с поставщиками и контроль задолженностей',
+            : language === 'ru'
+            ? 'Взаиморасчеты с поставщиками и контроль задолженностей'
+            : 'Supplier accounts payable and debt ledger management',
           start: true,
           advanced: true,
           pro: true,
@@ -342,7 +380,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Foyda va zarar (P&L) moliyaviy hisoboti'
-            : 'Отчет о прибылях и убытках (P&L)',
+            : language === 'ru'
+            ? 'Отчет о прибылях и убытках (P&L)'
+            : 'Profit & Loss (P&L) financial statements',
           start: false,
           advanced: true,
           pro: true,
@@ -350,7 +390,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Pul oqimi (Cash Flow) va filiallar rentabelligi chuqur tahlili'
-            : 'Движение денежных средств (Cash Flow) и рентабельность филиалов',
+            : language === 'ru'
+            ? 'Движение денежных средств (Cash Flow) и рентабельность филиалов'
+            : 'Cash Flow statements and in-depth branch profitability analytics',
           start: false,
           advanced: false,
           pro: true,
@@ -359,12 +401,14 @@ export default function PricesPage({ onNavigateHome }) {
     },
     {
       id: 'marketing',
-      title: language === 'uz' ? 'Marketing vositalari va mijozlar sodiqligi' : 'Маркетинг и лояльность клиентов',
+      title: language === 'uz' ? 'Marketing vositalari va mijozlar sodiqligi' : language === 'ru' ? 'Маркетинг и лояльность клиентов' : 'Marketing & Customer Loyalty',
       items: [
         {
           name: language === 'uz'
             ? 'Mijozlar va bemorlar elektron bazasi'
-            : 'Электронная база клиентов и пациентов',
+            : language === 'ru'
+            ? 'Электронная база клиентов и пациентов'
+            : 'Digital customer and patient profile database',
           start: true,
           advanced: true,
           pro: true,
@@ -372,7 +416,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Chegirma kartalari va jamg\'arib boriladigan keshbek'
-            : 'Дисконтные карты и накопительный кешбэк',
+            : language === 'ru'
+            ? 'Дисконтные карты и накопительный кешбэк'
+            : 'Discount cards and automated customer cashback',
           start: true,
           advanced: true,
           pro: true,
@@ -380,7 +426,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Do\'kondagi xaridlar va servis haqida fikr-mulohazalar uchun Telegram bot'
-            : 'Telegram-бот для отзывов о покупках и качестве сервиса',
+            : language === 'ru'
+            ? 'Telegram-бот для отзывов о покупках и качестве сервиса'
+            : 'Telegram bot for customer purchase reviews and feedback',
           start: false,
           advanced: true,
           pro: true,
@@ -388,7 +436,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Reklama xabarlarini yuborish uchun Telegram bot (aksiyalar, maxsus takliflar)'
-            : 'Рассылка промо-акций и персональных предложений в Telegram',
+            : language === 'ru'
+            ? 'Рассылка промо-акций и персональных предложений в Telegram'
+            : 'Promotional broadcasts and targeted deal alerts via Telegram',
           start: false,
           advanced: true,
           pro: true,
@@ -396,7 +446,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Elektron retseptlar va shifokorlar bilan integratsiya'
-            : 'Интеграция с электронными рецептами и врачами',
+            : language === 'ru'
+            ? 'Интеграция с электронными рецептами и врачами'
+            : 'E-prescription system & doctor network integration',
           start: false,
           advanced: false,
           pro: true,
@@ -405,12 +457,14 @@ export default function PricesPage({ onNavigateHome }) {
     },
     {
       id: 'integration',
-      title: language === 'uz' ? 'Integratsiya va texnik xizmat' : 'Интеграции и техподдержка',
+      title: language === 'uz' ? 'Integratsiya va texnik xizmat' : language === 'ru' ? 'Интеграции и техподдержка' : 'Integrations & Technical Support',
       items: [
         {
           name: language === 'uz'
             ? '100% Bepul o\'rnatish, ma\'lumotlarni ko\'chirish va xodimlarni o\'rgatish'
-            : 'Бесплатная установка, перенос данных и обучение персонала',
+            : language === 'ru'
+            ? 'Бесплатная установка, перенос данных и обучение персонала'
+            : '100% Free setup, data migration, and full team training',
           start: true,
           advanced: true,
           pro: true,
@@ -418,7 +472,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Har qanday shtrix-kod skaneri, chek printeri va kassa apparatlari bilan ishlash'
-            : 'Поддержка любых сканеров, фискальных принтеров и весов',
+            : language === 'ru'
+            ? 'Поддержка любых сканеров, фискальных принтеров и весов'
+            : 'Support for all barcode scanners, receipt printers & POS hardware',
           start: true,
           advanced: true,
           pro: true,
@@ -426,7 +482,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? 'Ochiq REST API orqali tashqi dasturlar (1C, ERP, Sayt) bilan integratsiya'
-            : 'Открытый REST API для интеграции с 1C, сайтом и ERP',
+            : language === 'ru'
+            ? 'Открытый REST API для интеграции с 1C, сайтом и ERP'
+            : 'Open REST API for 1C, ERP, and e-commerce platform integrations',
           start: false,
           advanced: true,
           pro: true,
@@ -434,7 +492,9 @@ export default function PricesPage({ onNavigateHome }) {
         {
           name: language === 'uz'
             ? '24/7 Shaxsiy menejer va prioritetli texnik qo\'llab-quvvatlash'
-            : 'Персональный менеджер и приоритетная техподдержка 24/7',
+            : language === 'ru'
+            ? 'Персональный менеджер и приоритетная техподдержка 24/7'
+            : '24/7 Dedicated account manager & priority tech support',
           start: false,
           advanced: false,
           pro: true,
@@ -462,7 +522,8 @@ export default function PricesPage({ onNavigateHome }) {
           a: 'Ha, Nyronx oflayn rejimda ishlash imkoniyatiga ega. Internet uzilganda ham kassangiz savdoni to\'xtatmaydi va internet paydo bo\'lgach ma\'lumotlar avtomatik sinxronlanadi.',
         },
       ]
-    : [
+    : language === 'ru'
+    ? [
         {
           q: 'Есть ли отдельная плата за установку и обучение?',
           a: 'Нет, установка программы, настройка оборудования и полное обучение сотрудников проводятся абсолютно бесплатно.',
@@ -480,6 +541,24 @@ export default function PricesPage({ onNavigateHome }) {
           a: 'Да, Nyronx поддерживает автономный офлайн-режим. Касса продолжает продавать лекарства без прерываний.',
         },
       ]
+    : [
+        {
+          q: 'Is there any additional charge for setup and onboarding?',
+          a: 'No, software installation, system configuration, and complete team training are 100% free of charge.',
+        },
+        {
+          q: 'How does the 7-day free trial period work?',
+          a: 'After signing up, you get full access to all features for 7 days without restrictions. No credit card required.',
+        },
+        {
+          q: 'Can you help migrate medication inventory from our existing software?',
+          a: 'Yes, our team will safely import all products, stock quantities, expiration dates, and prices from Excel or your current system.',
+        },
+        {
+          q: 'Will the checkout system work if the internet goes down?',
+          a: 'Yes, Nyronx supports full offline operation. Your registers continue sales seamlessly, and data automatically syncs once reconnected.',
+        },
+      ]
 
   return (
     <div className="bg-[#F4F7F2] min-h-screen pt-28 pb-20 font-sans">
@@ -492,95 +571,40 @@ export default function PricesPage({ onNavigateHome }) {
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-500 hover:text-brand-primary transition-colors cursor-pointer"
           >
             <span>←</span>
-            <span>{language === 'uz' ? 'Bosh sahifaga qaytish' : 'Вернуться на главную'}</span>
+            <span>{language === 'uz' ? 'Bosh sahifaga qaytish' : language === 'ru' ? 'Вернуться на главную' : 'Back to main page'}</span>
           </button>
         </div>
 
         {/* ── EDITORIAL HEADER + CARDS ────────────────────────── */}
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-20">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start mb-20">
 
-          {/* LEFT COLUMN ─ label / heading / description / billing toggle / all-plans list */}
+          {/* LEFT COLUMN ─ label / heading / description / all-plans list */}
           <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-brand-primary mb-5">
-              {language === 'uz' ? 'Tariflar va narxlar' : 'Тарифы и цены'}
+              {language === 'uz' ? 'Tariflar va narxlar' : language === 'ru' ? 'Тарифы и цены' : 'Plans & Pricing'}
             </p>
 
-            <h1 className="text-[38px] sm:text-[46px] font-black text-brand-forest leading-[1.1] tracking-tight mb-5">
+            <h1 className="text-[38px] sm:text-[46px] font-black text-brand-forest leading-[1.1] tracking-tight mb-8">
               {language === 'uz' ? (
                 <>Bitta platforma, <span className="italic font-light" style={{ fontFamily: '"Fraunces", serif' }}>ikki yo'l</span> boshlash uchun.</>
-              ) : (
+              ) : language === 'ru' ? (
                 <>Одна платформа, <span className="italic font-light" style={{ fontFamily: '"Fraunces", serif' }}>два способа</span> начать.</>
+              ) : (
+                <>One platform, <span className="italic font-light" style={{ fontFamily: '"Fraunces", serif' }}>two simple paths</span> to launch.</>
               )}
             </h1>
-
-            {/* Currency Toggle: UZS / USD */}
-            <div className="inline-flex mb-8">
-              <div className="p-1 rounded-full bg-[#EAEDE8] flex items-center gap-1">
-                <button
-                  type="button"
-                  onClick={() => setCurrency('UZS')}
-                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
-                    currency === 'UZS'
-                      ? 'bg-white text-brand-forest shadow-sm'
-                      : 'text-gray-500 hover:text-brand-forest'
-                  }`}
-                >
-                  UZS
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCurrency('USD')}
-                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
-                    currency === 'USD'
-                      ? 'bg-white text-brand-forest shadow-sm'
-                      : 'text-gray-500 hover:text-brand-forest'
-                  }`}
-                >
-                  USD
-                </button>
-              </div>
-            </div>
-
-            {/* Billing Switcher */}
-            <div className="inline-flex mb-10">
-              <div className="p-1 rounded-full bg-[#EAEDE8] flex items-center gap-1">
-                <button
-                  type="button"
-                  onClick={() => setIsAnnual(false)}
-                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
-                    !isAnnual
-                      ? 'bg-white text-brand-forest shadow-sm'
-                      : 'text-gray-500 hover:text-brand-forest'
-                  }`}
-                >
-                  {language === 'uz' ? 'Oylik' : 'Месячно'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsAnnual(true)}
-                  className={`flex items-center gap-2 pl-5 pr-3 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
-                    isAnnual
-                      ? 'bg-white text-brand-forest shadow-sm'
-                      : 'text-gray-500 hover:text-brand-forest'
-                  }`}
-                >
-                  {language === 'uz' ? 'Yillik' : 'Годовой'}
-                  <span className="text-[9px] font-black bg-brand-accent text-brand-forest px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap">
-                    {language === 'uz' ? '20% tejash' : 'Скидка 20%'}
-                  </span>
-                </button>
-              </div>
-            </div>
 
             {/* All plans include */}
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">
-                {language === 'uz' ? "Barcha tariflarda bor" : 'Во всех тарифах'}
+                {language === 'uz' ? "Barcha tariflarda bor" : language === 'ru' ? 'Во всех тарифах' : 'Included in all plans'}
               </p>
               <ul className="space-y-3">
                 {(language === 'uz'
                   ? ["O'rnatish to'lovi yo'q", "Istalgan vaqt bekor qilish", "Zudlik bilan faollashtirish", "Xavfsiz saqlash + kunlik zaxira"]
-                  : ['Без платы за установку', 'Отмена в любое время', 'Мгновенная активация', 'Безопасное хранение + резерв']
+                  : language === 'ru'
+                  ? ['Без платы за установку', 'Отмена в любое время', 'Мгновенная активация', 'Безопасное хранение + резерв']
+                  : ['Zero setup fees', 'Cancel anytime', 'Instant activation', 'Secure cloud storage + daily backup']
                 ).map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm text-gray-600">
                     <span className="w-4 h-4 rounded-full bg-brand-primary flex items-center justify-center shrink-0">
@@ -595,8 +619,68 @@ export default function PricesPage({ onNavigateHome }) {
             </div>
           </div>
 
-          {/* RIGHT COLUMN ─ 3 pricing cards stacked */}
-          <div className="lg:col-span-8 grid sm:grid-cols-3 gap-4 lg:gap-5 items-stretch">
+          {/* RIGHT COLUMN ─ Controls + 3 pricing cards stacked */}
+          <div className="lg:col-span-8 flex flex-col">
+            {/* Top Control Bar: Currency Toggle + Billing Switcher above cards */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+              {/* Currency Toggle: UZS / USD */}
+              <div className="p-1 rounded-full bg-[#EAEDE8] flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setCurrency('UZS')}
+                  className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    currency === 'UZS'
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  UZS
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrency('USD')}
+                  className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    currency === 'USD'
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  USD
+                </button>
+              </div>
+
+              {/* Billing Switcher: Monthly / Annual */}
+              <div className="p-1 rounded-full bg-[#EAEDE8] flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setIsAnnual(false)}
+                  className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    !isAnnual
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  {language === 'uz' ? 'Oylik' : language === 'ru' ? 'Месячно' : 'Monthly'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsAnnual(true)}
+                  className={`flex items-center gap-2 pl-4 pr-2 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    isAnnual
+                      ? 'bg-white text-brand-forest shadow-sm'
+                      : 'text-gray-500 hover:text-brand-forest'
+                  }`}
+                >
+                  {language === 'uz' ? 'Yillik' : language === 'ru' ? 'Годовой' : 'Annual'}
+                  <span className="text-[9px] font-black bg-brand-accent text-brand-forest px-2 py-0.5 rounded-full tracking-wide whitespace-nowrap">
+                    {language === 'uz' ? '20% tejash' : language === 'ru' ? 'Скидка 20%' : 'Save 20%'}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* 3 Pricing Cards Grid */}
+            <div className="grid sm:grid-cols-3 gap-4 lg:gap-5 items-stretch">
             {plans.map((plan, idx) => {
               const price = isAnnual ? plan.annual : plan.monthly
               const isPopular = plan.isPopular
@@ -624,24 +708,9 @@ export default function PricesPage({ onNavigateHome }) {
               return (
                 <div
                   key={plan.id}
-                  className={`relative rounded-[24px] flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 ${cardBg} shadow-sm`}
+                  className={`group relative rounded-2xl flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-25px_rgba(15,61,46,0.3)] ${cardBg}`}
                 >
-                  {/* Popular badge */}
-                  {isPopular && (
-                    <div className="py-2 text-center bg-brand-primary/10 border-b border-brand-primary/15">
-                      <span className="text-[10px] font-black uppercase tracking-[0.18em] text-brand-forest">
-                        ★ {language === 'uz' ? 'Mashhur' : 'Популярный'}
-                      </span>
-                    </div>
-                  )}
-
                   <div className="p-6 flex flex-col flex-1">
-                    {/* Category dot + name */}
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className={`w-1.5 h-1.5 rounded-full ${idx === 2 ? 'bg-brand-mint' : 'bg-brand-primary'}`} />
-                      <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${titleColor}`}>{plan.id === 'start' ? (language === 'uz' ? 'Yakka filial' : 'Один магазин') : plan.id === 'advanced' ? (language === 'uz' ? "Ko'p filial" : 'Несколько магазинов') : (language === 'uz' ? "Tarmoq" : 'Сеть')}</span>
-                    </div>
-
                     <h3 className={`text-2xl font-black mb-1 ${priceColor}`}>{plan.name}</h3>
                     <p className={`text-[11px] leading-relaxed mb-5 ${tagColor}`}>{plan.tag}</p>
 
@@ -665,17 +734,17 @@ export default function PricesPage({ onNavigateHome }) {
                         </span>
                       </div>
                       <p className={`text-[10px] mt-1 font-medium ${unitColor}`}>
-                        {currency} / {language === 'uz' ? 'oy' : 'мес'}
+                        {currency} / {language === 'uz' ? 'oy' : language === 'ru' ? 'мес' : 'mo'}
                       </p>
                     </div>
 
                     {/* Features */}
                     <ul className="space-y-2.5 mb-6 flex-1">
                       {(idx === 0
-                        ? (language === 'uz' ? ["1 ta filial", "5 ta xodim", "Asosiy zaxira", "To'liq POS", "Mijozlar bazasi", "Bepul o'rnatish"] : ['1 магазин', 'До 5 сотрудников', 'Базовый склад', 'Полная POS', 'База клиентов', 'Установка бесплатно'])
+                        ? (language === 'uz' ? ["1 ta filial", "5 ta xodim", "Asosiy zaxira", "To'liq POS", "Mijozlar bazasi", "Bepul o'rnatish"] : language === 'ru' ? ['1 магазин', 'До 5 сотрудников', 'Базовый склад', 'Полная POS', 'База клиентов', 'Установка бесплатно'] : ['1 store location', 'Up to 5 staff', 'Basic inventory', 'Full POS checkout', 'Customer database', 'Free installation'])
                         : idx === 1
-                        ? (language === 'uz' ? ["Cheksiz filiallar", "Cheksiz xodimlar", "Kengaytirilgan tahlil", "Telegram bot", "REST API", "Prioritetli yordam"] : ['Неограниченные филиалы', 'Без лимита штата', 'Аналитика Pro', 'Telegram бот', 'REST API', 'Приоритет поддержка'])
-                        : (language === 'uz' ? ["Hamma Advanced", "AI prognoz", "Cash Flow", "E-retsept", "24/7 menejer", "SLA kafolati"] : ['Всё из Advanced', 'AI прогноз', 'Cash Flow', 'Э-рецепты', '24/7 менеджер', 'Гарантия SLA'])
+                        ? (language === 'uz' ? ["Cheksiz filiallar", "Cheksiz xodimlar", "Kengaytirilgan tahlil", "Telegram bot", "REST API", "Prioritetli yordam"] : language === 'ru' ? ['Неограниченные филиалы', 'Без лимита штата', 'Аналитика Pro', 'Telegram бот', 'REST API', 'Приоритет поддержка'] : ['Unlimited locations', 'Unlimited staff', 'Advanced analytics', 'Telegram bot', 'REST API access', 'Priority support'])
+                        : (language === 'uz' ? ["Hamma Advanced", "AI prognoz", "Cash Flow", "E-retsept", "24/7 menejer", "SLA kafolati"] : language === 'ru' ? ['Всё из Advanced', 'AI прогноз', 'Cash Flow', 'Э-рецепты', '24/7 менеджер', 'Гарантия SLA'] : ['All Advanced features', 'AI forecasting', 'Cash Flow statements', '24/7 manager', 'SLA uptime SLA'])
                       ).map((f, i) => (
                         <li key={i} className="flex items-center gap-2.5">
                           <svg className={`w-3 h-3 shrink-0 ${bulletBg}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -690,9 +759,9 @@ export default function PricesPage({ onNavigateHome }) {
                     <button
                       type="button"
                       onClick={() => openDemoModal('trial')}
-                      className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${btnClass}`}
+                      className={`w-full py-3.5 rounded-full font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${btnClass}`}
                     >
-                      {language === 'uz' ? '7 kun bepul sinov' : 'Попробовать'}
+                      {language === 'uz' ? '7 kun bepul sinov' : language === 'ru' ? 'Попробовать' : 'Start 7-Day Trial'}
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
@@ -703,15 +772,16 @@ export default function PricesPage({ onNavigateHome }) {
             })}
           </div>
         </div>
+      </div>
 
-        {/* Feature Comparison Table (Sticky header enabled for effortless comparison on scroll) */}
-        <div className="rounded-[40px] bg-white border border-black/[0.08] shadow-[0_15px_60px_rgba(0,0,0,0.04)] mb-20">
-          {/* Table Header Row — Sticky at top-[60px] with smooth shadow */}
-          <div className="sticky top-[60px] z-30 p-6 sm:p-8 lg:p-10 border-b border-black/[0.08] bg-white/95 backdrop-blur-md rounded-t-[40px] shadow-[0_10px_25px_rgba(0,0,0,0.04)]">
+        {/* Feature Comparison Table (Header fixed at top of card, rows scroll smoothly inside) */}
+        <div className="rounded-[40px] bg-white border border-black/[0.08] shadow-[0_15px_60px_rgba(0,0,0,0.04)] mb-20 overflow-hidden">
+          {/* Table Header Row — Fixed at top of table card */}
+          <div className="sticky top-0 z-20 p-6 sm:p-8 lg:p-10 border-b border-black/[0.08] bg-white shadow-[0_4px_15px_rgba(0,0,0,0.03)]">
             <div className="grid grid-cols-12 items-center gap-4">
               <div className="col-span-6 sm:col-span-6">
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A1D1F] tracking-tight">
-                  {language === 'uz' ? 'Tariflarni solishtirish' : 'Сравнение тарифов'}
+                  {language === 'uz' ? 'Tariflarni solishtirish' : language === 'ru' ? 'Сравнение тарифов' : 'Compare Plans'}
                 </h2>
               </div>
 
@@ -738,8 +808,8 @@ export default function PricesPage({ onNavigateHome }) {
             </div>
           </div>
 
-          {/* Accordion Categories */}
-          <div className="divide-y divide-black/[0.06] rounded-b-[40px] overflow-hidden">
+          {/* Accordion Categories - Internal Scroll Box */}
+          <div className="max-h-[540px] overflow-y-auto divide-y divide-black/[0.06] rounded-b-[40px]">
             {categories.map((category) => {
               const isOpen = openCategories[category.id] !== false
               return (
@@ -764,7 +834,9 @@ export default function PricesPage({ onNavigateHome }) {
                     </div>
 
                     <span className="text-xs font-bold text-gray-400">
-                      {isOpen ? (language === 'uz' ? 'Yopish' : 'Скрыть') : (language === 'uz' ? 'Ko\'rish' : 'Показать')}
+                      {isOpen
+                        ? (language === 'uz' ? 'Yopish' : language === 'ru' ? 'Скрыть' : 'Collapse')
+                        : (language === 'uz' ? 'Ko\'rish' : language === 'ru' ? 'Показать' : 'Expand')}
                     </span>
                   </button>
 
@@ -829,13 +901,11 @@ export default function PricesPage({ onNavigateHome }) {
           </div>
         </div>
 
-
-
         {/* FAQ Section */}
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h3 className="text-2xl sm:text-3xl font-black text-[#1A1D1F] tracking-tight">
-              {language === 'uz' ? 'Ko\'p beriladigan savollar' : 'Часто задаваемые вопросы'}
+              {language === 'uz' ? 'Ko\'p beriladigan savollar' : language === 'ru' ? 'Часто задаваемые вопросы' : 'Frequently Asked Questions'}
             </h3>
           </div>
 

@@ -18,14 +18,10 @@ export default function Partnership() {
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-8 lg:mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-mint/10 border border-brand-mint/20 text-brand-mint text-xs font-bold uppercase tracking-[0.2em] mb-3">
-            <span className="w-2 h-2 rounded-full bg-brand-mint animate-pulse" />
-            {t('partnership.subtitle')}
-          </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.15] tracking-tight mb-3">
             <span>{t('partnership.titlePart1')} </span>
-            <span className="text-brand-mint block sm:inline">{t('partnership.titlePart2')}</span>
+            <span className="font-serif italic font-normal text-white block sm:inline">{t('partnership.titlePart2')}</span>
           </h2>
 
           <p className="text-sm sm:text-base text-white/80 max-w-2xl leading-relaxed">
@@ -38,14 +34,10 @@ export default function Partnership() {
           {/* Box 1: Klinik hamkor */}
           {items[0] && (
             <div className="group relative">
-              <div className="absolute inset-0 bg-brand-mint/10 rounded-[28px] blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-brand-mint/10 rounded-2xl blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
               
-              <article className="relative h-full bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-[28px] p-6 sm:p-8 lg:p-9 flex flex-col justify-between transition-all duration-500 hover:border-brand-mint/40 hover:bg-white/[0.07] shadow-2xl">
+              <article className="relative h-full bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-9 flex flex-col justify-between transition-all duration-500 hover:border-brand-mint/40 hover:bg-white/[0.07] shadow-2xl">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-mint/15 text-brand-mint text-xs font-bold uppercase tracking-wider mb-4">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-mint" />
-                    {items[0].tag}
-                  </div>
 
                   <h3 className="text-xl sm:text-2xl font-black mb-2 text-white tracking-tight leading-snug">
                     {items[0].name}
@@ -88,14 +80,10 @@ export default function Partnership() {
           {/* Box 2: Texnologik hamkor */}
           {items[1] && (
             <div className="group relative">
-              <div className="absolute inset-0 bg-brand-mint/10 rounded-[28px] blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-brand-mint/10 rounded-2xl blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
               
-              <article className="relative h-full bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-[28px] p-6 sm:p-8 lg:p-9 flex flex-col justify-between transition-all duration-500 hover:border-brand-mint/40 hover:bg-white/[0.07] shadow-2xl">
+              <article className="relative h-full bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-9 flex flex-col justify-between transition-all duration-500 hover:border-brand-mint/40 hover:bg-white/[0.07] shadow-2xl">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/90 text-xs font-bold uppercase tracking-wider mb-4 border border-white/10">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
-                    {items[1].tag}
-                  </div>
 
                   <h3 className="text-xl sm:text-2xl font-black mb-2 text-white tracking-tight leading-snug">
                     {items[1].name}

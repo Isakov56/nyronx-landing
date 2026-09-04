@@ -1,55 +1,28 @@
 import { ArrowRight, Plus } from './Icons.jsx'
 import { useState } from 'react'
+import { useLanguage } from '../context/LanguageContext.jsx'
 
-const audiences = [
-  {
-    title: 'Pharmacy Benefit Managers',
-    blurb:
-      'Modernize your tech stack with adjudication, analytics, and pricing intelligence built for scale.',
-    cta: 'Explore solutions for PBMs',
-    img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Health Systems',
-    blurb:
-      'Bring pharmacy benefits in-house with a partner that simplifies the lift and protects margin.',
-    cta: 'Explore solutions for Health Systems',
-    img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Health Plans',
-    blurb:
-      'Improve member experience and contain spend with flexible plan tooling and real-time data.',
-    cta: 'Explore solutions for Health Plans',
-    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Pharmacies',
-    blurb:
-      'Equip independent and community pharmacies with the technology to compete, grow, and serve.',
-    cta: 'Explore solutions for Pharmacies',
-    img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Employers',
-    blurb:
-      'Design a pharmacy benefit that works harder for your people and your budget.',
-    cta: 'Explore solutions for Employers',
-    img: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Consumers',
-    blurb:
-      'Help members find the lowest price on prescriptions, every time they fill.',
-    cta: 'Explore solutions for Consumers',
-    img: 'https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1400&q=70',
-  },
+const audienceImages = [
+  'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=70',
+  'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=70',
+  'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=70',
+  'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1400&q=70',
+  'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=70',
+  'https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1400&q=70',
 ]
 
 export default function ValueProp() {
+  const { t } = useLanguage()
   const [active, setActive] = useState(0)
   const [displayed, setDisplayed] = useState(0)
-  const segment = audiences[displayed]
+
+  const rawAudiences = t('valueProp.audiences') || []
+  const audiences = rawAudiences.map((item, idx) => ({
+    ...item,
+    img: audienceImages[idx % audienceImages.length],
+  }))
+
+  const segment = audiences[displayed] || audiences[0] || {}
 
   const toggleActive = (i) => {
     if (active === i) {
@@ -61,29 +34,28 @@ export default function ValueProp() {
   }
 
   return (
-    <section id="segments" className="py-24 lg:py-32 bg-white">
+    <section id="segments" className="pt-6 lg:pt-10 pb-20 lg:pb-28 bg-white font-sans">
       <div className="container-x">
         {/* Section header */}
         <div className="max-w-3xl mb-10 lg:mb-12">
           <p className="text-sm tracking-widest uppercase text-brand-primary font-medium mb-4">
-            Who we serve
+            {t('valueProp.subtitle')}
           </p>
           <h2 className="text-4xl lg:text-6xl text-brand-forest leading-tight mb-6">
-            Making Rx better for{' '}
-            <span className="italic">everyone.</span>
+            {t('valueProp.titlePart1')} {t('valueProp.titlePart2')}{' '}
+            <span className="font-serif italic font-normal">{t('valueProp.titlePart3')}</span>
           </h2>
         </div>
 
         {/* Two halves — sized to fit viewport like Hero */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch lg:h-[calc(100svh-280px)] lg:min-h-[520px] lg:max-h-[760px]">
-          {/* LEFT: image card, wrapped in a positioned parent so the Modular Solutions
-              overlay can stick out of the image's top edge. */}
+          {/* LEFT: image card */}
           <div className="relative h-full min-h-[440px]">
-            {/* Inner image card — has overflow-hidden so the photo is clipped to rounded corners */}
+            {/* Inner image card */}
             <div className="absolute inset-0 rounded-3xl overflow-hidden bg-brand-forest">
               {audiences.map((a, i) => (
                 <img
-                  key={a.img}
+                  key={a.img + i}
                   src={a.img}
                   alt={a.title}
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out ${
@@ -99,7 +71,7 @@ export default function ValueProp() {
               <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10 text-white">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/70">
-                    Audience / {String(displayed + 1).padStart(2, '0')}
+                    {t('valueProp.audienceLabel') || 'Audience / '}{String(displayed + 1).padStart(2, '0')}
                   </span>
                   <span className="h-px w-10 bg-white/40" />
                 </div>
@@ -116,7 +88,7 @@ export default function ValueProp() {
               const isActive = i === active
               return (
                 <button
-                  key={a.title}
+                  key={a.title + i}
                   onClick={() => toggleActive(i)}
                   className={`text-left border-t border-brand-ink/10 last:border-b py-6 lg:py-7 transition-colors group ${
                     isActive ? '' : 'hover:bg-brand-cream/40'
@@ -154,13 +126,16 @@ export default function ValueProp() {
                             className="inline-flex items-center gap-2 text-sm font-medium text-brand-forest hover:text-brand-primary transition-colors"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            {a.cta} <ArrowRight className="w-4 h-4" />
+                            <span>{a.cta}</span>
+                            <span className="transition-transform duration-300 group-hover:translate-x-1">
+                              <ArrowRight className="w-4 h-4" />
+                            </span>
                           </a>
                         </div>
                       </div>
                     </div>
 
-                    {/* +/× toggle icon — rotates 45° when active */}
+                    {/* +/× toggle icon */}
                     <span
                       className={`shrink-0 rounded-full border p-2 transition-all duration-300 ${
                         isActive

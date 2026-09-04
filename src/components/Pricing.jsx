@@ -77,23 +77,11 @@ export default function Pricing() {
             return (
               <article
                 key={plan.name}
-                className={`group rounded-[28px] p-7 lg:p-8 border transition-all duration-300 flex flex-col ${dark
-                    ? 'bg-brand-forest text-white border-brand-forest shadow-[0_22px_50px_-25px_rgba(15,61,46,0.5)]'
-                    : 'bg-white text-brand-ink border-black/5 hover:border-brand-forest/20 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(15,61,46,0.15)]'
+                className={`group rounded-2xl p-7 lg:p-8 border transition-all duration-300 flex flex-col ${dark
+                    ? 'bg-brand-forest text-white border-brand-forest shadow-[0_22px_50px_-25px_rgba(15,61,46,0.5)] hover:-translate-y-0.5'
+                    : 'bg-white text-brand-ink border-black/5 hover:border-brand-forest/20 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-25px_rgba(15,61,46,0.3)]'
                   }`}
               >
-                <div className="flex items-center gap-2 mb-5">
-                  <span
-                    className={`w-2 h-2 rounded-full ${dark ? 'bg-brand-mint' : 'bg-brand-primary'}`}
-                  />
-                  <div
-                    className={`text-xs tracking-widest uppercase font-bold ${dark ? 'text-brand-mint' : 'text-brand-primary'
-                      }`}
-                  >
-                    {plan.tag}
-                  </div>
-                </div>
-
                 <h3
                   className={`text-[32px] font-bold mb-3 leading-[1.25] tracking-tight ${dark ? 'text-white' : 'text-[#1A1D1F]'
                     }`}
@@ -140,8 +128,10 @@ export default function Pricing() {
                       : 'bg-brand-forest text-white hover:bg-brand-deep'
                     }`}
                 >
-                  {plan.cta}
-                  <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                  <span>{plan.cta}</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                  </span>
                 </a>
               </article>
             )

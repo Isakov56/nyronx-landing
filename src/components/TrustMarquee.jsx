@@ -17,24 +17,18 @@ export default function TrustMarquee() {
   const brands = [...brandLogos, ...brandLogos, ...brandLogos]
 
   return (
-    <section className="py-6 sm:py-8 bg-[#F8F9FA] border-y border-black/[0.05] overflow-hidden font-sans select-none">
+    <section className="py-6 sm:py-8 bg-white overflow-hidden font-sans select-none">
       {/* Brand Logos Infinite Marquee Bar */}
       <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-r from-[#F8F9FA] to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-l from-[#F8F9FA] to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-r from-white to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 sm:w-44 z-20 bg-gradient-to-l from-white to-transparent" />
 
         <div className="flex gap-0 w-max animate-marquee-brands hover:[animation-play-state:paused] py-1">
           {brands.map((brand, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 px-6 sm:px-8 py-2.5 sm:py-3 mx-2.5 sm:mx-3 rounded-2xl bg-white/80 hover:bg-white border border-black/[0.04] hover:border-black/10 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-md transition-all duration-300 cursor-pointer select-none group shrink-0"
+              className="flex items-center gap-3 px-6 sm:px-8 py-2.5 sm:py-3 mx-2.5 sm:mx-3 rounded-2xl bg-gray-50/80 hover:bg-white border border-black/[0.06] hover:border-black/10 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer select-none group shrink-0"
             >
-              <span
-                className="text-base sm:text-lg font-black transition-transform duration-300 group-hover:scale-110"
-                style={{ color: brand.color }}
-              >
-                {brand.icon}
-              </span>
               <span className="font-black text-sm sm:text-base tracking-wider text-gray-800 group-hover:text-black transition-colors">
                 {brand.name}
               </span>
@@ -49,8 +43,8 @@ export default function TrustMarquee() {
       {/* Marquee Animations CSS */}
       <style>{`
         @keyframes marqueeBrands {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
+          0% { transform: translateX(-33.333%); }
+          100% { transform: translateX(0); }
         }
         .animate-marquee-brands {
           animation: marqueeBrands 60s linear infinite;

@@ -13,14 +13,11 @@ export default function News() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 lg:mb-10">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-xs font-bold uppercase tracking-[0.2em] mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-primary" />
-              {t('news.subtitle')}
-            </div>
+
 
             <h2 className="text-[34px] sm:text-4xl lg:text-[46px] font-black text-[#1A1D1F] leading-[1.15] tracking-tight">
               <span>{t('news.titlePart1')} </span>
-              <span className="text-brand-primary">{t('news.titlePart2')}</span>
+              <span className="text-[#1A1D1F]">{t('news.titlePart2')}</span>
             </h2>
           </div>
 
@@ -38,7 +35,7 @@ export default function News() {
         {/* News Grid */}
         <div className="grid lg:grid-cols-12 gap-5 items-stretch">
           {/* Featured Large Article Card (7 columns) */}
-          <article className="lg:col-span-7 bg-white rounded-[28px] p-5 sm:p-6 border border-black/[0.06] shadow-[0_10px_35px_rgba(0,0,0,0.03)] hover:shadow-2xl hover:border-brand-primary/30 transition-all duration-300 flex flex-col justify-between group cursor-pointer">
+          <article className="lg:col-span-7 group bg-white rounded-2xl p-5 sm:p-6 border border-black/5 hover:border-brand-forest/20 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-25px_rgba(15,61,46,0.3)] transition-all duration-300 flex flex-col justify-between cursor-pointer">
             <div>
               {/* Image Banner */}
               <div className="h-52 sm:h-64 w-full rounded-[22px] overflow-hidden relative mb-4 bg-gray-100">
@@ -48,14 +45,6 @@ export default function News() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
-
-                {/* Floating Award Badge */}
-                {featured.badge && (
-                  <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-brand-forest font-bold text-xs shadow-md border border-black/5">
-                    {featured.badge}
-                  </div>
-                )}
               </div>
 
               {/* Tag */}
@@ -64,7 +53,7 @@ export default function News() {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl sm:text-2xl font-black text-[#1A1D1F] group-hover:text-brand-primary transition-colors leading-snug mb-2 tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-[#1A1D1F] leading-snug mb-2 tracking-tight">
                 {featured.title}
               </h3>
 
@@ -81,13 +70,13 @@ export default function News() {
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </span>
               <span className="text-xs text-gray-400 font-medium">
-                {language === 'uz' ? '5 daqiqa o\'qish' : '5 мин чтения'}
+                {language === 'uz' ? '5 daqiqa o\'qish' : language === 'ru' ? '5 мин чтения' : '5 min read'}
               </span>
             </div>
           </article>
 
           {/* Right Side 3 Articles (5 columns) - Unified Cohesive Card */}
-          <div className="lg:col-span-5 bg-white rounded-[28px] p-2.5 sm:p-3.5 border border-black/[0.06] shadow-[0_10px_35px_rgba(0,0,0,0.03)] flex flex-col justify-between divide-y divide-black/[0.04]">
+          <div className="lg:col-span-5 bg-white rounded-2xl p-2.5 sm:p-3.5 border border-black/[0.06] shadow-[0_10px_35px_rgba(0,0,0,0.03)] flex flex-col justify-between divide-y divide-black/[0.04]">
             {items.map((it, idx) => (
               <a
                 key={idx}
@@ -114,7 +103,7 @@ export default function News() {
                     <span className="text-[11px] text-gray-400 font-medium">{it.readTime}</span>
                   </div>
 
-                  <h4 className="text-[14px] sm:text-[15px] font-bold text-[#1A1D1F] group-hover:text-brand-primary transition-colors leading-snug line-clamp-2">
+                  <h4 className="text-[14px] sm:text-[15px] font-bold text-[#1A1D1F] leading-snug line-clamp-2">
                     {it.title}
                   </h4>
 

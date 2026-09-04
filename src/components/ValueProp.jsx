@@ -29,11 +29,11 @@ export default function ValueProp() {
       <div className="container-x">
         {/* Section header */}
         <div className="max-w-4xl mx-auto text-center mb-16 lg:mb-20">
-          <p className="text-base tracking-widest uppercase text-brand-primary font-bold mb-4">
-            {t('valueProp.subtitle')}
-          </p>
-          <h2 className="text-[44px] md:text-5xl lg:text-[64px] text-[#1A1D1F] font-extrabold leading-[1.1] mb-6 tracking-tight">
-            {t('valueProp.titlePart1')} <span className="text-brand-accent">{t('valueProp.titlePart2')}</span> {t('valueProp.titlePart3')}
+
+          <h2 className="font-sans font-normal text-brand-ink text-4xl lg:text-5xl leading-[1.05] tracking-[-0.02em] mb-6">
+            {t('valueProp.titlePart1')}{' '}
+            <span className="font-serif italic font-normal">{t('valueProp.titlePart2')}</span>{' '}
+            {t('valueProp.titlePart3')}
           </h2>
           <p className="text-xl text-brand-slate max-w-3xl mx-auto leading-relaxed">
             {t('valueProp.description')}
@@ -45,7 +45,7 @@ export default function ValueProp() {
           {audiencesData.map((a, i) => (
             <div 
               key={a.title}
-              className="bg-white rounded-[32px] p-8 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_28px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:border-brand-primary/20 transition-all duration-300 ease-out relative group flex flex-col justify-between border border-black/[0.04] cursor-pointer"
+              className="group bg-white rounded-2xl p-6 sm:p-8 lg:p-10 border border-black/5 hover:border-brand-forest/20 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-25px_rgba(15,61,46,0.3)] transition-all duration-300 relative flex flex-col justify-between cursor-pointer"
             >
               <div>
                 {/* Top Row: Title + Dot Icon */}
@@ -85,7 +85,7 @@ export default function ValueProp() {
                   className="inline-flex items-center gap-3 text-lg font-bold text-brand-primary group-hover:text-brand-deep transition-colors w-fit"
                 >
                   <span>{a.cta}</span>
-                  <span className="transition-transform duration-300 ease-out group-hover:translate-x-2 inline-flex items-center justify-center">
+                  <span className="transition-transform duration-300 ease-out group-hover:translate-x-1 inline-flex items-center justify-center">
                     <ArrowRight className="w-5 h-5 stroke-[2.5]" />
                   </span>
                 </a>

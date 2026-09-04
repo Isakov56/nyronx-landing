@@ -36,7 +36,7 @@ export default function Hero() {
   const { openDemoModal } = useModal()
 
   // Bottom-left notch (button-sized) — fits the CTA button
-  const btnNotchW = 296
+  const btnNotchW = 330
   const btnNotchH = 68
   const btnEntryR = 24
   const btnInsideR = 38
@@ -55,27 +55,34 @@ export default function Hero() {
   `
 
   const isUz = language === 'uz'
-  const dynamicWords = t('hero.dynamicWords') || (isUz ? ['Dorixonalar', 'Klinikalar', 'Yetkazib beruvchilar'] : ['Аптек', 'Клиник', 'Дистрибьюторов'])
+  const isRu = language === 'ru'
+  const dynamicWords = t('hero.dynamicWords') || (isUz ? ['Dorixonalar,', 'Klinikalar,', 'Yetkazib beruvchilar,'] : isRu ? ['Для аптек,', 'Для клиник,', 'Для дистрибьюторов,'] : ['For Pharmacies,', 'For Clinics,', 'For Distributors,'])
 
   const heroTexts = {
-    titlePrefix: 'Nyronx —',
-    titleSuffix: isUz ? 'uchun aqlli tizim.' : 'умная система.',
-    titleBleed: isUz ? 'aqlli tizim.' : 'система.',
+    titleBleed: isUz ? 'aqlli tizim.' : isRu ? 'система.' : 'smart system.',
     description: isUz
       ? 'Nyronx — dorixonalar, klinikalar va dori yetkazib beruvchilar uchun zamonaviy operatsion tizim. Sotuvlar, hisob-kitoblar, zaxiralar va tahlillar — yagona platformada.'
-      : 'Nyronx — операционная система для аптек, клиник и дистрибьюторов. Продажи, учет, остатки и аналитика — в единой платформе.',
-    ctaBtn: isUz ? 'Nyronx bilan tanishish' : 'Узнать больше о Nyronx',
+      : isRu
+      ? 'Nyronx — операционная система для аптек, клиник и дистрибьюторов. Продажи, учет, остатки и аналитика — в единой платформе.'
+      : 'Nyronx is a modern operating system for pharmacies, clinics, and medicine distributors. Sales, accounting, inventory, and analytics — unified on one platform.',
+    ctaBtn: isUz ? 'Nyronx platformasi bilan tanishish' : isRu ? 'Узнать больше о Nyronx Enterprise' : 'Explore Nyronx Enterprise',
+    noteTitle: isUz ? 'Jamoadan eslatma' : isRu ? 'Заметка от команды' : 'A note from the team',
+    noteQuote: isUz
+      ? '“Dorixona marjasi skanerlash va hisob-kitob orasidagi soniyalarda yutiladi. Biz Nyronx-ni aynan shu soniyalar uchun yaratdik.”'
+      : isRu
+      ? '“Маржа аптеки выигрывается в секунды между сканированием и расчетом. Мы создали Nyronx, чтобы жить в этих секундах.”'
+      : '“Pharmacy margin is won in the seconds between scan and adjudication. We built Nyronx to live in those seconds.”',
     stats: [
-      { category: isUz ? 'Klinikalar' : 'Клиники', value: '32%' },
-      { category: isUz ? 'Tarmoqlar' : 'Сети аптек', value: '$4.2M' },
-      { category: isUz ? 'Barqarorlik' : 'Надежность', value: '99.9%' },
+      { category: isUz ? 'Klinikalar' : isRu ? 'Клиники' : 'Clinics', value: '32%' },
+      { category: isUz ? 'Tarmoqlar' : isRu ? 'Сети аптек' : 'Chains', value: '$4.2M' },
+      { category: isUz ? 'Barqarorlik' : isRu ? 'Надежность' : 'Reliability', value: '99.9%' },
     ],
-    annotationPin: isUz ? 'Dorixonalar tarmog\'i · UZ' : 'Сеть аптек · RU',
-    annotationTag: isUz ? '01 / Operatsion boshqaruv' : '01 / Операционный учет',
+    annotationPin: isUz ? 'Dorixonalar tarmog\'i · UZ' : isRu ? 'Сеть аптек · RU' : 'Pharmacy Network · EN',
+    annotationTag: isUz ? '01 / Operatsion boshqaruv' : isRu ? '01 / Операционный учет' : '01 / Operations Control',
   }
 
   return (
-    <section className="bg-white pt-24 pb-14 font-sans select-none">
+    <section className="bg-white pt-24 pb-6 font-sans select-none">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-5">
         <div className="relative h-[calc(100svh-152px)] min-h-[460px] max-h-[760px]">
           {/* Image card */}
@@ -92,17 +99,39 @@ export default function Hero() {
 
             <div className="relative h-full px-8 sm:px-14 lg:px-20 pt-10 sm:pt-12 lg:pt-14">
               <div className="max-w-xl">
-                <h1 className="font-sans font-bold text-white leading-[1.02] tracking-[-0.02em] text-[clamp(38px,6.5vh,78px)]">
-                  <span className="block">{heroTexts.titlePrefix}</span>
+                <h1 className="font-sans font-bold text-white leading-[0.95] tracking-[-0.02em] text-[clamp(48px,8vh,96px)]">
                   <span className="block min-h-[1.1em] whitespace-nowrap">
                     <TextRotator words={dynamicWords} />
                   </span>
-                  <span className="block mt-0.5">{heroTexts.titleSuffix}</span>
+                  <span className="block mt-0.5">
+                    {isUz ? (
+                      <>
+                        uchun <span className="font-serif italic font-normal text-white">aqlli tizim.</span>
+                      </>
+                    ) : isRu ? (
+                      <span className="font-serif italic font-normal text-white">умная система.</span>
+                    ) : (
+                      <span className="font-serif italic font-normal text-white">smart software.</span>
+                    )}
+                  </span>
                   <span className="sr-only">{heroTexts.titleBleed}</span>
                 </h1>
-                <p className="mt-5 text-white font-semibold text-[15px] lg:text-[16px] leading-[1.5] max-w-[460px]">
+                <p className="mt-6 text-white font-semibold text-[15px] lg:text-[16px] leading-[1.5] max-w-[420px]">
                   {heroTexts.description}
                 </p>
+
+                {/* Editorial statement */}
+                <div className="mt-8 lg:mt-10 max-w-[440px] hidden sm:block">
+                  <div className="flex items-center gap-3">
+                    <span className="h-px w-7 bg-white/60" />
+                    <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-white/70">
+                      {heroTexts.noteTitle}
+                    </span>
+                  </div>
+                  <p className="mt-3 font-serif italic text-white/90 text-[15px] lg:text-[17px] leading-snug">
+                    {heroTexts.noteQuote}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -137,7 +166,7 @@ export default function Hero() {
             {/* Audience stats */}
             <div
               className="absolute bottom-5 hidden lg:flex items-center gap-5 xl:gap-6 pointer-events-none z-[3]"
-              style={{ left: 320, right: 'clamp(440px, 38vw, 600px)' }}
+              style={{ left: 360, right: 'clamp(440px, 38vw, 600px)' }}
             >
               {heroTexts.stats.map((s) => (
                 <div key={s.category} className="flex items-center gap-2">
@@ -190,7 +219,7 @@ export default function Hero() {
           {/* Title overflow bleed */}
           <div
             aria-hidden="true"
-            className="absolute right-2 sm:right-4 lg:right-8 pointer-events-none z-[3] select-none font-sans font-bold leading-[1.15] tracking-[-0.035em] whitespace-nowrap"
+            className="absolute right-2 sm:right-4 lg:right-8 pointer-events-none z-[3] select-none font-serif italic font-normal leading-[1.15] tracking-[-0.035em] whitespace-nowrap"
             style={{
               bottom: 0,
               fontSize: 'clamp(56px,9vh,108px)',
@@ -210,7 +239,7 @@ export default function Hero() {
           <button
             type="button"
             onClick={() => openDemoModal('demo')}
-            className="absolute left-0 bottom-0 inline-flex items-center rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-all duration-200 shadow-lg shadow-black/25 z-10 cursor-pointer hover:-translate-y-0.5"
+            className="absolute left-0 bottom-0 inline-flex items-center justify-center w-[310px] h-[48px] rounded-full bg-brand-primary text-white text-[15px] font-medium hover:bg-brand-deep transition-all duration-200 shadow-lg shadow-black/25 z-10 cursor-pointer hover:-translate-y-0.5"
           >
             {heroTexts.ctaBtn}
           </button>

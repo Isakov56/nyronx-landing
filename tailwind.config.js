@@ -20,6 +20,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['"Fraunces"', 'Georgia', 'serif'],
+        serif: ['"Fraunces"', 'Georgia', 'serif'],
         wordmark: ['"Krona One"', 'Inter', 'system-ui', 'sans-serif'],
       },
       maxWidth: {

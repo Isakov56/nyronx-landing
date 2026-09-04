@@ -5,6 +5,8 @@ import { useModal } from '../context/ModalContext.jsx'
 export default function ChakanaDorixonaPage({ onNavigateHome }) {
   const { t, language } = useLanguage()
   const { openDemoModal } = useModal()
+  const isUz = language === 'uz'
+  const isRu = language === 'ru'
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -14,34 +16,42 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
     {
       id: 'inventory',
       icon: '📦',
-      title: language === 'uz' ? 'Dori va tovarlar hisobi' : 'Учет лекарств и товаров',
-      description: language === 'uz'
+      title: isUz ? 'Dori va tovarlar hisobi' : isRu ? 'Учет лекарств и товаров' : 'Medication & Stock Accounting',
+      description: isUz
         ? "Ombordagi qoldiqlarni aniq vaqt rejimida kuzatib boring. Yaroqlilik muddatlari, seriyalar va partiyalar bo'yicha to'liq nazorat."
-        : 'Следите за остатками на складе в режиме реального времени. Полный контроль по срокам годности, сериям и партиям.'
+        : isRu
+        ? 'Следите за остатками на складе в режиме реального времени. Полный контроль по срокам годности, сериям и партиям.'
+        : 'Track warehouse inventory balances in real time. Full expiration date, batch, and serial number control.'
     },
     {
       id: 'pos',
       icon: '🛒',
-      title: language === 'uz' ? 'Tezkor kassa (POS)' : 'Быстрая касса (POS)',
-      description: language === 'uz'
+      title: isUz ? 'Tezkor kassa (POS)' : isRu ? 'Быстрая касса (POS)' : 'Fast Checkout POS',
+      description: isUz
         ? "Mijozlarga navbatsiz xizmat ko'rsatish uchun shtrix-kod skaneri va kassa apparatlari bilan uzluksiz integratsiya."
-        : 'Бесшовная интеграция со сканерами штрих-кодов и кассовыми аппаратами для обслуживания клиентов без очередей.'
+        : isRu
+        ? 'Бесшовная интеграция со сканерами штрих-кодов и кассовыми аппаратами для обслуживания клиентов без очередей.'
+        : 'Seamless integration with barcode scanners and receipt printers for queue-free customer checkout.'
     },
     {
       id: 'analytics',
       icon: '📊',
-      title: language === 'uz' ? 'Chuqur tahlil va hisobotlar' : 'Глубокая аналитика и отчеты',
-      description: language === 'uz'
+      title: isUz ? 'Chuqur tahlil va hisobotlar' : isRu ? 'Глубокая аналитика и отчеты' : 'Deep Analytics & Reports',
+      description: isUz
         ? "Savdo dinamikasi, foyda, eng ko'p sotiladigan dorilar va xodimlarning samaradorligi bo'yicha tayyor hisobotlar."
-        : 'Готовые отчеты по динамике продаж, прибыли, самым продаваемым лекарствам и эффективности сотрудников.'
+        : isRu
+        ? 'Готовые отчеты по динамике продаж, прибыли, самым продаваемым лекарствам и эффективности сотрудников.'
+        : 'Out-of-the-box reports on sales velocity, profit margins, top-selling Rx items, and cashier performance.'
     },
     {
       id: 'crm',
       icon: '👥',
-      title: language === 'uz' ? 'Mijozlar bazasi va bonuslar' : 'База клиентов и бонусы',
-      description: language === 'uz'
+      title: isUz ? 'Mijozlar bazasi va bonuslar' : isRu ? 'База клиентов и бонусы' : 'Customer Database & Rewards',
+      description: isUz
         ? "Doimiy xaridorlarni rag'batlantirish, keshbek va chegirmalar tizimini joriy etish orqali sodiqlikni oshiring."
-        : 'Повышайте лояльность за счет поощрения постоянных покупателей, внедрения системы кэшбэка и скидок.'
+        : isRu
+        ? 'Повышайте лояльность за счет поощрения постоянных покупателей, внедрения системы кэшбэка и скидок.'
+        : 'Boost repeat customer loyalty with built-in cashback, bonus points, and discount programs.'
     }
   ]
 
@@ -55,19 +65,23 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-primary/10 text-brand-forest font-bold text-[13px] mb-6">
                 <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
-                {language === 'uz' ? 'Yangi yechim' : 'Новое решение'}
+                {isUz ? 'Yangi yechim' : isRu ? 'Новое решение' : 'New Solution'}
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#1A1D1F] tracking-tight leading-[1.1] mb-6">
-                {language === 'uz' 
+                {isUz 
                   ? 'Chakana dorixonangizni avtomatlashtiring'
-                  : 'Автоматизируйте вашу розничную аптеку'}
+                  : isRu
+                  ? 'Автоматизируйте вашу розничную аптеку'
+                  : 'Automate your retail pharmacy'}
               </h1>
               
               <p className="text-lg sm:text-xl text-gray-500 font-medium mb-8 leading-relaxed max-w-xl">
-                {language === 'uz'
+                {isUz
                   ? "Savdo, zaxira hisobi va xodimlarni boshqarish uchun zamonaviy dasturiy ta'minot. Barcha jarayonlarni bitta joyda nazorat qiling."
-                  : 'Современное программное обеспечение для управления продажами, складом и персоналом. Контролируйте все процессы в одном месте.'}
+                  : isRu
+                  ? 'Современное программное обеспечение для управления продажами, складом и персоналом. Контролируйте все процессы в одном месте.'
+                  : 'Modern operating software for sales, inventory, and staff management. Control all pharmacy operations in one dashboard.'}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
@@ -76,14 +90,14 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
                   onClick={() => openDemoModal('demo')}
                   className="inline-flex justify-center items-center px-8 py-4 rounded-full bg-brand-primary text-white font-bold text-[17px] shadow-lg shadow-brand-primary/30 hover:bg-brand-deep hover:scale-105 transition-all cursor-pointer"
                 >
-                  {language === 'uz' ? 'Demo olish' : 'Получить демо'}
+                  {isUz ? 'Demo olish' : isRu ? 'Получить демо' : 'Get Demo'}
                 </button>
                 <button
                   type="button"
                   onClick={onNavigateHome}
                   className="inline-flex justify-center items-center px-8 py-4 rounded-full bg-white border border-gray-200 text-gray-800 font-bold text-[17px] hover:bg-gray-50 hover:scale-105 transition-all cursor-pointer"
                 >
-                  {language === 'uz' ? 'Bosh sahifaga qaytish' : 'Вернуться на главную'}
+                  {isUz ? 'Bosh sahifaga qaytish' : isRu ? 'Вернуться на главную' : 'Back to Home'}
                 </button>
               </div>
             </div>
@@ -99,7 +113,7 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
                     </div>
                     <div>
                       <h4 className="text-[17px] font-black text-[#1A1D1F]">NYRONX POS</h4>
-                      <p className="text-xs text-gray-500 font-medium">{language === 'uz' ? 'Chakana savdo' : 'Розничная продажа'}</p>
+                      <p className="text-xs text-gray-500 font-medium">{isUz ? 'Chakana savdo' : isRu ? 'Розничная продажа' : 'Retail POS'}</p>
                     </div>
                   </div>
                   <div className="px-3 py-1 rounded-lg bg-green-50 text-green-600 text-xs font-bold border border-green-100">
@@ -111,13 +125,13 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="p-4 rounded-2xl bg-[#F8FAF8] border border-brand-primary/10">
                     <div className="text-xs text-gray-500 font-medium mb-1">
-                      {language === 'uz' ? 'Kunlik savdo' : 'Продажи за день'}
+                      {isUz ? 'Kunlik savdo' : isRu ? 'Продажи за день' : 'Daily Sales'}
                     </div>
                     <div className="text-[22px] font-black text-brand-forest">15.5 M</div>
                   </div>
                   <div className="p-4 rounded-2xl bg-blue-50 border border-blue-100">
                     <div className="text-xs text-blue-600 font-medium mb-1">
-                      {language === 'uz' ? 'Cheklar soni' : 'Количество чеков'}
+                      {isUz ? 'Cheklar soni' : isRu ? 'Количество чеков' : 'Receipt Count'}
                     </div>
                     <div className="text-[22px] font-black text-blue-800">1,248</div>
                   </div>
@@ -133,7 +147,7 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
                         </div>
                         <div>
                           <div className="text-[14px] font-bold text-[#1A1D1F]">Trimol 500mg #{i * 10}</div>
-                          <div className="text-[11px] text-gray-500">2 dona x 15,000 UZS</div>
+                          <div className="text-[11px] text-gray-500">2 pcs x 15,000 UZS</div>
                         </div>
                       </div>
                       <div className="font-bold text-[14px] text-brand-forest">
@@ -156,20 +170,24 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-black text-[#1A1D1F] tracking-tight mb-4">
-              {language === 'uz' 
+              {isUz 
                 ? "Barcha kerakli imkoniyatlar bitta tizimda"
-                : "Все необходимые возможности в одной системе"}
+                : isRu
+                ? "Все необходимые возможности в одной системе"
+                : "All essential features in one platform"}
             </h2>
             <p className="text-[17px] text-gray-500 font-medium">
-              {language === 'uz'
+              {isUz
                 ? "Dorixonani muvaffaqiyatli boshqarish uchun eng zamonaviy vositalar va hisobotlar."
-                : "Самые современные инструменты и отчеты для успешного управления аптекой."}
+                : isRu
+                ? "Самые современные инструменты и отчеты для успешного управления аптекой."
+                : "State-of-the-art tools and reports for successful pharmacy management."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {features.map((feature) => (
-              <div key={feature.id} className="bg-white rounded-[32px] p-8 border border-black/[0.04] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div key={feature.id} className="group bg-white rounded-2xl p-8 border border-black/5 hover:border-brand-forest/20 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-25px_rgba(15,61,46,0.3)] transition-all duration-300">
                 <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-3xl mb-6">
                   {feature.icon}
                 </div>
@@ -190,21 +208,25 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
         <div className="max-w-[1200px] mx-auto bg-brand-forest rounded-[40px] sm:rounded-[56px] p-10 sm:p-16 lg:p-20 text-center relative overflow-hidden">
           <div className="relative z-10">
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6 leading-tight max-w-3xl mx-auto">
-              {language === 'uz'
+              {isUz
                 ? "Hoziroq bepul sinab ko'ring va savdolaringizni oshiring"
-                : "Попробуйте бесплатно прямо сейчас и увеличьте свои продажи"}
+                : isRu
+                ? "Попробуйте бесплатно прямо сейчас и увеличьте свои продажи"
+                : "Try free today and boost your pharmacy revenue"}
             </h2>
             <p className="text-lg sm:text-xl text-white/80 font-medium mb-10 max-w-2xl mx-auto">
-              {language === 'uz'
+              {isUz
                 ? "Dasturni o'rnatish, o'rgatish va 14 kunlik sinov muddati mutlaqo bepul."
-                : "Установка программы, обучение и 14-дневный пробный период абсолютно бесплатно."}
+                : isRu
+                ? "Установка программы, обучение и 14-дневный пробный период абсолютно бесплатно."
+                : "Software deployment, team training, and 14-day trial period are completely free."}
             </p>
             <button
               type="button"
               onClick={() => openDemoModal('demo')}
               className="inline-flex justify-center items-center px-10 py-5 rounded-full bg-brand-accent text-[#1A1D1F] font-black text-[17px] sm:text-[19px] shadow-2xl hover:scale-105 transition-all cursor-pointer"
             >
-              {language === 'uz' ? "Ulanish uchun ariza qoldirish" : "Оставить заявку на подключение"}
+              {isUz ? "Ulanish uchun ariza qoldirish" : isRu ? "Оставить заявку на подключение" : "Apply for Connection"}
             </button>
           </div>
 
@@ -216,3 +238,4 @@ export default function ChakanaDorixonaPage({ onNavigateHome }) {
     </div>
   )
 }
+

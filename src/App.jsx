@@ -66,8 +66,8 @@ export default function App() {
           ) : (
             <>
               <Hero />
-              <Solutions />
               <WhoWeServe />
+              <Solutions />
               <InAction />
               <TrustMarquee />
               <OnboardingSupport />

@@ -42,7 +42,7 @@ export default function Footer() {
                 onClick={() => openDemoModal('trial')}
                 className="inline-flex items-center justify-center rounded-lg bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-950 transition-colors hover:bg-emerald-400 cursor-pointer"
               >
-                {language === 'uz' ? 'Sinab ko\'rish' : 'Попробовать бесплатно'}
+                {language === 'uz' ? 'Sinab ko\'rish' : language === 'ru' ? 'Попробовать бесплатно' : 'Try Free'}
               </button>
               <button
                 type="button"
@@ -52,7 +52,7 @@ export default function Footer() {
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 88 88">
                   <path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.527l.028 34.453L0 75.542l.033-29.58zm4.359-38.938L88 0v41.312l-47.971.308zm47.971 38.647V88L40.029 81.25l.016-35.485z" />
                 </svg>
-                {language === 'uz' ? 'Windows uchun' : 'Для Windows'}
+                {language === 'uz' ? 'Windows uchun' : language === 'ru' ? 'Для Windows' : 'For Windows'}
               </button>
             </div>
 
@@ -120,7 +120,7 @@ export default function Footer() {
           {/* Countries / Region selector column */}
           <div className="lg:col-span-2">
             <p className="text-[10px] uppercase tracking-[0.22em] text-white/45 mb-4">
-              {language === 'uz' ? 'Davlatlar' : 'Страны'}
+              {language === 'uz' ? 'Davlatlar' : language === 'ru' ? 'Страны' : 'Countries'}
             </p>
             <div className="relative inline-block w-full">
               <div className="flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs text-white/80">
@@ -130,10 +130,10 @@ export default function Footer() {
                   <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                 </svg>
                 <select className="w-full bg-transparent text-xs text-white focus:outline-none [&>option]:bg-slate-900 [&>option]:text-white cursor-pointer">
-                  <option value="uz">{language === 'uz' ? 'O\'zbekiston' : 'Узбекистан'}</option>
-                  <option value="kg">{language === 'uz' ? 'Qirg\'iziston' : 'Кыргызстан'}</option>
-                  <option value="kz">{language === 'uz' ? 'Qozog\'iston' : 'Казахстан'}</option>
-                  <option value="tj">{language === 'uz' ? 'Tojikiston' : 'Таджикистан'}</option>
+                  <option value="uz">{language === 'uz' ? 'O\'zbekiston' : language === 'ru' ? 'Узбекистан' : 'Uzbekistan'}</option>
+                  <option value="kg">{language === 'uz' ? 'Qirg\'iziston' : language === 'ru' ? 'Кыргызстан' : 'Kyrgyzstan'}</option>
+                  <option value="kz">{language === 'uz' ? 'Qozog\'iston' : language === 'ru' ? 'Казахстан' : 'Kazakhstan'}</option>
+                  <option value="tj">{language === 'uz' ? 'Tojikiston' : language === 'ru' ? 'Таджикистан' : 'Tajikistan'}</option>
                 </select>
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function Footer() {
         {/* Copyright row */}
         <div className="mt-16 flex flex-col-reverse items-start justify-between gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center">
           <p className="text-xs text-white/45">
-            © {year} Nyronx Inc. {language === 'uz' ? 'Barcha huquqlar himoyalangan.' : 'Все права защищены.'}
+            © {year} Nyronx Inc. {language === 'uz' ? 'Barcha huquqlar himoyalangan.' : language === 'ru' ? 'Все права защищены.' : 'All rights reserved.'}
           </p>
           <div className="flex gap-6 text-xs text-white/45">
             <a href="#" className="hover:text-white transition-colors">{footerData.privacy || 'Privacy policy'}</a>

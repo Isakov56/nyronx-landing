@@ -114,7 +114,7 @@ export default function IndustryFit() {
                     key={cat.id}
                     onMouseEnter={() => setSelectedId(cat.id)}
                     onClick={() => setSelectedId(cat.id)}
-                    className={`flex items-center gap-4 px-5 py-4 rounded-2xl sm:rounded-full text-left transition-all duration-300 border group cursor-pointer ${
+                    className={`flex items-center gap-4 px-5 py-4 rounded-full text-left transition-all duration-300 border group cursor-pointer ${
                       isActive
                         ? 'bg-brand-primary/10 text-brand-forest border-brand-primary/40 font-bold shadow-sm ring-2 ring-brand-primary/15 transform -translate-y-0.5'
                         : 'bg-[#F8F9FA] text-gray-800 border-black/[0.04] hover:bg-gray-100 hover:border-black/10 font-semibold'
@@ -166,7 +166,7 @@ export default function IndustryFit() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-80 pointer-events-none" />
 
               {/* Bottom Floating Info Badge */}
-              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-3xl bg-white/95 backdrop-blur-xl border border-white/40 shadow-xl flex items-center justify-between pointer-events-auto">
+              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/40 shadow-xl flex items-center justify-between pointer-events-auto">
                 <div className="flex items-center gap-3.5">
                   <span className="p-2.5 rounded-2xl bg-brand-primary/10 text-brand-primary">
                     <ActiveIcon className="w-6 h-6" />
@@ -176,7 +176,7 @@ export default function IndustryFit() {
                       {activeCategory.name}
                     </h4>
                     <p className="text-xs text-brand-primary font-semibold mt-0.5">
-                      {language === 'uz' ? '✓ 100% Moslashtirilgan yechim' : '✓ 100% Адаптированное решение'}
+                      {language === 'uz' ? '✓ 100% Moslashtirilgan yechim' : language === 'ru' ? '✓ 100% Адаптированное решение' : '✓ 100% Custom Tailored Solution'}
                     </p>
                   </div>
                 </div>
@@ -186,7 +186,7 @@ export default function IndustryFit() {
                   onClick={() => openDemoModal('consultation')}
                   className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-primary text-white text-xs font-bold hover:bg-brand-deep transition-colors shadow-sm cursor-pointer"
                 >
-                  {language === 'uz' ? 'Ulash' : 'Подключить'}
+                  {language === 'uz' ? 'Ulash' : language === 'ru' ? 'Подключить' : 'Connect'}
                 </button>
               </div>
             </div>

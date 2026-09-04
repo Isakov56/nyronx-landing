@@ -1,37 +1,44 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useMemo, useCallback } from 'react'
 
 const ModalContext = createContext()
+
+// Ruxsat etilgan modal turlari — noto'g'ri qiymat kelsa jim tarzda xato
+// kontent ko'rsatishning oldini oladi
+const VALID_DEMO_TYPES = ['demo', 'trial', 'consultation']
 
 export function ModalProvider({ children }) {
   const [demoOpen, setDemoOpen] = useState(false)
   const [downloadOpen, setDownloadOpen] = useState(false)
   const [initialType, setInitialType] = useState('demo') // 'demo' | 'trial' | 'consultation'
 
-  const openDemoModal = (type = 'demo') => {
-    setInitialType(type)
+  // useCallback — funksiyalarning reference'i har renderda o'zgarmasligi uchun
+  // (useMemo bilan birga ishlaydi, pastga qarang)
+  const openDemoModal = useCallback((type = 'demo') => {
+    setInitialType(VALID_DEMO_TYPES.includes(type) ? type : 'demo')
     setDemoOpen(true)
-  }
+  }, [])
 
-  const closeDemoModal = () => setDemoOpen(false)
+  const closeDemoModal = useCallback(() => setDemoOpen(false), [])
 
-  const openDownloadModal = () => setDownloadOpen(true)
-  const closeDownloadModal = () => setDownloadOpen(false)
+  const openDownloadModal = useCallback(() => setDownloadOpen(true), [])
+  const closeDownloadModal = useCallback(() => setDownloadOpen(false), [])
 
-  return (
-    <ModalContext.Provider
-      value={{
-        demoOpen,
-        openDemoModal,
-        closeDemoModal,
-        downloadOpen,
-        openDownloadModal,
-        closeDownloadModal,
-        initialType,
-      }}
-    >
-      {children}
-    </ModalContext.Provider>
+  // Provider value'ni memoize qilish — demoOpen/downloadOpen/initialType
+  // o'zgarmasa, context'ga bog'langan komponentlar keraksiz qayta render bo'lmaydi
+  const value = useMemo(
+    () => ({
+      demoOpen,
+      openDemoModal,
+      closeDemoModal,
+      downloadOpen,
+      openDownloadModal,
+      closeDownloadModal,
+      initialType,
+    }),
+    [demoOpen, downloadOpen, initialType, openDemoModal, closeDemoModal, openDownloadModal, closeDownloadModal]
   )
+
+  return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 }
 
 export function useModal() {
