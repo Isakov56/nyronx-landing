@@ -1,6 +1,10 @@
 export default function Hero() {
-  // Bottom-left notch (button-sized) — fits the "Learn about Nyronx" CTA
-  const btnNotchW = 296
+  // Bottom-left notch (button-sized) — carves the image around the CTA.
+  // MUST track the button's real size: the gap the notch leaves on the RIGHT
+  // is (btnNotchW − button width) and ABOVE is (btnNotchH − button height), so
+  // if they diverge the button looks like it has a white strip beside it.
+  // Button renders 221×50, so 239×68 leaves an even 18px on both sides.
+  const btnNotchW = 239
   const btnNotchH = 68
   const btnEntryR = 24
   const btnInsideR = 38
@@ -110,14 +114,14 @@ export default function Hero() {
             <svg
               className="absolute pointer-events-none"
               style={{ top: -10, right: -10 }}
-              width={336}
+              width={256}
               height={300}
-              viewBox="0 0 336 300"
+              viewBox="0 0 256 300"
               preserveAspectRatio="none"
               aria-hidden="true"
             >
               <path
-                d="M 10 0 L 318 0 Q 336 0 336 18 L 336 290 Q 336 300 326 300 Q 316 300 316 290 L 316 45 Q 316 20 291 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z"
+                d="M 10 0 L 238 0 Q 256 0 256 18 L 256 290 Q 256 300 246 300 Q 236 300 236 290 L 236 45 Q 236 20 211 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z"
                 fill="white"
               />
             </svg>
@@ -164,7 +168,7 @@ export default function Hero() {
               the L (20px top arm × 20px right arm) with radius 6 on every corner. */}
           <div
             className="absolute pointer-events-none z-[4] hidden md:block"
-            style={{ top: -10, right: -10, width: 336, height: 300 }}
+            style={{ top: -10, right: -10, width: 256, height: 300 }}
           >
             {/* L-shaped white — arms 290×300, inner fillet 25, top-right outer
                 corner 18, BOTH arm ends now use a radius-10 semicircle so they
@@ -174,7 +178,7 @@ export default function Hero() {
               className="absolute inset-0 bg-white"
               style={{
                 clipPath:
-                  'path("M 10 0 L 318 0 Q 336 0 336 18 L 336 290 Q 336 300 326 300 Q 316 300 316 290 L 316 45 Q 316 20 291 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z")',
+                  'path("M 10 0 L 238 0 Q 256 0 256 18 L 256 290 Q 256 300 246 300 Q 236 300 236 290 L 236 45 Q 236 20 211 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z")',
               }}
             />
 
@@ -184,7 +188,7 @@ export default function Hero() {
                 flush against the carved image edge. */}
             <div className="absolute top-0 left-0 right-0 h-5 flex items-center justify-end gap-2 pl-5">
               <span className="font-mono text-[10px] lg:text-[11px] text-brand-ink/75 tracking-[0.2em] uppercase whitespace-nowrap">
-                Independent pharmacy · Tashkent
+                Independent pharmacy
               </span>
               <span className="h-px w-8 bg-brand-ink/30" />
               <span className="w-5 h-5 shrink-0 rounded-full border border-brand-ink/70 flex items-center justify-center text-brand-ink text-[10px] font-mono leading-none">

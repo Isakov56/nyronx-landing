@@ -26,9 +26,23 @@ const audiences = [
   {
     title: 'Clinics',
     blurb:
-      'Dispensing and inventory for an in-house pharmacy, with the same fiscal receipts and stock control as a retail counter.',
+      'Dispensing and inventory for an in-house pharmacy, with the same receipts and stock control as a retail counter.',
     cta: 'Explore solutions for clinics',
     img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=70',
+  },
+  {
+    title: 'Hospital pharmacies',
+    blurb:
+      'Ward stock, dispensing and expiry control under one audit trail — so what left the shelf always matches what was recorded.',
+    cta: 'Explore solutions for hospitals',
+    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=70',
+  },
+  {
+    title: 'Franchise networks',
+    blurb:
+      'Push one catalog and price list to every member, while each owner keeps their own stock, staff and books.',
+    cta: 'Explore solutions for franchises',
+    img: 'https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1400&q=70',
   },
 ]
 
