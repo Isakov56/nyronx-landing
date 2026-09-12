@@ -2,21 +2,19 @@ import { useState, useEffect } from 'react'
 import { Logo, ChevronDown } from './Icons.jsx'
 
 const serveItems = [
-  { title: 'Pharmacy Benefit Managers', blurb: 'Take control of your future' },
-  { title: 'Pharmacies', blurb: 'Solutions designed to strengthen your business' },
-  { title: 'Health Systems', blurb: 'Build on your expertise while taking advantage of ours' },
-  { title: 'Employers', blurb: 'Take control of your pharmacy benefit strategy' },
-  { title: 'Health Plans', blurb: "Rethink what's possible with your pharmacy benefits" },
-  { title: 'Consumers', blurb: 'Making pharmacy more affordable, accessible, and effortless' },
+  { title: 'Independent pharmacies', blurb: 'One system for the counter and the stock room' },
+  { title: 'Pharmacy chains', blurb: 'Every branch in one place, with reporting that rolls up' },
+  { title: 'Distributors', blurb: 'Send e-invoices your customers receive into stock' },
+  { title: 'Clinics', blurb: 'Dispensing and inventory for an in-house pharmacy' },
 ]
 
 const solutionsItems = [
-  { title: 'Nyronx Enterprise', blurb: 'Modern adjudication built for scale' },
-  { title: 'Nyronx Business Intelligence', blurb: 'Real-time analytics and reporting' },
-  { title: 'Nyronx Price AI', blurb: 'AI-driven pricing optimization' },
-  { title: 'Discount Cards', blurb: 'Flexible savings programs' },
-  { title: 'Nyronx Autosave', blurb: 'Lowest price, automatically' },
-  { title: 'Pharmacy Solutions', blurb: 'Tools for pharmacy partners' },
+  { title: 'Point of sale', blurb: 'Scan, sell and print in seconds' },
+  { title: 'Inventory & batches', blurb: 'Stock, expiry and per-batch pricing' },
+  { title: 'Fiscal compliance', blurb: 'ИКПУ codes, e-POS receipts, markirovka' },
+  { title: 'Didox e-invoices', blurb: 'Supplier invoices straight into stock' },
+  { title: 'Offline hub', blurb: 'Keep selling when the internet drops' },
+  { title: 'Reports & analytics', blurb: 'Revenue and margin at batch-level cost' },
 ]
 
 function MenuPanel({ items }) {

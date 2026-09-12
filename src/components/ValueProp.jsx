@@ -3,46 +3,32 @@ import { useState } from 'react'
 
 const audiences = [
   {
-    title: 'Pharmacy Benefit Managers',
+    title: 'Independent pharmacies',
     blurb:
-      'Modernize your tech stack with adjudication, analytics, and pricing intelligence built for scale.',
-    cta: 'Explore solutions for PBMs',
-    img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Health Systems',
-    blurb:
-      'Bring pharmacy benefits in-house with a partner that simplifies the lift and protects margin.',
-    cta: 'Explore solutions for Health Systems',
-    img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Health Plans',
-    blurb:
-      'Improve member experience and contain spend with flexible plan tooling and real-time data.',
-    cta: 'Explore solutions for Health Plans',
-    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=70',
-  },
-  {
-    title: 'Pharmacies',
-    blurb:
-      'Equip independent and community pharmacies with the technology to compete, grow, and serve.',
-    cta: 'Explore solutions for Pharmacies',
+      'One system for the counter, the stock room and the paperwork — sell, receive, and stay compliant without juggling three programs.',
+    cta: 'Explore solutions for pharmacies',
     img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1400&q=70',
   },
   {
-    title: 'Employers',
+    title: 'Pharmacy chains',
     blurb:
-      'Design a pharmacy benefit that works harder for your people and your budget.',
-    cta: 'Explore solutions for Employers',
+      'Run every branch from one place: shared catalog, per-branch stock and pricing, and reporting that rolls up across the whole network.',
+    cta: 'Explore solutions for chains',
+    img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=70',
+  },
+  {
+    title: 'Distributors',
+    blurb:
+      'Send an e-invoice and your pharmacy receives it straight into stock — no retyping, no mismatched product names.',
+    cta: 'Explore solutions for distributors',
     img: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=70',
   },
   {
-    title: 'Consumers',
+    title: 'Clinics',
     blurb:
-      'Help members find the lowest price on prescriptions, every time they fill.',
-    cta: 'Explore solutions for Consumers',
-    img: 'https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1400&q=70',
+      'Dispensing and inventory for an in-house pharmacy, with the same fiscal receipts and stock control as a retail counter.',
+    cta: 'Explore solutions for clinics',
+    img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=70',
   },
 ]
 
@@ -69,11 +55,11 @@ export default function ValueProp() {
             Who we serve
           </p>
           <h2 className="text-4xl lg:text-6xl text-brand-forest leading-tight mb-6">
-            Making Rx better for{' '}
-            <span className="italic">everyone.</span>
+            Built for the people who{' '}
+            <span className="italic">dispense.</span>
           </h2>
           <p className="text-lg text-brand-ink/70 max-w-2xl">
-            From PBMs to pharmacies to the people picking up a prescription, our platform meets each audience with the right tools.
+            From a single counter to a network of branches, and the distributors and clinics around them — one platform, the right tools for each.
           </p>
         </div>
 

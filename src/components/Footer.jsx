@@ -2,19 +2,35 @@ import { Logo, Linkedin, Youtube } from './Icons.jsx'
 
 const groups = [
   {
-    title: 'Solutions',
+    title: 'Platform',
     span: 'lg:col-span-3',
-    links: ['Nyronx Enterprise', 'Nyronx BI', 'Nyronx Price AI', 'Discount Cards', 'Nyronx Direct'],
+    links: [
+      { label: 'Point of sale', href: '#solutions' },
+      { label: 'Inventory & batches', href: '#solutions' },
+      { label: 'Fiscal compliance', href: '#solutions' },
+      { label: 'Didox e-invoices', href: '#solutions' },
+      { label: 'Offline hub', href: '#solutions' },
+    ],
   },
   {
     title: 'Who we serve',
     span: 'lg:col-span-2',
-    links: ['PBMs', 'Health Systems', 'Health Plans', 'Pharmacies', 'Employers'],
+    links: [
+      { label: 'Pharmacies', href: '#segments' },
+      { label: 'Pharmacy chains', href: '#segments' },
+      { label: 'Distributors', href: '#segments' },
+      { label: 'Clinics', href: '#segments' },
+    ],
   },
   {
     title: 'Company',
     span: 'lg:col-span-2',
-    links: ['About', 'Contact us', 'Careers', 'Press center', 'Resources'],
+    links: [
+      { label: 'Pricing', href: '#pricing' },
+      { label: 'Product updates', href: '#news' },
+      { label: 'contact@nyronx.com', href: 'mailto:contact@nyronx.com' },
+      { label: 'Sign in', href: 'https://nyronx.uz' },
+    ],
   },
 ]
 
@@ -42,9 +58,15 @@ export default function Footer() {
           <div className="lg:col-span-5">
             <div className="text-white"><Logo className="h-9" /></div>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
-              Pharmacy benefits reimagined — innovative tech and services for
-              organizations that move healthcare forward.
+              The pharmacy operating system for Uzbekistan — point of sale,
+              inventory and built-in fiscal compliance, in one platform.
             </p>
+            <a
+              href="mailto:contact@nyronx.com"
+              className="mt-4 inline-block text-sm text-white/75 hover:text-white transition-colors"
+            >
+              contact@nyronx.com
+            </a>
             <div className="mt-6 flex items-center gap-2">
               <a
                 href="#"
@@ -71,12 +93,12 @@ export default function Footer() {
               </p>
               <ul className="space-y-3 text-sm">
                 {g.links.map((l) => (
-                  <li key={l}>
+                  <li key={l.label}>
                     <a
-                      href="#"
+                      href={l.href}
                       className="text-white/75 hover:text-white transition-colors"
                     >
-                      {l}
+                      {l.label}
                     </a>
                   </li>
                 ))}
@@ -88,12 +110,12 @@ export default function Footer() {
         {/* Copyright row */}
         <div className="mt-16 flex flex-col-reverse items-start justify-between gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center">
           <p className="text-xs text-white/45">
-            © {year} Nyronx Inc. All rights reserved.
+            © {year} Nyronx Inc. All rights reserved. Tashkent, Uzbekistan.
           </p>
           <div className="flex gap-6 text-xs text-white/45">
-            <a href="#" className="hover:text-white transition-colors">Privacy policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of service</a>
-            <a href="#" className="hover:text-white transition-colors">HIPAA</a>
+            <a href="mailto:contact@nyronx.com" className="hover:text-white transition-colors">Contact</a>
+            <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+            <a href="https://nyronx.uz" className="hover:text-white transition-colors">Sign in</a>
           </div>
         </div>
       </div>

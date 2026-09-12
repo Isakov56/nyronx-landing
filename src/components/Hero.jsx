@@ -66,9 +66,9 @@ export default function Hero() {
                   <span className="sr-only">intelligent.</span>
                 </h1>
                 <p className="mt-6 text-white font-semibold text-[15px] lg:text-[16px] leading-[1.5] max-w-[420px]">
-                  Nyronx is the operating system independent pharmacies run on.
-                  Claims, inventory, pricing, and patient care — unified in one
-                  platform.
+                  nyronX is the operating system independent pharmacies run on.
+                  Sales, inventory, and fiscal compliance — unified in one
+                  platform, built for Uzbekistan.
                 </p>
 
                 {/* Editorial statement — designer move, replaces the obvious stats row */}
@@ -80,8 +80,8 @@ export default function Hero() {
                     </span>
                   </div>
                   <p className="mt-3 font-serif italic text-white/90 text-[15px] lg:text-[17px] leading-snug">
-                    “Pharmacy margin is won in the seconds between scan and
-                    adjudication. We built Nyronx to live in those seconds.”
+                    “A pharmacy is won or lost in the seconds between the scan
+                    and the receipt. We built nyronX to live in those seconds.”
                   </p>
                 </div>
               </div>
@@ -133,9 +133,9 @@ export default function Hero() {
               style={{ left: 320, right: 'clamp(440px, 38vw, 600px)' }}
             >
               {[
-                { category: 'Health system', value: '32%' },
-                { category: 'Employer', value: '$4.2M' },
-                { category: 'Pharmacy', value: '99.9%' },
+                { category: 'Drug catalog', value: '56,000+' },
+                { category: 'Fiscal codes', value: 'Built-in' },
+                { category: 'Offline', value: 'Always on' },
               ].map((s) => (
                 <div key={s.category} className="flex items-center gap-2">
                   <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-white/55 whitespace-nowrap">
@@ -177,7 +177,7 @@ export default function Hero() {
             {/* Horizontal arm content — tighter gap-2, (1) circle pinned right */}
             <div className="absolute top-0 left-0 right-0 h-5 flex items-center justify-end gap-2">
               <span className="font-mono text-[10px] lg:text-[11px] text-brand-ink/75 tracking-[0.2em] uppercase whitespace-nowrap">
-                Independent pharmacy · FL
+                Independent pharmacy · Tashkent
               </span>
               <span className="h-px w-8 bg-brand-ink/30" />
               <span className="w-5 h-5 shrink-0 rounded-full border border-brand-ink/70 flex items-center justify-center text-brand-ink text-[10px] font-mono leading-none">
@@ -226,7 +226,7 @@ export default function Hero() {
             href="#solutions"
             className="absolute left-0 bottom-0 inline-flex items-center rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-colors shadow-lg shadow-black/25 z-10"
           >
-            Learn about Nyronx Enterprise
+            See how nyronX works
           </a>
         </div>
       </div>

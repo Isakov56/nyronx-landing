@@ -4,18 +4,18 @@ import { ArrowRight } from './Icons.jsx'
 const slides = [
   {
     img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=70',
-    caption: 'Independent pharmacy · Tampa, FL',
-    metric: '3.2s avg checkout',
+    caption: 'At the counter',
+    metric: 'Offline-ready checkout',
   },
   {
     img: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1600&q=70',
-    caption: 'Long-term care · Columbus, OH',
-    metric: '12k scripts / week',
+    caption: 'Across branches',
+    metric: 'One catalog, every store',
   },
   {
     img: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=1600&q=70',
-    caption: 'Compounding pharmacy · Austin, TX',
-    metric: '+6.4% margin lift',
+    caption: 'Receiving stock',
+    metric: 'E-invoice into inventory',
   },
 ]
 
@@ -63,10 +63,10 @@ export default function InAction() {
             </span>
           </div>
           <h2 className="font-sans font-bold text-brand-ink text-4xl lg:text-5xl leading-[1.05] tracking-[-0.02em]">
-            See Nyronx where the work happens.
+            See nyronX where the work happens.
           </h2>
           <p className="mt-4 text-brand-slate text-[15px] lg:text-[16px] leading-[1.6] max-w-[460px]">
-            Independent pharmacies running on Nyronx — from rural counters to long-term care, from compounding labs to multi-store networks.
+            Pharmacies running on nyronX — from a single counter in a mahalla to multi-branch networks across the country.
           </p>
         </div>
 

@@ -1,9 +1,9 @@
 import { ArrowRight } from './Icons.jsx'
 
 const items = [
-  { type: 'News', title: 'PBM Insourcing Made Simple: Top 5 Questions Answered', date: 'May 2026' },
-  { type: 'Case Study', title: 'Helping a health system gain independence', date: 'Apr 2026' },
-  { type: 'Case Study', title: 'Health system expands in-pharmacy use', date: 'Mar 2026' },
+  { type: 'Release', title: 'Markirovka: per-box tracking from receipt to sale', date: 'Aug 2026' },
+  { type: 'Release', title: 'Didox e-invoices receive straight into stock', date: 'Jul 2026' },
+  { type: 'Release', title: 'Offline hub keeps the counter selling during outages', date: 'Jul 2026' },
 ]
 
 export default function News() {
@@ -12,24 +12,24 @@ export default function News() {
       <div className="container-x">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
           <div>
-            <p className="text-sm tracking-widest uppercase text-brand-primary font-medium mb-4">News & insights</p>
+            <p className="text-sm tracking-widest uppercase text-brand-primary font-medium mb-4">Product updates</p>
             <h2 className="text-4xl lg:text-5xl text-brand-forest">
-              The latest from <span className="italic">our team.</span>
+              What shipped <span className="italic">recently.</span>
             </h2>
           </div>
-          <a href="#" className="link-arrow">View all <ArrowRight /></a>
+          <a href="#pricing" className="link-arrow">See plans &amp; pricing <ArrowRight /></a>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-6">
           <article className="lg:col-span-7 bg-brand-cream rounded-3xl p-8 lg:p-12 flex flex-col justify-between">
             <div>
-              <div className="text-xs tracking-widest uppercase text-brand-primary mb-6">Featured · Award</div>
-              <h3 className="text-3xl lg:text-4xl text-brand-forest mb-4">Nyronx Wins Gold in the TITAN Health Awards</h3>
+              <div className="text-xs tracking-widest uppercase text-brand-primary mb-6">Featured · Release</div>
+              <h3 className="text-3xl lg:text-4xl text-brand-forest mb-4">nyronX 0.4.42 for Windows</h3>
               <p className="text-brand-ink/70 mb-8">
-                We won Gold in the Website category of the 2026 TITAN Health Awards — recognition for design and storytelling that puts members first.
+                The desktop app ships with silent receipt printing, offline-first checkout and automatic updates over your local network — so a branch updates itself without a technician.
               </p>
             </div>
-            <a href="#" className="link-arrow">Read more <ArrowRight /></a>
+            <a href="#download" className="link-arrow">Download for Windows <ArrowRight /></a>
           </article>
           <div className="lg:col-span-5 grid gap-4">
             {items.map((it) => (

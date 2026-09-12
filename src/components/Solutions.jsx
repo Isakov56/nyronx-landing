@@ -1,56 +1,62 @@
 import { useState } from 'react'
 import { ArrowRight } from './Icons.jsx'
 
-const categories = ['All', 'Adjudication & Analytics', 'Prescription Savings', 'Pharmacy', 'Consumer']
+const categories = ['All', 'Counter & stock', 'Fiscal compliance', 'Supply chain', 'Reliability']
 
 const products = [
   {
-    cat: 'Adjudication & Analytics',
-    name: 'Nyronx Enterprise',
-    blurb: 'A modern adjudication platform built for speed, flexibility, and transparency.',
-    cta: 'Explore Enterprise',
+    cat: 'Counter & stock',
+    name: 'Point of sale',
+    blurb: 'Scan, sell and print in seconds — barcode-first, keyboard-friendly, and fast enough for a queue.',
+    cta: 'See the counter',
   },
   {
-    cat: 'Adjudication & Analytics',
-    name: 'Nyronx Price AI',
-    blurb: 'Automate cost controls with advanced AI-driven pricing optimization.',
-    cta: 'Discover Price AI',
+    cat: 'Counter & stock',
+    name: 'Inventory & batches',
+    blurb: 'Track stock down to the batch: expiry dates, per-batch cost and selling price, and sell-the-oldest-first control.',
+    cta: 'Explore inventory',
   },
   {
-    cat: 'Adjudication & Analytics',
-    name: 'Nyronx Pulse',
-    blurb: 'Live operational dashboard — sales, stock levels, and team activity across every branch in real time.',
-    cta: 'Explore Pulse',
+    cat: 'Counter & stock',
+    name: 'Reports & analytics',
+    blurb: 'Revenue, margin and stock value with batch-level cost — so the numbers match what actually sold.',
+    cta: 'See reporting',
   },
   {
-    cat: 'Prescription Savings',
-    name: 'Discount Cards',
-    blurb: 'Flexible savings programs powered by integrated pricing and adjudication tech.',
-    cta: 'Learn about Discount Cards',
+    cat: 'Fiscal compliance',
+    name: 'ИКПУ classification',
+    blurb: 'Every product carries its national classifier code, resolved from a built-in catalog instead of typed by hand.',
+    cta: 'How coding works',
   },
   {
-    cat: 'Prescription Savings',
-    name: 'Nyronx Autosave',
-    blurb: 'Compare benefit and discount card prices to automatically secure the lowest cost.',
-    cta: 'Learn about Autosave',
+    cat: 'Fiscal compliance',
+    name: 'e-POS fiscalization',
+    blurb: 'Receipts are fiscalized at the moment of sale, with automatic retry so a network blip never loses a receipt.',
+    cta: 'About fiscal receipts',
   },
   {
-    cat: 'Pharmacy',
-    name: 'Pharmacy Solutions',
-    blurb: 'Empower pharmacy partners with tools to enhance efficiency and reduce costs.',
-    cta: 'See Pharmacy Solutions',
+    cat: 'Fiscal compliance',
+    name: 'Markirovka tracking',
+    blurb: 'Scan the DataMatrix on marked goods — boxes are tracked from receipt to sale, per unit.',
+    cta: 'About markirovka',
   },
   {
-    cat: 'Pharmacy',
-    name: 'Nyronx Voice',
-    blurb: 'Hands-free pharmacy search — look up products, stock, and customers by voice, in Uzbek, Russian, or English.',
-    cta: 'See Voice in action',
+    cat: 'Supply chain',
+    name: 'Didox e-invoices',
+    blurb: 'Pull a supplier e-invoice and receive it straight into stock — matched to your products, not retyped.',
+    cta: 'See e-invoicing',
   },
   {
-    cat: 'Consumer',
-    name: 'Nyronx Direct',
-    blurb: 'Join thousands across Uzbekistan saving on prescription medications every day.',
-    cta: 'Explore Nyronx Direct',
+    cat: 'Reliability',
+    name: 'Offline hub',
+    blurb: 'Tills keep selling when the internet drops. A local hub syncs the branch and reconciles once you are back.',
+    cta: 'How offline works',
+  },
+  {
+    cat: 'Reliability',
+    name: 'Voice search',
+    blurb: 'Hands-free lookup — find products and stock by voice, in Uzbek, Russian or English.',
+    cta: 'See voice in action',
   },
 ]
 
@@ -69,10 +75,10 @@ export default function Solutions() {
             Turning insights into <span className="italic">impact.</span>
           </h2>
           <p className="text-base text-brand-ink/70 mb-6">
-            One platform, many ways to win — from cost containment to faster onboarding to happier members. Explore the products turning insight into measurable results.
+            One platform, built in modules — the counter, the stock room, the fiscal paperwork and the supply chain. Turn them on as you need them.
           </p>
-          <a href="#" className="btn-primary">
-            Browse case studies <ArrowRight />
+          <a href="#pricing" className="btn-primary">
+            See plans &amp; pricing <ArrowRight />
           </a>
 
           <div className="mt-7 pt-6 border-t border-brand-forest/10">

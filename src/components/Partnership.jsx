@@ -65,7 +65,7 @@ const flagship = {
   highlights: [
     { title: 'Full POS + inventory engine', detail: 'Counter, back office, and stock control in one' },
     { title: 'Multi-store, multi-team ready', detail: 'Roles, branches, and team permissions out of the box' },
-    { title: 'Built-in adjudication & pricing', detail: 'Real-time claim flow and price optimization' },
+    { title: 'Built-in fiscal compliance', detail: 'ИКПУ codes, e-POS receipts, and markirovka scanning' },
     { title: 'Reporting that earns its keep', detail: 'Dashboards, exports, and the metrics owners actually use' },
   ],
   cta: 'Explore the pharmacy platform',
