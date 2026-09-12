@@ -3,8 +3,9 @@ export default function Hero() {
   // MUST track the button's real size: the gap the notch leaves on the RIGHT
   // is (btnNotchW − button width) and ABOVE is (btnNotchH − button height), so
   // if they diverge the button looks like it has a white strip beside it.
-  // Button renders 221×50, so 239×68 leaves an even 18px on both sides.
-  const btnNotchW = 239
+  // Matches the InAction CTA's carve (245×68 around a ~220px button) so both
+  // buttons sit the same distance from their image edge.
+  const btnNotchW = 245
   const btnNotchH = 68
   const btnEntryR = 24
   const btnInsideR = 38
@@ -235,7 +236,7 @@ export default function Hero() {
           {/* Button flush with image's bottom-left corner */}
           <a
             href="#solutions"
-            className="absolute left-0 bottom-0 inline-flex items-center rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-colors shadow-lg shadow-black/25 z-10"
+            className="absolute left-0 bottom-0 inline-flex items-center rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-colors z-10"
           >
             See how nyronX works
           </a>

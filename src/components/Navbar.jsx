@@ -6,6 +6,8 @@ const serveItems = [
   { title: 'Pharmacy chains', blurb: 'Every branch in one place, with reporting that rolls up' },
   { title: 'Distributors', blurb: 'Send e-invoices your customers receive into stock' },
   { title: 'Clinics', blurb: 'Dispensing and inventory for an in-house pharmacy' },
+  { title: 'Hospital pharmacies', blurb: 'Ward stock and dispensing under one audit trail' },
+  { title: 'Franchise networks', blurb: 'One catalog and price list across every member' },
 ]
 
 const solutionsItems = [

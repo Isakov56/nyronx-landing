@@ -135,7 +135,7 @@ export default function InAction() {
           {/* CTA — sits in the notch */}
           <a
             href="#contact"
-            className="absolute left-0 bottom-0 inline-flex items-center gap-2 rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-colors shadow-lg shadow-black/25 z-10"
+            className="absolute left-0 bottom-0 inline-flex items-center gap-2 rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-colors z-10"
           >
             Book a consultation
             <ArrowRight className="w-4 h-4" />
