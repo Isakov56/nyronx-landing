@@ -121,7 +121,8 @@ export default function InAction() {
 
             {/* White notch carved into bottom-left for the CTA */}
             <svg
-              className="absolute bottom-0 left-0 pointer-events-none"
+              className="absolute pointer-events-none"
+              style={{ bottom: -1, left: -1 }}
               width={svgW}
               height={svgH}
               viewBox={`0 0 ${svgW} ${svgH}`}

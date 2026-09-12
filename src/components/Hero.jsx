@@ -94,7 +94,8 @@ export default function Hero() {
 
             {/* Bottom-left notch — carves out space for the "Learn about Nyronx" CTA */}
             <svg
-              className="absolute bottom-0 left-0 pointer-events-none"
+              className="absolute pointer-events-none"
+              style={{ bottom: -1, left: -1 }}
               width={btnSvgW}
               height={btnSvgH}
               viewBox={`0 0 ${btnSvgW} ${btnSvgH}`}
