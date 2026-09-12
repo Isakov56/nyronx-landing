@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { consultClick } from '../consultation.js'
 import { ArrowRight } from './Icons.jsx'
 
 const plans = [
@@ -187,6 +188,7 @@ export default function Pricing() {
 
                 <a
                   href="#contact"
+                  onClick={consultClick}
                   className={`inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-colors ${
                     dark
                       ? 'bg-brand-mint text-brand-forest hover:bg-white'

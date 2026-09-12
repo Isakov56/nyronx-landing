@@ -121,7 +121,7 @@ export default function Partnership() {
                 {flagship.summary}
               </p>
               <a
-                href="#contact"
+                href="#solutions"
                 className="mt-auto inline-flex items-center gap-2 self-start rounded-full bg-brand-mint text-brand-forest px-6 py-3 text-sm font-medium hover:bg-white transition-colors"
               >
                 {flagship.cta} <ArrowRight />
@@ -354,7 +354,7 @@ export default function Partnership() {
                   <h3 className="text-2xl mb-3 text-white">{e.name}</h3>
                   <p className="text-sm text-white/70 mb-6 flex-1 leading-relaxed">{e.summary}</p>
                   <a
-                    href="#contact"
+                    href="#segments"
                     className="inline-flex items-center gap-2 text-sm font-medium text-brand-mint hover:text-white transition-colors"
                   >
                     <span>{e.cta}</span>

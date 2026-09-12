@@ -191,7 +191,7 @@ export default function ValueProp() {
                             {a.blurb}
                           </p>
                           <a
-                            href="#contact"
+                            href="#solutions"
                             className="inline-flex items-center gap-2 text-sm font-medium text-brand-forest hover:text-brand-primary transition-colors"
                             onClick={(e) => e.stopPropagation()}
                           >

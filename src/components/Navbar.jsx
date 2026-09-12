@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { consultClick } from '../consultation.js'
 import { Logo, ChevronDown } from './Icons.jsx'
 
 const serveItems = [
@@ -163,7 +164,7 @@ export default function Navbar() {
               Download for Windows
             </a>
             <a
-              href="#contact"
+              href="#contact" onClick={consultClick}
               className="inline-flex h-9 items-center rounded-full px-4 text-sm font-semibold bg-brand-primary text-white hover:bg-brand-deep transition-colors"
               style={{ boxShadow: '0 8px 24px -8px rgba(31,165,108,0.55)' }}
             >
@@ -229,7 +230,7 @@ export default function Navbar() {
               Download for Windows
             </a>
             <a
-              href="#contact"
+              href="#contact" onClick={consultClick}
               onClick={() => setMobileOpen(false)}
               className="inline-flex items-center justify-center rounded-full bg-brand-primary text-white px-5 py-3 text-sm font-semibold mt-2"
             >

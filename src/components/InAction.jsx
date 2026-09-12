@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { consultClick } from '../consultation.js'
 import { ArrowRight } from './Icons.jsx'
 
 const slides = [
@@ -52,7 +53,7 @@ export default function InAction() {
   const slide = slides[index]
 
   return (
-    <section className="bg-white pt-10 pb-16 lg:pt-14 lg:pb-20">
+    <section id="in-action" className="bg-white pt-10 pb-16 lg:pt-14 lg:pb-20">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-5">
         {/* Header */}
         {/* Section header — same pattern as Who we serve / Solutions / Product
@@ -135,6 +136,7 @@ export default function InAction() {
           {/* CTA — sits in the notch */}
           <a
             href="#contact"
+            onClick={consultClick}
             className="absolute left-0 bottom-0 inline-flex items-center gap-2 rounded-full bg-brand-primary text-white px-7 py-3.5 text-[15px] font-medium hover:bg-brand-deep transition-colors z-10"
           >
             Book a consultation

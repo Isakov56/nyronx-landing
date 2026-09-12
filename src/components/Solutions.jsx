@@ -114,7 +114,7 @@ export default function Solutions() {
               <h3 className="text-lg text-brand-forest mb-2 leading-tight">{p.name}</h3>
               <p className="text-sm text-brand-ink/70 mb-5 flex-1 leading-relaxed">{p.blurb}</p>
               <a
-                href="#contact"
+                href="#in-action"
                 className="inline-flex items-center gap-2 text-sm font-medium text-brand-forest hover:text-brand-primary transition-colors"
               >
                 <span>{p.cta}</span>
