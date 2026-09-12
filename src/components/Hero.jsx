@@ -110,14 +110,14 @@ export default function Hero() {
             <svg
               className="absolute pointer-events-none"
               style={{ top: -10, right: -10 }}
-              width={290}
+              width={336}
               height={300}
-              viewBox="0 0 290 300"
+              viewBox="0 0 336 300"
               preserveAspectRatio="none"
               aria-hidden="true"
             >
               <path
-                d="M 10 0 L 272 0 Q 290 0 290 18 L 290 290 Q 290 300 280 300 Q 270 300 270 290 L 270 45 Q 270 20 245 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z"
+                d="M 10 0 L 318 0 Q 336 0 336 18 L 336 290 Q 336 300 326 300 Q 316 300 316 290 L 316 45 Q 316 20 291 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z"
                 fill="white"
               />
             </svg>
@@ -129,20 +129,25 @@ export default function Hero() {
                 mono-uppercase category, then a big number, then a small
                 description. Hidden on small screens — only fits at lg+. */}
             <div
-              className="absolute bottom-5 hidden lg:flex items-center gap-5 xl:gap-6 pointer-events-none z-[3]"
+              className="absolute bottom-5 hidden lg:flex items-center gap-3.5 xl:gap-4 pointer-events-none z-[3]"
               style={{ left: 320, right: 'clamp(440px, 38vw, 600px)' }}
             >
+              {/* `show` reveals the extra facts only where the band is wide
+                  enough — the row must never run into the "intelligent." bleed
+                  on the right, and it can't wrap (each item is shrink-0). */}
               {[
-                { category: 'Drug catalog', value: '56,000+' },
-                { category: 'Fiscal codes', value: 'Built-in' },
+                { category: 'Catalog', value: '56,000+' },
+                { category: 'Fiscal', value: 'Built-in' },
                 { category: 'Offline', value: 'Always on' },
+                { category: 'Markirovka', value: 'Per box', show: 'hidden min-[1400px]:flex' },
+                { category: 'Didox', value: 'Connected', show: 'hidden min-[1750px]:flex' },
               ].map((s) => (
-                <div key={s.category} className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-white/55 whitespace-nowrap">
+                <div key={s.category} className={`items-center gap-1.5 shrink-0 ${s.show ?? 'flex'}`}>
+                  <span className="font-mono text-[8px] tracking-[0.16em] uppercase text-white/55 whitespace-nowrap">
                     {s.category}
                   </span>
-                  <span className="h-px w-3 bg-white/35" />
-                  <span className="font-sans font-light text-white text-[13px] xl:text-[14px] leading-none tracking-tight">
+                  <span className="h-px w-2.5 bg-white/35 shrink-0" />
+                  <span className="font-sans font-light text-white text-[12px] xl:text-[13px] leading-none tracking-tight whitespace-nowrap">
                     {s.value}
                   </span>
                 </div>
@@ -159,7 +164,7 @@ export default function Hero() {
               the L (20px top arm × 20px right arm) with radius 6 on every corner. */}
           <div
             className="absolute pointer-events-none z-[4] hidden md:block"
-            style={{ top: -10, right: -10, width: 290, height: 300 }}
+            style={{ top: -10, right: -10, width: 336, height: 300 }}
           >
             {/* L-shaped white — arms 290×300, inner fillet 25, top-right outer
                 corner 18, BOTH arm ends now use a radius-10 semicircle so they
@@ -169,13 +174,15 @@ export default function Hero() {
               className="absolute inset-0 bg-white"
               style={{
                 clipPath:
-                  'path("M 10 0 L 272 0 Q 290 0 290 18 L 290 290 Q 290 300 280 300 Q 270 300 270 290 L 270 45 Q 270 20 245 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z")',
+                  'path("M 10 0 L 318 0 Q 336 0 336 18 L 336 290 Q 336 300 326 300 Q 316 300 316 290 L 316 45 Q 316 20 291 20 L 10 20 Q 0 20 0 10 Q 0 0 10 0 Z")',
               }}
             />
 
 
-            {/* Horizontal arm content — tighter gap-2, (1) circle pinned right */}
-            <div className="absolute top-0 left-0 right-0 h-5 flex items-center justify-end gap-2">
+            {/* Horizontal arm content — (1) circle pinned right. pl-5 keeps the
+                label off the arm's rounded left end, so the text never sits
+                flush against the carved image edge. */}
+            <div className="absolute top-0 left-0 right-0 h-5 flex items-center justify-end gap-2 pl-5">
               <span className="font-mono text-[10px] lg:text-[11px] text-brand-ink/75 tracking-[0.2em] uppercase whitespace-nowrap">
                 Independent pharmacy · Tashkent
               </span>
