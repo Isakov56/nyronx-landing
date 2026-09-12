@@ -29,11 +29,11 @@ export default function News() {
                 The desktop app ships with silent receipt printing, offline-first checkout and automatic updates over your local network — so a branch updates itself without a technician.
               </p>
             </div>
-            <a href="#download" className="link-arrow">Download for Windows <ArrowRight /></a>
+            <a href="/downloads/nyronx-setup.exe" download className="link-arrow">Download for Windows <ArrowRight /></a>
           </article>
           <div className="lg:col-span-5 grid gap-4">
             {items.map((it) => (
-              <a key={it.title} href="#" className="group bg-white border border-black/10 hover:border-brand-forest rounded-2xl p-6 flex items-start gap-5 transition-colors">
+              <a key={it.title} href="#solutions" className="group bg-white border border-black/10 hover:border-brand-forest rounded-2xl p-6 flex items-start gap-5 transition-colors">
                 <div className="text-xs tracking-widest uppercase text-brand-primary whitespace-nowrap pt-1">{it.type}</div>
                 <div className="flex-1">
                   <h4 className="text-lg text-brand-forest font-display group-hover:text-brand-deep mb-1">{it.title}</h4>

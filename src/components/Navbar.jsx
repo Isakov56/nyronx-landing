@@ -17,11 +17,11 @@ const solutionsItems = [
   { title: 'Reports & analytics', blurb: 'Revenue and margin at batch-level cost' },
 ]
 
-function MenuPanel({ items }) {
+function MenuPanel({ items, href = '#' }) {
   return (
     <div className="grid grid-cols-2 gap-x-10 gap-y-4 p-5">
       {items.map((it) => (
-        <a key={it.title} href="#" className="group block rounded-2xl px-3 py-2.5 hover:bg-brand-primary/[0.06] transition-colors">
+        <a key={it.title} href={href} className="group block rounded-2xl px-3 py-2.5 hover:bg-brand-primary/[0.06] transition-colors">
           <div className="text-[14px] font-semibold text-brand-ink group-hover:text-brand-primary mb-0.5 transition-colors">
             {it.title}
           </div>
@@ -44,8 +44,8 @@ export default function Navbar() {
   }, [mobileOpen])
 
   const navLinks = [
-    { key: 'serve', label: 'Who we serve', dropdown: serveItems },
-    { key: 'solutions', label: 'Solutions', dropdown: solutionsItems },
+    { key: 'serve', label: 'Who we serve', dropdown: serveItems, target: '#segments' },
+    { key: 'solutions', label: 'Solutions', dropdown: solutionsItems, target: '#solutions' },
     { key: 'work', label: 'Working with us', href: '#partnership' },
     { key: 'news', label: 'News & insights', href: '#news' },
   ]
@@ -64,7 +64,7 @@ export default function Navbar() {
               'drop-shadow(0 1px 3px rgba(14,26,20,0.06)) drop-shadow(0 0 8px rgba(14,26,20,0.06))',
           }}
         >
-          <a href="#" className="shrink-0 ml-1.5 inline-flex items-center text-brand-ink">
+          <a href="/" aria-label="nyronX home" className="shrink-0 ml-1.5 inline-flex items-center text-brand-ink">
             <Logo className="h-8" />
           </a>
 
@@ -120,7 +120,7 @@ export default function Navbar() {
                           }}
                         >
                           <div className="pt-12">
-                            <MenuPanel items={l.dropdown} />
+                            <MenuPanel items={l.dropdown} href={l.target} />
                           </div>
                         </div>
                       </div>
