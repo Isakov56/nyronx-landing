@@ -1,4 +1,15 @@
-import { Logo, Linkedin, Youtube } from './Icons.jsx'
+import { Logo, Linkedin, Telegram, XTwitter, Instagram } from './Icons.jsx'
+
+// Public profile URLs only. (The LinkedIn link we were given pointed at
+// /admin/settings/ — an authenticated admin view that would 404 for visitors —
+// and the Instagram one carried an ?stkn= session token, so both are reduced
+// to their canonical public form.)
+const socials = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/121594219/', Icon: Linkedin },
+  { label: 'Telegram', href: 'https://t.me/nyronx', Icon: Telegram },
+  { label: 'X', href: 'https://x.com/nyronxtech', Icon: XTwitter },
+  { label: 'Instagram', href: 'https://www.instagram.com/nyronxtech', Icon: Instagram },
+]
 
 const groups = [
   {
@@ -58,8 +69,8 @@ export default function Footer() {
           <div className="lg:col-span-5">
             <div className="text-white"><Logo className="h-9" /></div>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
-              The pharmacy operating system for Uzbekistan — point of sale,
-              inventory and built-in fiscal compliance, in one platform.
+              The pharmacy operating system — point of sale, inventory and
+              built-in fiscal compliance, in one platform.
             </p>
             <a
               href="mailto:contact@nyronx.com"
@@ -68,20 +79,18 @@ export default function Footer() {
               contact@nyronx.com
             </a>
             <div className="mt-6 flex items-center gap-2">
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                aria-label="YouTube"
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  <s.Icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
@@ -110,7 +119,7 @@ export default function Footer() {
         {/* Copyright row */}
         <div className="mt-16 flex flex-col-reverse items-start justify-between gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center">
           <p className="text-xs text-white/45">
-            © {year} Nyronx Inc. All rights reserved. Tashkent, Uzbekistan.
+            © {year} Nyronx Inc. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-white/45">
             <a href="mailto:contact@nyronx.com" className="hover:text-white transition-colors">Contact</a>

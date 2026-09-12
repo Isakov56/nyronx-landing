@@ -73,7 +73,7 @@ export default function Hero() {
                 <p className="mt-6 text-white font-semibold text-[15px] lg:text-[16px] leading-[1.5] max-w-[420px]">
                   nyronX is the operating system independent pharmacies run on.
                   Sales, inventory, and fiscal compliance — unified in one
-                  platform, built for Uzbekistan.
+                  platform.
                 </p>
 
                 {/* Editorial statement — designer move, replaces the obvious stats row */}

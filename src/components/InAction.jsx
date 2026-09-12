@@ -55,18 +55,17 @@ export default function InAction() {
     <section className="bg-white pt-10 pb-16 lg:pt-14 lg:pb-20">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-5">
         {/* Header */}
+        {/* Section header — same pattern as Who we serve / Solutions / Product
+            updates: primary eyebrow, forest display heading, italic close. */}
         <div className="max-w-2xl mb-8 px-4 sm:px-10 lg:px-16">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-7 bg-brand-primary/60" />
-            <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-brand-primary">
-              02 / In action
-            </span>
-          </div>
-          <h2 className="font-sans font-bold text-brand-ink text-4xl lg:text-5xl leading-[1.05] tracking-[-0.02em]">
-            See nyronX where the work happens.
+          <p className="text-sm tracking-widest uppercase text-brand-primary font-medium mb-3">
+            In action
+          </p>
+          <h2 className="text-4xl lg:text-5xl text-brand-forest mb-4 leading-[1.05]">
+            See it where the work <span className="italic">happens.</span>
           </h2>
-          <p className="mt-4 text-brand-slate text-[15px] lg:text-[16px] leading-[1.6] max-w-[460px]">
-            Pharmacies running on nyronX — from a single counter in a mahalla to multi-branch networks across the country.
+          <p className="text-base text-brand-ink/70 max-w-[520px]">
+            Pharmacies running on nyronX — from a single counter to multi-branch networks.
           </p>
         </div>
 
