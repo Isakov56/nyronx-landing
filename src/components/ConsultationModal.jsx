@@ -42,6 +42,12 @@ async function sendToEmailJs(data) {
       template_id: EMAILJS_TEMPLATE,
       user_id: EMAILJS_KEY,
       template_params: {
+        // The template's "To Email" resolves {{email}}, so this is who gets
+        // NOTIFIED — us, not the visitor. Sent explicitly so the wiring works
+        // whether the template keeps {{email}} or is switched to a fixed
+        // address (in which case this is simply ignored).
+        email: CONTACT_EMAIL,
+        reply_to: data.email || CONTACT_EMAIL,
         from_name: data.name,
         from_email: data.email,
         phone: data.phone,
