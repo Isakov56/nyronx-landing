@@ -119,7 +119,7 @@ export default function Footer() {
         {/* Copyright row */}
         <div className="mt-16 flex flex-col-reverse items-start justify-between gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center">
           <p className="text-xs text-white/45">
-            © {year} Nyronx Inc. All rights reserved.
+            © {year} nyronX. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-white/45">
             <a href="mailto:contact@nyronx.com" className="hover:text-white transition-colors">Contact</a>
