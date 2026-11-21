@@ -152,10 +152,9 @@ export default function Navbar() {
               About
             </a>
             <a
-              href="/downloads/nyronx-setup.exe"
-              download
+              href="#download"
               className="hidden md:inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm font-semibold bg-brand-ink text-white hover:bg-black transition-colors"
-              title="Download nyronX for Windows"
+              title="Download nyronX Pharmacy, Retail or Restaurant for Windows"
             >
               {/* Windows logo — 4-square inline SVG, no icon-library dep. */}
               <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="currentColor" aria-hidden="true">
@@ -219,8 +218,7 @@ export default function Navbar() {
               About
             </a>
             <a
-              href="/downloads/nyronx-setup.exe"
-              download
+              href="#download"
               onClick={() => setMobileOpen(false)}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-ink text-white px-5 py-3 text-sm font-semibold mt-4"
             >

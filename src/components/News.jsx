@@ -24,12 +24,12 @@ export default function News() {
           <article className="lg:col-span-7 bg-brand-cream rounded-3xl p-8 lg:p-12 flex flex-col justify-between">
             <div>
               <div className="text-xs tracking-widest uppercase text-brand-primary mb-6">Featured · Release</div>
-              <h3 className="text-3xl lg:text-4xl text-brand-forest mb-4">nyronX 0.4.42 for Windows</h3>
+              <h3 className="text-3xl lg:text-4xl text-brand-forest mb-4">nyronX for Windows: Pharmacy, Retail and Restaurant</h3>
               <p className="text-brand-ink/70 mb-8">
-                The desktop app ships with silent receipt printing, offline-first checkout and automatic updates over your local network — so a branch updates itself without a technician.
+                Three desktop apps — for pharmacies, shops and restaurants — with receipt printing at the till and automatic updates, so a branch stays current without a technician.
               </p>
             </div>
-            <a href="/downloads/nyronx-setup.exe" download className="link-arrow">Download for Windows <ArrowRight /></a>
+            <a href="#download" className="link-arrow">Choose your app <ArrowRight /></a>
           </article>
           <div className="lg:col-span-5 grid gap-4">
             {items.map((it) => (

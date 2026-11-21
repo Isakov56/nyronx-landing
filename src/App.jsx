@@ -6,6 +6,7 @@ import Solutions from './components/Solutions.jsx'
 import Pricing from './components/Pricing.jsx'
 import InAction from './components/InAction.jsx'
 import Partnership from './components/Partnership.jsx'
+import Downloads from './components/Downloads.jsx'
 import News from './components/News.jsx'
 import Footer from './components/Footer.jsx'
 import ConsultationModal from './components/ConsultationModal.jsx'
@@ -32,6 +33,7 @@ export default function App() {
         <InAction />
         <Pricing />
         <Partnership />
+        <Downloads />
         <News />
       </main>
       <Footer />
